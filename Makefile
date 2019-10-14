@@ -147,6 +147,32 @@ hollowmac/fast:
 	$(MAKE) -f CMakeFiles/hollowmac.dir/build.make CMakeFiles/hollowmac.dir/build
 .PHONY : hollowmac/fast
 
+#=============================================================================
+# Target rules for targets named hollowcoretest
+
+# Build rule for target.
+hollowcoretest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hollowcoretest
+.PHONY : hollowcoretest
+
+# fast build rule for target.
+hollowcoretest/fast:
+	$(MAKE) -f HollowCore/CMakeFiles/hollowcoretest.dir/build.make HollowCore/CMakeFiles/hollowcoretest.dir/build
+.PHONY : hollowcoretest/fast
+
+#=============================================================================
+# Target rules for targets named hollowcore
+
+# Build rule for target.
+hollowcore: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hollowcore
+.PHONY : hollowcore
+
+# fast build rule for target.
+hollowcore/fast:
+	$(MAKE) -f HollowCore/CMakeFiles/hollowcore.dir/build.make HollowCore/CMakeFiles/hollowcore.dir/build
+.PHONY : hollowcore/fast
+
 Source/UI/HCWindow.o: Source/UI/HCWindow.c.o
 
 .PHONY : Source/UI/HCWindow.o
@@ -239,6 +265,8 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... hollowmac"
+	@echo "... hollowcoretest"
+	@echo "... hollowcore"
 	@echo "... Source/UI/HCWindow.o"
 	@echo "... Source/UI/HCWindow.i"
 	@echo "... Source/UI/HCWindow.s"

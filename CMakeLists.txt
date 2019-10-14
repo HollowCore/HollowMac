@@ -1,6 +1,9 @@
 cmake_minimum_required (VERSION 3.5)
 project (HollowMac)
 
+# Add dependency directories
+add_subdirectory(HollowCore)
+
 # Configure Environment
 if (COVERAGE)
     find_program(GCOV_PATH gcov)
@@ -32,12 +35,15 @@ add_library(${HOLLOWMAC_LIBRARY_NAME} ${SOURCES})
 
 # HollowMac Links
 target_link_libraries(${HOLLOWMAC_LIBRARY_NAME} m pthread)
+add_dependencies(${HOLLOWMAC_LIBRARY_NAME} hollowcore)
+target_link_libraries(${HOLLOWMAC_LIBRARY_NAME} hollowcore)
 
 # HollowMac Test Suite
 set(HOLLOWMAC_TEST_NAME hollowmactest)
 set(TEST_SOURCES ${TEST_SOURCES} Test/main.c)
 set(TEST_SOURCES ${TEST_SOURCES} Test/HCWindow.c)
 add_executable(${HOLLOWMAC_TEST_NAME} ${TEST_SOURCES})
+add_dependencies(${HOLLOWMAC_TEST_NAME} hollowcore)
 target_link_libraries(${HOLLOWMAC_TEST_NAME} hollowmac)
 enable_testing()
 add_test(tests ${HOLLOWMAC_TEST_NAME})
