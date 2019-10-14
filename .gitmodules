@@ -1,0 +1,3 @@
+[submodule "HollowCore"]
+	path = HollowCore
+	url = https://github.com/HollowCore/HollowCore.git
