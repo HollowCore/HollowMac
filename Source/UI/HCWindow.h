@@ -9,7 +9,7 @@
 #ifndef HCWindow_h
 #define HCWindow_h
 
-#include "../../../HollowCore/Source/Core/HCObject.h"
+#include "../../HollowCore/Source/Core/HCObject.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type

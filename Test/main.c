@@ -15,8 +15,5 @@
 #include "ctest.h"
 
 int main(int argc, const char *argv[]) {
-    int v = ctest_main(argc, argv);
-    sleep(10);
-    return v;
+    return ctest_main(argc, argv);
 }
-

@@ -9,7 +9,7 @@
 #ifndef HCWindow_Internal_h
 #define HCWindow_Internal_h
 
-#include "../../../HollowCore/Source/Core/HCObject_Internal.h"
+#include "../../HollowCore/Source/Core/HCObject_Internal.h"
 #include "HCWindow.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------

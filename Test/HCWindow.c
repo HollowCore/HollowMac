@@ -19,9 +19,9 @@ CTEST(HCWindow, Creation) {
 CTEST(HCWindow, EqualHash) {
     HCWindowRef a = HCWindowCreate(1, 1);
     HCWindowRef b = HCWindowCreate(1, 1);
-    ASSERT_TRUE(HCObjectIsEqual(a, b));
-    ASSERT_EQUAL(HCObjectHashValue(a), HCObjectHashValue(a));
-    ASSERT_EQUAL(HCObjectHashValue(a), HCObjectHashValue(b));
+    ASSERT_TRUE(HCIsEqual(a, b));
+    ASSERT_EQUAL(HCHashValue(a), HCHashValue(a));
+    ASSERT_EQUAL(HCHashValue(a), HCHashValue(b));
     HCRelease(a);
     HCRelease(b);
 }

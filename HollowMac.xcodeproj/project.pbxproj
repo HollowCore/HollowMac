@@ -37,6 +37,7 @@
 		C92BEA0723541B1500F5DFC3 /* HCWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = C92BEA0423541B1500F5DFC3 /* HCWindow.h */; };
 		C92BEA0823541B1500F5DFC3 /* HCWindow.c in Sources */ = {isa = PBXBuildFile; fileRef = C92BEA0523541B1500F5DFC3 /* HCWindow.c */; };
 		C92BEA0A23541B2900F5DFC3 /* HCWindow.c in Sources */ = {isa = PBXBuildFile; fileRef = C92BEA0923541B2900F5DFC3 /* HCWindow.c */; };
+		C92BEA172354238F00F5DFC3 /* libHollowCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C92BEA162354238F00F5DFC3 /* libHollowCore.a */; };
 		C97FDB2A22069BCD002B17FB /* HollowMac.h in Headers */ = {isa = PBXBuildFile; fileRef = C9AA9A2521F174B8001AA9E7 /* HollowMac.h */; };
 		C9E2F58921ED395D00856F21 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9E2F57821ED37DF00856F21 /* main.c */; };
 		C9E2F58B21ED396800856F21 /* libHollowMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B705E421E3DCC600B63F05 /* libHollowMac.a */; };
@@ -69,6 +70,7 @@
 		C92BEA0423541B1500F5DFC3 /* HCWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCWindow.h; sourceTree = "<group>"; };
 		C92BEA0523541B1500F5DFC3 /* HCWindow.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = HCWindow.c; sourceTree = "<group>"; };
 		C92BEA0923541B2900F5DFC3 /* HCWindow.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = HCWindow.c; sourceTree = "<group>"; };
+		C92BEA162354238F00F5DFC3 /* libHollowCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libHollowCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9AA9A2521F174B8001AA9E7 /* HollowMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HollowMac.h; sourceTree = "<group>"; };
 		C9B705DF21E3D6D300B63F05 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		C9B705E421E3DCC600B63F05 /* libHollowMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHollowMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C92BEA172354238F00F5DFC3 /* libHollowCore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +155,7 @@
 		C9E2F58A21ED396800856F21 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C92BEA162354238F00F5DFC3 /* libHollowCore.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

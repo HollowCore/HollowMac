@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F803D38E21EEC303001E2DE6"
-               BuildableName = "CMake Build"
-               BlueprintName = "CMake Build"
+               BlueprintIdentifier = "C9B705E321E3DCC600B63F05"
+               BuildableName = "libHollowMac.a"
+               BlueprintName = "HollowMac"
                ReferencedContainer = "container:HollowMac.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -50,9 +50,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F803D38E21EEC303001E2DE6"
-            BuildableName = "CMake Build"
-            BlueprintName = "CMake Build"
+            BlueprintIdentifier = "C9B705E321E3DCC600B63F05"
+            BuildableName = "libHollowMac.a"
+            BlueprintName = "HollowMac"
             ReferencedContainer = "container:HollowMac.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

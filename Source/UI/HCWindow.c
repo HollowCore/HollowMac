@@ -7,7 +7,7 @@
 //
 
 #include "HCWindow_Internal.h"
-#include "../../../HollowCore/Source/Core/HCCore.h"
+#include "../../HollowCore/Source/Core/HCCore.h"
 #include <math.h>
 #include <string.h>
 
