@@ -10,6 +10,8 @@
 #include "../../HollowCore/Source/Core/HCCore.h"
 #include <math.h>
 #include <string.h>
+#include <objc/message.h>
+#include <objc/runtime.h>
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type

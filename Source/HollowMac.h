@@ -9,6 +9,7 @@
 #ifndef HollowMac_h
 #define HollowMac_h
 
+#include "UI/HCApplication.h"
 #include "UI/HCWindow.h"
 
 #endif /* HollowMac_h */

@@ -30,6 +30,7 @@ endif ()
 
 # HollowMac Library
 set(HOLLOWMAC_LIBRARY_NAME hollowmac)
+set(SOURCES ${SOURCES} Source/UI/HCApplication.c)
 set(SOURCES ${SOURCES} Source/UI/HCWindow.c)
 add_library(${HOLLOWMAC_LIBRARY_NAME} ${SOURCES})
 
