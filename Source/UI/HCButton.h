@@ -1,44 +1,43 @@
 //
-//  HCWindow.h
+//  HCButton.h
 //  Test
 //
-//  Created by Matt Stoker on 10/13/19.
+//  Created by Matt Stoker on 10/15/19.
 //  Copyright © 2019 HollowCore. All rights reserved.
 //
 
-#ifndef HCWindow_h
-#define HCWindow_h
+#ifndef HCButton_h
+#define HCButton_h
 
-#include "HCView.h"
+#include "../../HollowCore/Source/Core/HCObject.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
 //----------------------------------------------------------------------------------------------------------------------------------
-extern HCType HCWindowType;
-typedef struct HCWindow* HCWindowRef;
+extern HCType HCButtonType;
+typedef struct HCButton* HCButtonRef;
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-HCWindowRef HCWindowCreate(HCInteger width, HCInteger height);
+HCButtonRef HCButtonCreate(HCInteger width, HCInteger height);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Polymorphic Functions
 //----------------------------------------------------------------------------------------------------------------------------------
-HCBoolean HCWindowIsEqual(HCWindowRef self, HCWindowRef other);
-HCInteger HCWindowHashValue(HCWindowRef self);
-void HCWindowPrint(HCWindowRef self, FILE* stream);
+HCBoolean HCButtonIsEqual(HCButtonRef self, HCButtonRef other);
+HCInteger HCButtonHashValue(HCButtonRef self);
+void HCButtonPrint(HCButtonRef self, FILE* stream);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Attributes
 //----------------------------------------------------------------------------------------------------------------------------------
-HCInteger HCWindowWidth(HCWindowRef self);
-HCInteger HCWindowHeight(HCWindowRef self);
-HCViewRef HCWindowContentView(HCWindowRef self);
+HCInteger HCButtonWidth(HCButtonRef self);
+HCInteger HCButtonHeight(HCButtonRef self);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Operations
 //----------------------------------------------------------------------------------------------------------------------------------
-void HCWindowDisplay(HCWindowRef self);
+void HCButtonDisplay(HCButtonRef self);
 
-#endif /* HCWindow_h */
+#endif /* HCButton_h */

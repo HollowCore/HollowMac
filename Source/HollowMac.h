@@ -11,5 +11,7 @@
 
 #include "UI/HCApplication.h"
 #include "UI/HCWindow.h"
+#include "UI/HCView.h"
+#include "UI/HCButton.h"
 
 #endif /* HollowMac_h */

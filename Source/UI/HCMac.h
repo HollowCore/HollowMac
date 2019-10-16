@@ -49,4 +49,6 @@ static HCObjCIdMessageId HCObjCSendIdMessageId = (HCObjCIdMessageId)objc_msgSend
 static HCObjCIdMessageNSRect HCObjCSendIdMessageNSRect = (HCObjCIdMessageNSRect)objc_msgSend;
 static HCObjCIdMessageNSRectIntIntBool HCObjCSendIdMessageNSRectIntIntBool = (HCObjCIdMessageNSRectIntIntBool)objc_msgSend;
 
+extern void NSRectFill(NSRect aRect);
+
 #endif /* HCMac_h */

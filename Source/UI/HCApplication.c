@@ -7,9 +7,6 @@
 //
 
 #include "HCApplication_Internal.h"
-#include "../../HollowCore/Source/Core/HCCore.h"
-#include <math.h>
-#include <string.h>
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type

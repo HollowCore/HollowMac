@@ -11,10 +11,17 @@
 
 void ApplicationReady(void* context, HCApplicationRef application) {
     HCWindowRef window = HCWindowCreate(720, 480);
+    
+    HCViewRef view = HCViewCreate(300, 100);
+    HCViewAddChildView(HCWindowContentView(window), view);
+    
+    HCButtonRef button = HCButtonCreate(80, 40);
+    HCViewAddChildView(view, (HCViewRef)button);
+    
     HCWindowDisplay(window);
 }
 
-CTEST_SKIP(Application, FullUI) {
+CTEST(Application, FullUI) {
     HCApplicationRef application = HCApplicationCreate();
     HCApplicationRun(application, ApplicationReady, NULL);
 }

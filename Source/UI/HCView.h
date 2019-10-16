@@ -1,44 +1,43 @@
 //
-//  HCWindow.h
+//  HCView.h
 //  Test
 //
-//  Created by Matt Stoker on 10/13/19.
+//  Created by Matt Stoker on 10/15/19.
 //  Copyright © 2019 HollowCore. All rights reserved.
 //
 
-#ifndef HCWindow_h
-#define HCWindow_h
+#ifndef HCView_h
+#define HCView_h
 
-#include "HCView.h"
+#include "../../HollowCore/Source/Core/HCObject.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
 //----------------------------------------------------------------------------------------------------------------------------------
-extern HCType HCWindowType;
-typedef struct HCWindow* HCWindowRef;
+extern HCType HCViewType;
+typedef struct HCView* HCViewRef;
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-HCWindowRef HCWindowCreate(HCInteger width, HCInteger height);
+HCViewRef HCViewCreate(HCInteger width, HCInteger height);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Polymorphic Functions
 //----------------------------------------------------------------------------------------------------------------------------------
-HCBoolean HCWindowIsEqual(HCWindowRef self, HCWindowRef other);
-HCInteger HCWindowHashValue(HCWindowRef self);
-void HCWindowPrint(HCWindowRef self, FILE* stream);
+HCBoolean HCViewIsEqual(HCViewRef self, HCViewRef other);
+HCInteger HCViewHashValue(HCViewRef self);
+void HCViewPrint(HCViewRef self, FILE* stream);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Attributes
 //----------------------------------------------------------------------------------------------------------------------------------
-HCInteger HCWindowWidth(HCWindowRef self);
-HCInteger HCWindowHeight(HCWindowRef self);
-HCViewRef HCWindowContentView(HCWindowRef self);
+HCInteger HCViewWidth(HCViewRef self);
+HCInteger HCViewHeight(HCViewRef self);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Operations
 //----------------------------------------------------------------------------------------------------------------------------------
-void HCWindowDisplay(HCWindowRef self);
+void HCViewAddChildView(HCViewRef self, HCViewRef child);
 
-#endif /* HCWindow_h */
+#endif /* HCView_h */

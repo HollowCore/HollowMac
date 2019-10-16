@@ -1,33 +1,34 @@
 //
-//  HCWindow_Internal.h
-//  HollowCore
+//  HCView_Internal.h
+//  HollowMac
 //
-//  Created by Matt Stoker on 10/13/19.
+//  Created by Matt Stoker on 10/15/19.
 //  Copyright © 2019 HollowCore. All rights reserved.
 //
 
-#ifndef HCWindow_Internal_h
-#define HCWindow_Internal_h
+#ifndef HCView_Internal_h
+#define HCView_Internal_h
 
 #include "../../HollowCore/Source/Core/HCObject_Internal.h"
 #include "HCMac.h"
-#include "HCWindow.h"
+#include "HCView.h"
+#include "../../HollowCore/Source/Container/HCList.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
 //----------------------------------------------------------------------------------------------------------------------------------
-typedef struct HCWindow {
+typedef struct HCView {
     HCObject base;
     HCInteger width;
     HCInteger height;
-    id window;
-    HCViewRef contentView;
-} HCWindow;
+    id view;
+    HCListRef childViews;
+} HCView;
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-void HCWindowInit(void* memory, HCInteger width, HCInteger height);
-void HCWindowDestroy(HCWindowRef self);
+void HCViewInit(void* memory, HCInteger width, HCInteger height);
+void HCViewDestroy(HCViewRef self);
 
-#endif /* HCWindow_Internal_h */
+#endif /* HCView_Internal_h */

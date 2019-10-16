@@ -1,33 +1,33 @@
 //
-//  HCWindow_Internal.h
-//  HollowCore
+//  HCButton_Internal.h
+//  HollowMac
 //
-//  Created by Matt Stoker on 10/13/19.
+//  Created by Matt Stoker on 10/15/19.
 //  Copyright © 2019 HollowCore. All rights reserved.
 //
 
-#ifndef HCWindow_Internal_h
-#define HCWindow_Internal_h
+#ifndef HCButton_Internal_h
+#define HCButton_Internal_h
 
 #include "../../HollowCore/Source/Core/HCObject_Internal.h"
 #include "HCMac.h"
-#include "HCWindow.h"
+#include "HCButton.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
 //----------------------------------------------------------------------------------------------------------------------------------
-typedef struct HCWindow {
+typedef struct HCButton {
     HCObject base;
     HCInteger width;
     HCInteger height;
-    id window;
-    HCViewRef contentView;
-} HCWindow;
+    id button;
+    id eventReceiver;
+} HCButton;
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-void HCWindowInit(void* memory, HCInteger width, HCInteger height);
-void HCWindowDestroy(HCWindowRef self);
+void HCButtonInit(void* memory, HCInteger width, HCInteger height);
+void HCButtonDestroy(HCButtonRef self);
 
-#endif /* HCWindow_Internal_h */
+#endif /* HCButton_Internal_h */
