@@ -29,6 +29,16 @@ const HCObjectTypeData HCWindowTypeDataInstance = {
 HCType HCWindowType = (HCType)&HCWindowTypeDataInstance;
 
 //----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Definitions
+//----------------------------------------------------------------------------------------------------------------------------------
+void HCWindowDrawRect(id self, SEL _cmd, NSRect rect);
+
+// TODO: Put these into type struct
+Class g_ViewClass = NULL;
+
+extern void NSRectFill(NSRect aRect);
+
+//----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
 HCWindowRef HCWindowCreate(HCInteger width, HCInteger height) {
@@ -37,15 +47,48 @@ HCWindowRef HCWindowCreate(HCInteger width, HCInteger height) {
     return self;
 }
 
-void HCWindowInit(void* memory,  HCInteger width, HCInteger height) {
+void HCWindowInit(void* memory, HCInteger width, HCInteger height) {
+    // Register View class
+    // TODO: Multi-thread safe
+    if (g_ViewClass == NULL) {
+        g_ViewClass = objc_allocateClassPair((Class)objc_getClass("NSView"), "View", 0);
+        class_addMethod(g_ViewClass, sel_getUid("drawRect:"), (IMP)HCWindowDrawRect, "v@:");
+        objc_registerClassPair(g_ViewClass);
+    }
+    
+    // Create window
+    id window = HCObjCSendIdMessageVoid((id)objc_getClass("NSWindow"), sel_getUid("alloc"));
+    window = HCObjCSendIdMessageNSRectIntIntBool(
+        window,
+        sel_getUid("initWithContentRect:styleMask:backing:defer:"),
+        (NSRect){ 0, 0, width, height },
+        NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask,
+        0,
+        false
+    );
+    
+    // Create window content view
+    id contentView = HCObjCSendIdMessageVoid((id)objc_getClass("View"), sel_getUid("alloc"));
+    contentView = HCObjCSendIdMessageNSRect(
+        contentView,
+        sel_getUid("initWithFrame:"),
+        (NSRect){ 0, 0, 200, 100 }
+    );
+    HCObjCSendVoidMessageId(window, sel_getUid("setContentView:"), contentView);
+    
+    // Initialize window object
     HCObjectInit(memory);
     HCWindowRef self = memory;
     self->base.type = HCWindowType;
     self->width = width;
     self->height = height;
+    self->window = window;
+    self->contentView = contentView;
 }
 
 void HCWindowDestroy(HCWindowRef self) {
+    HCObjCSendVoidMessageVoid(self->contentView, sel_getUid("release"));
+    HCObjCSendVoidMessageVoid(self->window, sel_getUid("release"));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -75,4 +118,23 @@ HCInteger HCWindowWidth(HCWindowRef self) {
 
 HCInteger HCWindowHeight(HCWindowRef self) {
     return self->height;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Operations
+//----------------------------------------------------------------------------------------------------------------------------------
+void HCWindowDisplay(HCWindowRef self) {
+    HCObjCSendVoidMessageVoid(self->window, sel_getUid("becomeFirstResponder"));
+    HCObjCSendVoidMessageId(self->window, sel_getUid("makeKeyAndOrderFront:"), NULL);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Foundation
+//----------------------------------------------------------------------------------------------------------------------------------
+void HCWindowDrawRect(id self, SEL _cmd, NSRect rect) {
+    id redColor = HCObjCSendIdMessageVoid((id)objc_getClass("NSColor"), sel_getUid("redColor"));
+    
+    NSRect rect1 = (NSRect){ 21, 21, 210, 210 };
+    HCObjCSendVoidMessageVoid(redColor, sel_getUid("set"));
+    NSRectFill(rect1);
 }

@@ -42,11 +42,11 @@ typedef id (*HCObjCIdMessageId)(id, SEL, id);
 typedef id(*HCObjCIdMessageNSRect)(id, SEL, NSRect);
 typedef id(*HCObjCIdMessageNSRectIntIntBool)(id, SEL, NSRect, int, int, bool);
 
-HCObjCVoidMessageVoid HCObjCSendVoidMessageVoid = (HCObjCVoidMessageVoid)objc_msgSend;
-HCObjCVoidMessageId HCObjCSendVoidMessageId = (HCObjCVoidMessageId)objc_msgSend;
-HCObjCIdMessageVoid HCObjCSendIdMessageVoid = (HCObjCIdMessageVoid)objc_msgSend;
-HCObjCIdMessageId HCObjCSendIdMessageId = (HCObjCIdMessageId)objc_msgSend;
-HCObjCIdMessageNSRect HCObjCSendIdMessageNSRect = (HCObjCIdMessageNSRect)objc_msgSend;
-HCObjCIdMessageNSRectIntIntBool HCObjCSendIdMessageNSRectIntIntBool = (HCObjCIdMessageNSRectIntIntBool)objc_msgSend;
+static HCObjCVoidMessageVoid HCObjCSendVoidMessageVoid = (HCObjCVoidMessageVoid)objc_msgSend;
+static HCObjCVoidMessageId HCObjCSendVoidMessageId = (HCObjCVoidMessageId)objc_msgSend;
+static HCObjCIdMessageVoid HCObjCSendIdMessageVoid = (HCObjCIdMessageVoid)objc_msgSend;
+static HCObjCIdMessageId HCObjCSendIdMessageId = (HCObjCIdMessageId)objc_msgSend;
+static HCObjCIdMessageNSRect HCObjCSendIdMessageNSRect = (HCObjCIdMessageNSRect)objc_msgSend;
+static HCObjCIdMessageNSRectIntIntBool HCObjCSendIdMessageNSRectIntIntBool = (HCObjCIdMessageNSRectIntIntBool)objc_msgSend;
 
 #endif /* HCMac_h */

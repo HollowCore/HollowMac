@@ -10,6 +10,7 @@
 #define HCWindow_Internal_h
 
 #include "../../HollowCore/Source/Core/HCObject_Internal.h"
+#include "HCMac.h"
 #include "HCWindow.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -19,6 +20,8 @@ typedef struct HCWindow {
     HCObject base;
     HCInteger width;
     HCInteger height;
+    id window;
+    id contentView;
 } HCWindow;
 
 //----------------------------------------------------------------------------------------------------------------------------------

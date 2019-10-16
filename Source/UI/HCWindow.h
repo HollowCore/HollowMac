@@ -35,4 +35,9 @@ void HCWindowPrint(HCWindowRef self, FILE* stream);
 HCInteger HCWindowWidth(HCWindowRef self);
 HCInteger HCWindowHeight(HCWindowRef self);
 
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Operations
+//----------------------------------------------------------------------------------------------------------------------------------
+void HCWindowDisplay(HCWindowRef self);
+
 #endif /* HCWindow_h */

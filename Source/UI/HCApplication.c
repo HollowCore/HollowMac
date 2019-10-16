@@ -12,24 +12,6 @@
 #include <string.h>
 
 //----------------------------------------------------------------------------------------------------------------------------------
-// MARK: - Definitions
-//----------------------------------------------------------------------------------------------------------------------------------
-typedef struct ApplicationDelegate {
-    Class isa;
-    id window;
-} ApplicationDelegate;
-
-BOOL ApplicationDelegateDidFinishLaunching(ApplicationDelegate* self, SEL _cmd, id notification);
-void ViewDrawRect(id self, SEL _cmd, NSRect rect);
-
-// TODO: Put these into type struct
-Class g_ApplicationDelegateClass = NULL;
-Class g_ViewClass = NULL;
-
-extern id NSApp;
-extern void NSRectFill(NSRect aRect);
-
-//----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
 //----------------------------------------------------------------------------------------------------------------------------------
 const HCObjectTypeData HCApplicationTypeDataInstance = {
@@ -45,6 +27,21 @@ const HCObjectTypeData HCApplicationTypeDataInstance = {
 HCType HCApplicationType = (HCType)&HCApplicationTypeDataInstance;
 
 //----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Definitions
+//----------------------------------------------------------------------------------------------------------------------------------
+typedef struct HCApplicationDelegate {
+    Class isa;
+    HCApplicationRef application;
+} HCApplicationDelegate;
+
+BOOL HCApplicationDelegateDidFinishLaunching(HCApplicationDelegate* self, SEL _cmd, id notification);
+
+// TODO: Put these into type struct
+Class g_ApplicationDelegateClass = NULL;
+
+extern id NSApp;
+
+//----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
 HCApplicationRef HCApplicationCreate() {
@@ -54,35 +51,27 @@ HCApplicationRef HCApplicationCreate() {
 }
 
 void HCApplicationInit(void* memory) {
+    // Register application delegate class
+    // TODO: Multithread safe
+    if (g_ApplicationDelegateClass == NULL) {
+        g_ApplicationDelegateClass = objc_allocateClassPair((Class)objc_getClass("NSObject"), "AppDelegate", 0);
+        class_addMethod(g_ApplicationDelegateClass, sel_getUid("applicationDidFinishLaunching:"), (IMP)HCApplicationDelegateDidFinishLaunching, "i@:@");
+        objc_registerClassPair(g_ApplicationDelegateClass);
+    }
+    
+    // Initialize shared macOS application object
+    if (NSApp == NULL) {
+        HCObjCSendVoidMessageVoid((id)objc_getClass("NSApplication"), sel_getUid("sharedApplication"));
+    }
+    if (NSApp == NULL) {
+        fprintf(stderr, "Failed to initialize NSApplication. Failing...\n");
+        return;
+    }
+    
+    // Initialize application object
     HCObjectInit(memory);
     HCApplicationRef self = memory;
     self->base.type = HCApplicationType;
-    
-    // TODO: Multithread safe
-    if (g_ApplicationDelegateClass == NULL) {
-        // Register ApplicationDelegate class
-        g_ApplicationDelegateClass = objc_allocateClassPair((Class)objc_getClass("NSObject"), "AppDelegate", 0);
-        class_addMethod(g_ApplicationDelegateClass, sel_getUid("applicationDidFinishLaunching:"), (IMP)ApplicationDelegateDidFinishLaunching, "i@:@");
-        objc_registerClassPair(g_ApplicationDelegateClass);
-        
-        // Register View class
-        g_ViewClass = objc_allocateClassPair((Class)objc_getClass("NSView"), "View", 0);
-        class_addMethod(g_ViewClass, sel_getUid("drawRect:"), (IMP) ViewDrawRect, "v@:");
-        objc_registerClassPair(g_ViewClass);
-        
-        HCObjCSendVoidMessageVoid((id)objc_getClass("NSApplication"), sel_getUid("sharedApplication"));
-        
-        if (NSApp == NULL) {
-            fprintf(stderr,"Failed to initialized NSApplication...  terminating...\n");
-            return;
-        }
-        
-        id applicationDelegateObject = HCObjCSendIdMessageVoid((id)objc_getClass("AppDelegate"), sel_getUid("alloc"));
-        applicationDelegateObject = HCObjCSendIdMessageVoid(applicationDelegateObject, sel_getUid("init"));
-        
-        HCObjCSendVoidMessageId(NSApp, sel_getUid("setDelegate:"), applicationDelegateObject);
-        HCObjCSendVoidMessageVoid(NSApp, sel_getUid("run"));
-    }
 }
 
 void HCApplicationDestroy(HCApplicationRef self) {
@@ -108,24 +97,33 @@ void HCApplicationPrint(HCApplicationRef self, FILE* stream) {
 //----------------------------------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------------------------------------
-// MARK: - Foundation
+// MARK: - Operations
 //----------------------------------------------------------------------------------------------------------------------------------
-BOOL ApplicationDelegateDidFinishLaunching(ApplicationDelegate* self, SEL _cmd, id notification) {
-    self->window = HCObjCSendIdMessageVoid((id)objc_getClass("NSWindow"), sel_getUid("alloc"));
-
-    self->window = HCObjCSendIdMessageNSRectIntIntBool(self->window, sel_getUid("initWithContentRect:styleMask:backing:defer:"), (NSRect){ 0, 0, 720, 480 }, (NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask), 0, false);
-    id view = HCObjCSendIdMessageNSRect(HCObjCSendIdMessageVoid((id)objc_getClass("View"), sel_getUid("alloc")), sel_getUid("initWithFrame:"), (NSRect){ 0, 0, 200, 100 });
-
-    HCObjCSendVoidMessageId(self->window, sel_getUid("setContentView:"), view);
-    HCObjCSendVoidMessageVoid(self->window, sel_getUid("becomeFirstResponder"));
-    HCObjCSendVoidMessageId(self->window, sel_getUid("makeKeyAndOrderFront:"), (id)self);
-    return true;
+void HCApplicationRun(HCApplicationRef self, HCApplicationReadyCallback readyCallback, void* readyCallbackContext) {
+    self->readyCallback = readyCallback;
+    self->readyCallbackContext = readyCallbackContext;
+    
+    id applicationDelegateObject = HCObjCSendIdMessageVoid((id)objc_getClass("AppDelegate"), sel_getUid("alloc"));
+    applicationDelegateObject = HCObjCSendIdMessageVoid(applicationDelegateObject, sel_getUid("init"));
+    ((HCApplicationDelegate*)applicationDelegateObject)->application = HCRetain(self);
+    HCObjCSendVoidMessageId(NSApp, sel_getUid("setDelegate:"), applicationDelegateObject);
+    HCObjCSendVoidMessageVoid(NSApp, sel_getUid("run"));
 }
 
-void ViewDrawRect(id self, SEL _cmd, NSRect rect) {
-    id redColor = HCObjCSendIdMessageVoid((id)objc_getClass("NSColor"), sel_getUid("redColor"));
+void HCApplicationTerminate(HCApplicationRef self) {
+    HCObjCSendVoidMessageId(NSApp, sel_getUid("terminate:"), NSApp);
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Foundation
+//----------------------------------------------------------------------------------------------------------------------------------
+BOOL HCApplicationDelegateDidFinishLaunching(HCApplicationDelegate* applicationDelegate, SEL _cmd, id notification) {
+    HCApplicationRef self = applicationDelegate->application;
     
-    NSRect rect1 = (NSRect){ 21, 21, 210, 210 };
-    HCObjCSendVoidMessageVoid(redColor, sel_getUid("set"));
-    NSRectFill(rect1);
+    // Call ready callback
+    if (self->readyCallback != NULL) {
+        self->readyCallback(self->readyCallbackContext, self);
+    }
+    
+    return true;
 }

@@ -41,6 +41,7 @@
 		C966521C235440D70019CB0B /* HCApplication.c in Sources */ = {isa = PBXBuildFile; fileRef = C966521A23543E000019CB0B /* HCApplication.c */; };
 		C966521D235440D90019CB0B /* HCWindow.c in Sources */ = {isa = PBXBuildFile; fileRef = C92BEA0923541B2900F5DFC3 /* HCWindow.c */; };
 		C96652222354416B0019CB0B /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C966521E235441470019CB0B /* AppKit.framework */; };
+		C96652262356C4490019CB0B /* Application.c in Sources */ = {isa = PBXBuildFile; fileRef = C96652252356C4490019CB0B /* Application.c */; };
 		C97FDB2A22069BCD002B17FB /* HollowMac.h in Headers */ = {isa = PBXBuildFile; fileRef = C9AA9A2521F174B8001AA9E7 /* HollowMac.h */; };
 		C9E2F58921ED395D00856F21 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9E2F57821ED37DF00856F21 /* main.c */; };
 		C9E2F58B21ED396800856F21 /* libHollowMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B705E421E3DCC600B63F05 /* libHollowMac.a */; };
@@ -81,6 +82,7 @@
 		C966521E235441470019CB0B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		C96652202354414E0019CB0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C96652232354447B0019CB0B /* HCMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCMac.h; sourceTree = "<group>"; };
+		C96652252356C4490019CB0B /* Application.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Application.c; sourceTree = "<group>"; };
 		C9AA9A2521F174B8001AA9E7 /* HollowMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HollowMac.h; sourceTree = "<group>"; };
 		C9B705DF21E3D6D300B63F05 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		C9B705E421E3DCC600B63F05 /* libHollowMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHollowMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +166,7 @@
 				C9E2F57921ED37DF00856F21 /* ctest.h */,
 				C966521A23543E000019CB0B /* HCApplication.c */,
 				C92BEA0923541B2900F5DFC3 /* HCWindow.c */,
+				C96652252356C4490019CB0B /* Application.c */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				C9E2F58921ED395D00856F21 /* main.c in Sources */,
 				C966521C235440D70019CB0B /* HCApplication.c in Sources */,
 				C966521D235440D90019CB0B /* HCWindow.c in Sources */,
+				C96652262356C4490019CB0B /* Application.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
