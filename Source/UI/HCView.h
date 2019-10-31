@@ -9,18 +9,22 @@
 #ifndef HCView_h
 #define HCView_h
 
-#include "../../HollowCore/Source/Core/HCObject.h"
+#include "../../HollowCore/Source/HollowCore.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
 //----------------------------------------------------------------------------------------------------------------------------------
+typedef const struct HCViewTypeData {
+    HCObjectTypeData base;
+} HCViewTypeData;
 extern HCType HCViewType;
+
 typedef struct HCView* HCViewRef;
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-HCViewRef HCViewCreate(HCInteger width, HCInteger height);
+HCViewRef HCViewCreate(void);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Polymorphic Functions
@@ -32,12 +36,23 @@ void HCViewPrint(HCViewRef self, FILE* stream);
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Attributes
 //----------------------------------------------------------------------------------------------------------------------------------
-HCInteger HCViewWidth(HCViewRef self);
-HCInteger HCViewHeight(HCViewRef self);
+HCPoint HCViewCenter(HCViewRef self);
+void HCViewSetCenter(HCViewRef self, HCPoint center);
+HCSize HCViewSize(HCViewRef self);
+void HCViewSetSize(HCViewRef self, HCSize size);
+HCRectangle HCViewFrame(HCViewRef self);
+void HCViewSetFrame(HCViewRef self, HCRectangle frame);
+HCColor HCViewBackgroundColor(HCViewRef self);
+void HCViewSetBackgroundColor(HCViewRef self, HCColor color);
 
 //----------------------------------------------------------------------------------------------------------------------------------
-// MARK: - Operations
+// MARK: - Related Views
 //----------------------------------------------------------------------------------------------------------------------------------
+HCViewRef HCViewParentViewRetained(HCViewRef self);
+HCListRef HCViewChildViewsRetained(HCViewRef self);
+HCInteger HCViewChildViewCount(HCViewRef self);
+HCViewRef HCViewChildViewAtIndexRetained(HCViewRef self, HCInteger index);
 void HCViewAddChildView(HCViewRef self, HCViewRef child);
+void HCViewRemoveChildView(HCViewRef self, HCInteger index);
 
 #endif /* HCView_h */

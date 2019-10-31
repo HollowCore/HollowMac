@@ -9,7 +9,7 @@
 #ifndef HCApplication_h
 #define HCApplication_h
 
-#include "../../HollowCore/Source/Core/HCObject.h"
+#include "../../HollowCore/Source/HollowCore.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type

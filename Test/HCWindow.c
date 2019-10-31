@@ -10,15 +10,14 @@
 #include "../Source/HollowMac.h"
 
 CTEST(HCWindow, Creation) {
-    HCWindowRef window = HCWindowCreate(720, 480);
-    ASSERT_EQUAL(HCWindowWidth(window), 720);
-    ASSERT_EQUAL(HCWindowHeight(window), 480);
+    HCWindowRef window = HCWindowCreate();
+    ASSERT_NOT_NULL(HCWindowContentView(window));
     HCRelease(window);
 }
 
 CTEST(HCWindow, EqualHash) {
-    HCWindowRef a = HCWindowCreate(720, 480);
-    HCWindowRef b = HCWindowCreate(640, 480);
+    HCWindowRef a = HCWindowCreate();
+    HCWindowRef b = HCWindowCreate();
     ASSERT_FALSE(HCIsEqual(a, b));
     ASSERT_EQUAL(HCHashValue(a), HCHashValue(a));
     ASSERT_EQUAL(HCHashValue(b), HCHashValue(b));
@@ -27,14 +26,7 @@ CTEST(HCWindow, EqualHash) {
 }
 
 CTEST(HCWindow, Print) {
-    HCWindowRef window = HCWindowCreate(720, 480);
+    HCWindowRef window = HCWindowCreate();
     HCWindowPrint(window, stdout); // TODO: Not to stdout
-    HCRelease(window);
-}
-
-CTEST(HCWindow, Dimensions) {
-    HCWindowRef window = HCWindowCreate(720, 480);
-    ASSERT_EQUAL(HCWindowWidth(window), 720);
-    ASSERT_EQUAL(HCWindowHeight(window), 480);
     HCRelease(window);
 }

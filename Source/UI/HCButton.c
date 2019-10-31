@@ -11,110 +11,119 @@
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
 //----------------------------------------------------------------------------------------------------------------------------------
-const HCObjectTypeData HCButtonTypeDataInstance = {
+const HCViewTypeData HCButtonTypeDataInstance = {
     .base = {
-        .ancestor = &HCObjectTypeDataInstance.base,
-        .name = "HCButton",
+        .base = {
+            .ancestor = (HCType)&HCViewTypeDataInstance,
+            .name = "HCButton",
+        },
+        .isEqual = (void*)HCViewIsEqual,
+        .hashValue = (void*)HCViewHashValue,
+        .print = (void*)HCButtonPrint,
+        .destroy = (void*)HCButtonDestroy,
     },
-    .isEqual = (void*)HCButtonIsEqual,
-    .hashValue = (void*)HCButtonHashValue,
-    .print = (void*)HCButtonPrint,
-    .destroy = (void*)HCButtonDestroy,
 };
 HCType HCButtonType = (HCType)&HCButtonTypeDataInstance;
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Definitions
 //----------------------------------------------------------------------------------------------------------------------------------
-void HCButtonClickEvent(id eventReceiver);
 
 // TODO: Put these into type struct
 Class g_EventReceiverClass = NULL;
+void HCButtonClickEvent(id eventReceiver, SEL _cmd, id sender);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-HCButtonRef HCButtonCreate(HCInteger width, HCInteger height) {
-    HCButtonRef self = calloc(sizeof(HCButton), 1);
-    HCButtonInit(self, width, height);
-    return self;
-}
-
-void HCButtonInit(void* memory, HCInteger width, HCInteger height) {
+HCButtonRef HCButtonCreate() {
     // Register event receiver NSObject subclass
     // TODO: Multi-thread safe
     if (g_EventReceiverClass == NULL) {
         g_EventReceiverClass = objc_allocateClassPair((Class)objc_getClass("NSObject"), "EventReceiver", 0);
-        class_addMethod(g_EventReceiverClass, sel_getUid("click:"), (IMP)HCButtonClickEvent, "v@:");
+        class_addMethod(g_EventReceiverClass, sel_getUid("click:"), (IMP)HCButtonClickEvent, "v@:@");
+        class_addIvar(g_EventReceiverClass, "hcButton", sizeof(uint64_t), log2(sizeof(uint64_t)), "Q");
         objc_registerClassPair(g_EventReceiverClass);
     }
     
     // Create button
-    id button = HCObjCSendIdMessageVoid((id)objc_getClass("NSButton"), sel_getUid("alloc"));
-    button = HCObjCSendIdMessageNSRect(
+    id button = HCObjcSendIdMessageVoid((id)objc_getClass("NSButton"), sel_getUid("alloc"));
+    button = HCObjcSendIdMessageCGRect(
         button,
         sel_getUid("initWithFrame:"),
-        (NSRect){ 0, 0, width, height }
+        (CGRect){ 0, 0, 0, 0 }
     );
     
+    return HCButtonCreateWithView(button);
+}
+
+HCButtonRef HCButtonCreateWithView(id button) {
+    HCButtonRef self = calloc(sizeof(HCButton), 1);
+    HCButtonInit(self, button);
+    return self;
+}
+
+void HCButtonInit(void* memory, id button) {
     // Create event receiver
-    id eventReceiver = HCObjCSendIdMessageVoid((id)g_EventReceiverClass, sel_getUid("alloc"));
-    eventReceiver = HCObjCSendIdMessageVoid(eventReceiver, sel_getUid("init"));
+    id eventReceiver = HCObjcSendIdMessageVoid((id)g_EventReceiverClass, sel_getUid("alloc"));
+    eventReceiver = HCObjcSendIdMessageVoid(eventReceiver, sel_getUid("init"));
     
     // Register button click callback
-    HCObjCSendVoidMessageId(button, sel_getUid("setTarget:"), eventReceiver);
-    HCObjCSendVoidMessageId(button, sel_getUid("setAction:"), (id)sel_getUid("click:"));
+    HCObjcSendVoidMessageId(button, sel_getUid("setTarget:"), eventReceiver);
+    HCObjcSendVoidMessageId(button, sel_getUid("setAction:"), (id)sel_getUid("click:"));
     
     // Initialize button object
-    HCObjectInit(memory);
+    HCViewInit(memory, button);
     HCButtonRef self = memory;
-    self->base.type = HCButtonType;
-    self->width = width;
-    self->height = height;
-    self->button = button;
+    self->base.base.type = HCButtonType;
     self->eventReceiver = eventReceiver;
+    
+    // Put self into event receiver for callbacks
+    ptrdiff_t offset = ivar_getOffset(class_getInstanceVariable(g_EventReceiverClass, "hcButton"));
+    *(HCButtonRef*)((uint8_t*)eventReceiver + offset) = self;
 }
 
 void HCButtonDestroy(HCButtonRef self) {
-    HCObjCSendVoidMessageVoid(self->eventReceiver, sel_getUid("release"));
-    HCObjCSendVoidMessageVoid(self->button, sel_getUid("release"));
+    HCObjcSendVoidMessageVoid(self->eventReceiver, sel_getUid("release"));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Polymorphic Functions
 //----------------------------------------------------------------------------------------------------------------------------------
-HCBoolean HCButtonIsEqual(HCButtonRef self, HCButtonRef other) {
-    return
-        HCIntegerIsEqual(self->width, other->width) &&
-        HCIntegerIsEqual(self->height, other->height) &&
-        HCIntegerIsEqual((HCInteger)self->button, (HCInteger)other->button);
-}
-
-HCInteger HCButtonHashValue(HCButtonRef self) {
-    return
-        HCIntegerHashValue(self->width) ^
-        HCIntegerHashValue(self->height) ^
-        HCIntegerHashValue((HCInteger)self->button);
-}
-
 void HCButtonPrint(HCButtonRef self, FILE* stream) {
-    fprintf(stream, "<%s@%p,size:%lix%li>", self->base.type->name, self, (long)self->width, (long)self->height);
+    fprintf(stream, "<%s@%p>", self->base.base.type->name, self);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Attributes
 //----------------------------------------------------------------------------------------------------------------------------------
-HCInteger HCButtonWidth(HCButtonRef self) {
-    return self->width;
+HCStringRef HCButtonTitleRetained(HCButtonRef self) {
+    id titleNSString = HCObjcSendIdMessageVoid(self->base.view, sel_getUid("title"));
+    return HCStringCreateWithNSString(titleNSString);
 }
 
-HCInteger HCButtonHeight(HCButtonRef self) {
-    return self->height;
+void HCButtonSetTitle(HCButtonRef self, HCStringRef title) {
+    id titleNSString = NSStringAllocInitWithHCString(title);
+    HCObjcSendVoidMessageId(self->base.view, sel_getUid("setTitle:"), titleNSString);
+    HCObjcSendVoidMessageVoid(titleNSString, sel_getUid("release"));
+}
+
+HCButtonClickFunction HCButtonClickCallback(HCButtonRef self) {
+    return self->clickCallback;
+}
+
+void HCButtonSetClickCallback(HCButtonRef self, HCButtonClickFunction callback, void* context) {
+    self->clickCallback = callback;
+    self->clickContext = context;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Foundation
 //----------------------------------------------------------------------------------------------------------------------------------
-void HCButtonClickEvent(id eventReceiver) {
-    printf("Clicked!\n");
+void HCButtonClickEvent(id eventReceiver, SEL _cmd, id sender) {
+    ptrdiff_t offset = ivar_getOffset(class_getInstanceVariable(g_EventReceiverClass, "hcButton"));
+    HCButtonRef self = *(HCButtonRef*)((uint8_t*)eventReceiver + offset);
+    if (self->clickCallback != NULL) {
+        self->clickCallback(self->clickContext, self);
+    }
 }

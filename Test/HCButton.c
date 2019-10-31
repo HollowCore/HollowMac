@@ -10,15 +10,14 @@
 #include "../Source/HollowMac.h"
 
 CTEST(HCButton, Creation) {
-    HCButtonRef button = HCButtonCreate(40, 80);
-    ASSERT_EQUAL(HCButtonWidth(button), 40);
-    ASSERT_EQUAL(HCButtonHeight(button), 80);
+    HCButtonRef button = HCButtonCreate();
+    ASSERT_TRUE(HCRectangleIsZero(HCViewFrame((HCViewRef)button)));
     HCRelease(button);
 }
 
 CTEST(HCButton, EqualHash) {
-    HCButtonRef a = HCButtonCreate(40, 80);
-    HCButtonRef b = HCButtonCreate(40, 60);
+    HCButtonRef a = HCButtonCreate();
+    HCButtonRef b = HCButtonCreate();
     ASSERT_FALSE(HCIsEqual(a, b));
     ASSERT_EQUAL(HCHashValue(a), HCHashValue(a));
     ASSERT_EQUAL(HCHashValue(b), HCHashValue(b));
@@ -27,14 +26,18 @@ CTEST(HCButton, EqualHash) {
 }
 
 CTEST(HCButton, Print) {
-    HCButtonRef button = HCButtonCreate(40, 80);
+    HCButtonRef button = HCButtonCreate();
     HCButtonPrint(button, stdout); // TODO: Not to stdout
     HCRelease(button);
 }
 
-CTEST(HCButton, Dimensions) {
-    HCButtonRef button = HCButtonCreate(40, 80);
-    ASSERT_EQUAL(HCButtonWidth(button), 40);
-    ASSERT_EQUAL(HCButtonHeight(button), 80);
+CTEST(HCButton, Title) {
+    HCButtonRef button = HCButtonCreate();
+    HCStringRef title = HCStringCreateWithCString("Great Stuff");
+    HCButtonSetTitle(button, title);
+    HCStringRef titleRetreived = HCButtonTitleRetained(button);
+    ASSERT_TRUE(HCIsEqual(title, titleRetreived));
+    HCRelease(title);
+    HCRelease(titleRetreived);
     HCRelease(button);
 }

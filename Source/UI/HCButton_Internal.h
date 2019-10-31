@@ -9,25 +9,24 @@
 #ifndef HCButton_Internal_h
 #define HCButton_Internal_h
 
-#include "../../HollowCore/Source/Core/HCObject_Internal.h"
-#include "HCMac.h"
+#include "HCView_Internal.h"
 #include "HCButton.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
 //----------------------------------------------------------------------------------------------------------------------------------
 typedef struct HCButton {
-    HCObject base;
-    HCInteger width;
-    HCInteger height;
-    id button;
+    HCView base;
     id eventReceiver;
+    HCButtonClickFunction clickCallback;
+    void* clickContext;
 } HCButton;
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-void HCButtonInit(void* memory, HCInteger width, HCInteger height);
+HCButtonRef HCButtonCreateWithView(id button);
+void HCButtonInit(void* memory, id button);
 void HCButtonDestroy(HCButtonRef self);
 
 #endif /* HCButton_Internal_h */

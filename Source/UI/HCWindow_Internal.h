@@ -18,8 +18,6 @@
 //----------------------------------------------------------------------------------------------------------------------------------
 typedef struct HCWindow {
     HCObject base;
-    HCInteger width;
-    HCInteger height;
     id window;
     HCViewRef contentView;
 } HCWindow;
@@ -27,7 +25,7 @@ typedef struct HCWindow {
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-void HCWindowInit(void* memory, HCInteger width, HCInteger height);
+void HCWindowInit(void* memory);
 void HCWindowDestroy(HCWindowRef self);
 
 #endif /* HCWindow_Internal_h */

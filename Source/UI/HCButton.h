@@ -9,7 +9,7 @@
 #ifndef HCButton_h
 #define HCButton_h
 
-#include "../../HollowCore/Source/Core/HCObject.h"
+#include "../../HollowCore/Source/HollowCore.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
@@ -18,9 +18,14 @@ extern HCType HCButtonType;
 typedef struct HCButton* HCButtonRef;
 
 //----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Definitions
+//----------------------------------------------------------------------------------------------------------------------------------
+typedef void (*HCButtonClickFunction)(void* context, HCButtonRef button);
+
+//----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-HCButtonRef HCButtonCreate(HCInteger width, HCInteger height);
+HCButtonRef HCButtonCreate(void);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Polymorphic Functions
@@ -32,12 +37,9 @@ void HCButtonPrint(HCButtonRef self, FILE* stream);
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Attributes
 //----------------------------------------------------------------------------------------------------------------------------------
-HCInteger HCButtonWidth(HCButtonRef self);
-HCInteger HCButtonHeight(HCButtonRef self);
-
-//----------------------------------------------------------------------------------------------------------------------------------
-// MARK: - Operations
-//----------------------------------------------------------------------------------------------------------------------------------
-void HCButtonDisplay(HCButtonRef self);
+HCStringRef HCButtonTitleRetained(HCButtonRef self);
+void HCButtonSetTitle(HCButtonRef self, HCStringRef title);
+HCButtonClickFunction HCButtonClickCallback(HCButtonRef self);
+void HCButtonSetClickCallback(HCButtonRef self, HCButtonClickFunction callback, void* context);
 
 #endif /* HCButton_h */

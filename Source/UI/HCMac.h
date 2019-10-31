@@ -9,23 +9,32 @@
 #ifndef HCMac_h
 #define HCMac_h
 
+#include "../../HollowCore/Source/HollowCore.h"
 #include <objc/message.h>
 #include <objc/runtime.h>
 
-typedef struct NSPoint {
-    double x;
-    double y;
-} NSPoint;
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Redefined Types
+//----------------------------------------------------------------------------------------------------------------------------------
+// TODO: Assumes 64-bit architecture
+typedef int64_t NSInteger;
 
-typedef struct NSSize {
-    double width;
-    double height;
-} NSSize;
+typedef double CGFloat;
 
-typedef struct NSRect {
-    NSPoint origin;
-    NSSize size;
-} NSRect;
+typedef struct CGPoint {
+    CGFloat x;
+    CGFloat y;
+} CGPoint;
+
+typedef struct CGSize {
+    CGFloat width;
+    CGFloat height;
+} CGSize;
+
+typedef struct CGRect {
+    CGPoint origin;
+    CGSize size;
+} CGRect;
 
 enum {
     NSBorderlessWindowMask        = 0,
@@ -35,20 +44,157 @@ enum {
     NSResizableWindowMask         = 1 << 3,
 };
 
-typedef void (*HCObjCVoidMessageVoid)(id, SEL);
-typedef void (*HCObjCVoidMessageId)(id, SEL, id);
-typedef id (*HCObjCIdMessageVoid)(id, SEL);
-typedef id (*HCObjCIdMessageId)(id, SEL, id);
-typedef id(*HCObjCIdMessageNSRect)(id, SEL, NSRect);
-typedef id(*HCObjCIdMessageNSRectIntIntBool)(id, SEL, NSRect, int, int, bool);
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Externally Defined Functions
+//----------------------------------------------------------------------------------------------------------------------------------
+extern void CGRectFill(CGRect aRect);
 
-static HCObjCVoidMessageVoid HCObjCSendVoidMessageVoid = (HCObjCVoidMessageVoid)objc_msgSend;
-static HCObjCVoidMessageId HCObjCSendVoidMessageId = (HCObjCVoidMessageId)objc_msgSend;
-static HCObjCIdMessageVoid HCObjCSendIdMessageVoid = (HCObjCIdMessageVoid)objc_msgSend;
-static HCObjCIdMessageId HCObjCSendIdMessageId = (HCObjCIdMessageId)objc_msgSend;
-static HCObjCIdMessageNSRect HCObjCSendIdMessageNSRect = (HCObjCIdMessageNSRect)objc_msgSend;
-static HCObjCIdMessageNSRectIntIntBool HCObjCSendIdMessageNSRectIntIntBool = (HCObjCIdMessageNSRectIntIntBool)objc_msgSend;
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Objective-C Message Sending
+//----------------------------------------------------------------------------------------------------------------------------------
+typedef void (*HCObjcVoidMessageVoid)(id, SEL);
+static HCObjcVoidMessageVoid HCObjcSendVoidMessageVoid = (HCObjcVoidMessageVoid)objc_msgSend;
 
-extern void NSRectFill(NSRect aRect);
+typedef void (*HCObjcVoidMessageId)(id, SEL, id);
+static HCObjcVoidMessageId HCObjcSendVoidMessageId = (HCObjcVoidMessageId)objc_msgSend;
+typedef id (*HCObjcIdMessageVoid)(id, SEL);
+static HCObjcIdMessageVoid HCObjcSendIdMessageVoid = (HCObjcIdMessageVoid)objc_msgSend;
+typedef id (*HCObjcIdMessageId)(id, SEL, id);
+static HCObjcIdMessageId HCObjcSendIdMessageId = (HCObjcIdMessageId)objc_msgSend;
+
+typedef void (*HCObjcVoidMessageBool)(id, SEL, BOOL);
+static HCObjcVoidMessageBool HCObjcSendVoidMessageBool = (HCObjcVoidMessageBool)objc_msgSend;
+typedef BOOL (*HCObjcBoolMessageVoid)(id, SEL);
+static HCObjcBoolMessageVoid HCObjcSendBoolMessageVoid = (HCObjcBoolMessageVoid)objc_msgSend;
+typedef BOOL (*HCObjcBoolMessageBool)(id, SEL, BOOL);
+static HCObjcBoolMessageBool HCObjcSendBoolMessageBool = (HCObjcBoolMessageBool)objc_msgSend;
+typedef BOOL (*HCObjcBoolMessageId)(id, SEL, id);
+static HCObjcBoolMessageId HCObjcSendBoolMessageId = (HCObjcBoolMessageId)objc_msgSend;
+typedef id (*HCObjcIdMessageBool)(id, SEL, BOOL);
+static HCObjcIdMessageBool HCObjcSendIdMessageBool = (HCObjcIdMessageBool)objc_msgSend;
+
+typedef void (*HCObjcVoidMessageNSInteger)(id, SEL, NSInteger);
+static HCObjcVoidMessageNSInteger HCObjcSendVoidMessageNSInteger = (HCObjcVoidMessageNSInteger)objc_msgSend;
+typedef NSInteger (*HCObjcNSIntegerMessageVoid)(id, SEL);
+static HCObjcNSIntegerMessageVoid HCObjcSendNSIntegerMessageVoid = (HCObjcNSIntegerMessageVoid)objc_msgSend;
+typedef NSInteger (*HCObjcNSIntegerMessageNSInteger)(id, SEL, NSInteger);
+static HCObjcNSIntegerMessageNSInteger HCObjcSendNSIntegerMessageNSInteger = (HCObjcNSIntegerMessageNSInteger)objc_msgSend;
+typedef NSInteger (*HCObjcNSIntegerMessageId)(id, SEL, id);
+static HCObjcNSIntegerMessageId HCObjcSendNSIntegerMessageId = (HCObjcNSIntegerMessageId)objc_msgSend;
+typedef id (*HCObjcIdMessageNSInteger)(id, SEL, NSInteger);
+static HCObjcIdMessageNSInteger HCObjcSendIdMessageNSInteger = (HCObjcIdMessageNSInteger)objc_msgSend;
+
+typedef void (*HCObjcVoidMessageFloat)(id, SEL, float);
+static HCObjcVoidMessageFloat HCObjcSendVoidMessageFloat = (HCObjcVoidMessageFloat)objc_msgSend;
+typedef float (*HCObjcFloatMessageVoid)(id, SEL);
+static HCObjcFloatMessageVoid HCObjcSendFloatMessageVoid = (HCObjcFloatMessageVoid)objc_msgSend;
+typedef float (*HCObjcFloatMessageFloat)(id, SEL, float);
+static HCObjcFloatMessageFloat HCObjcSendFloatMessageFloat = (HCObjcFloatMessageFloat)objc_msgSend;
+typedef float (*HCObjcFloatMessageId)(id, SEL, id);
+static HCObjcFloatMessageId HCObjcSendFloatMessageId = (HCObjcFloatMessageId)objc_msgSend;
+typedef id (*HCObjcIdMessageFloat)(id, SEL, float);
+static HCObjcIdMessageFloat HCObjcSendIdMessageFloat = (HCObjcIdMessageFloat)objc_msgSend;
+
+typedef void (*HCObjcVoidMessageDouble)(id, SEL, double);
+static HCObjcVoidMessageDouble HCObjcSendVoidMessageDouble = (HCObjcVoidMessageDouble)objc_msgSend;
+typedef double (*HCObjcDoubleMessageVoid)(id, SEL);
+static HCObjcDoubleMessageVoid HCObjcSendDoubleMessageVoid = (HCObjcDoubleMessageVoid)objc_msgSend;
+typedef double (*HCObjcDoubleMessageDouble)(id, SEL, double);
+static HCObjcDoubleMessageDouble HCObjcSendDoubleMessageDouble = (HCObjcDoubleMessageDouble)objc_msgSend;
+typedef double (*HCObjcDoubleMessageId)(id, SEL, id);
+static HCObjcDoubleMessageId HCObjcSendDoubleMessageId = (HCObjcDoubleMessageId)objc_msgSend;
+typedef id (*HCObjcIdMessageDouble)(id, SEL, double);
+static HCObjcIdMessageDouble HCObjcSendIdMessageDouble = (HCObjcIdMessageDouble)objc_msgSend;
+
+typedef void (*HCObjcVoidMessageCGPoint)(id, SEL, CGPoint);
+static HCObjcVoidMessageCGPoint HCObjcSendVoidMessageCGPoint = (HCObjcVoidMessageCGPoint)objc_msgSend;
+typedef CGPoint (*HCObjcCGPointMessageVoid)(id, SEL);
+static HCObjcCGPointMessageVoid HCObjcSendCGPointMessageVoid = (HCObjcCGPointMessageVoid)objc_msgSend_stret;
+typedef CGPoint (*HCObjcCGPointMessageId)(id, SEL, id);
+static HCObjcCGPointMessageId HCObjcSendCGPointMessageId = (HCObjcCGPointMessageId)objc_msgSend_stret;
+typedef CGPoint (*HCObjcCGPointMessageCGPoint)(id, SEL, id);
+static HCObjcCGPointMessageCGPoint HCObjcSendCGPointMessageCGPoint = (HCObjcCGPointMessageCGPoint)objc_msgSend_stret;
+typedef id (*HCObjcIdMessageCGPoint)(id, SEL, CGPoint);
+static HCObjcIdMessageCGPoint HCObjcSendIdMessageCGPoint = (HCObjcIdMessageCGPoint)objc_msgSend;
+
+typedef void (*HCObjcVoidMessageCGSize)(id, SEL, CGSize);
+static HCObjcVoidMessageCGSize HCObjcSendVoidMessageCGSize = (HCObjcVoidMessageCGSize)objc_msgSend;
+typedef CGSize (*HCObjcCGSizeMessageVoid)(id, SEL);
+static HCObjcCGSizeMessageVoid HCObjcSendCGSizeMessageVoid = (HCObjcCGSizeMessageVoid)objc_msgSend_stret;
+typedef CGSize (*HCObjcCGSizeMessageCGSize)(id, SEL);
+static HCObjcCGSizeMessageCGSize HCObjcSendCGSizeMessageCGSize = (HCObjcCGSizeMessageCGSize)objc_msgSend_stret;
+typedef CGSize (*HCObjcCGSizeMessageId)(id, SEL, id);
+static HCObjcCGSizeMessageId HCObjcSendCGSizeMessageId = (HCObjcCGSizeMessageId)objc_msgSend_stret;
+typedef id (*HCObjcIdMessageCGSize)(id, SEL, CGSize);
+static HCObjcIdMessageCGSize HCObjcSendIdMessageCGSize = (HCObjcIdMessageCGSize)objc_msgSend;
+
+typedef void (*HCObjcVoidMessageCGRect)(id, SEL, CGRect);
+static HCObjcVoidMessageCGRect HCObjcSendVoidMessageCGRect = (HCObjcVoidMessageCGRect)objc_msgSend;
+typedef CGRect (*HCObjcCGRectMessageVoid)(id, SEL);
+static HCObjcCGRectMessageVoid HCObjcSendCGRectMessageVoid = (HCObjcCGRectMessageVoid)objc_msgSend_stret;
+typedef CGRect (*HCObjcCGRectMessageCGRect)(id, SEL);
+static HCObjcCGRectMessageCGRect HCObjcSendCGRectMessageCGRect = (HCObjcCGRectMessageCGRect)objc_msgSend_stret;
+typedef CGRect (*HCObjcCGRectMessageId)(id, SEL, id);
+static HCObjcCGRectMessageId HCObjcSendCGRectMessageId = (HCObjcCGRectMessageId)objc_msgSend_stret;
+typedef id (*HCObjcIdMessageCGRect)(id, SEL, CGRect);
+static HCObjcIdMessageCGRect HCObjcSendIdMessageCGRect = (HCObjcIdMessageCGRect)objc_msgSend;
+
+typedef id (*HCObjcIdMessageCGRectIntIntBool)(id, SEL, CGRect, int, int, bool);
+static HCObjcIdMessageCGRectIntIntBool HCObjcSendIdMessageCGRectIntIntBool = (HCObjcIdMessageCGRectIntIntBool)objc_msgSend;
+
+typedef id (*HCObjcIdMessageCGFloatCGFloatCGFloatCGFloat)(id, SEL, CGFloat, CGFloat, CGFloat, CGFloat);
+static HCObjcIdMessageCGFloatCGFloatCGFloatCGFloat HCObjcSendIdMessageCGFloatCGFloatCGFloatCGFloat = (HCObjcIdMessageCGFloatCGFloatCGFloatCGFloat)objc_msgSend;
+
+typedef id (*HCObjcBoolMessageCGFloatPtrCGFloatPtrCGFloatPtrCGFloatPtr)(id, SEL, CGFloat*, CGFloat*, CGFloat*, CGFloat*);
+static HCObjcBoolMessageCGFloatPtrCGFloatPtrCGFloatPtrCGFloatPtr HCObjcSendBoolMessageCGFloatPtrCGFloatPtrCGFloatPtrCGFloatPtr = (HCObjcBoolMessageCGFloatPtrCGFloatPtrCGFloatPtrCGFloatPtr)objc_msgSend;
+
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Conversion Convenience
+//----------------------------------------------------------------------------------------------------------------------------------
+static inline HCPoint HCPointMakeWithCGPoint(CGPoint point) {
+    return HCPointMake(point.x, point.y);
+}
+
+static inline CGPoint CGPointMakeWithHCPoint(HCPoint point) {
+    return (CGPoint){.x = point.x, .y = point.y};
+}
+
+static inline HCSize HCSizeMakeWithCGSize(CGSize size) {
+    return HCSizeMake(size.width, size.height);
+}
+
+static inline CGSize CGSizeMakeWithHCSize(HCSize size) {
+    return (CGSize){.width = size.width, .height = size.height};
+}
+
+static inline HCRectangle HCRectangleMakeWithCGRect(CGRect rect) {
+    return HCRectangleMake(HCPointMake(rect.origin.x, rect.origin.y), HCSizeMake(rect.size.width, rect.size.height));
+}
+
+static inline CGRect CGRectMakeWithHCRectangle(HCRectangle rect) {
+    return (CGRect){.origin = {.x = rect.origin.x, .y = rect.origin.y}, .size = {.width = rect.size.width, .height = rect.size.height}};
+}
+
+static inline HCColor HCColorMakeWithNSColor(id nsColor) {
+    HCColor hcColor = HCColorInvalid;
+    HCObjcSendBoolMessageCGFloatPtrCGFloatPtrCGFloatPtrCGFloatPtr(nsColor, sel_getUid("getRed:green:blue:alpha:"), &hcColor.r, &hcColor.g, &hcColor.b, &hcColor.a);
+    return hcColor;
+}
+
+static inline id NSColorAllocInitWithHCColor(HCColor hcColor) {
+    id nsColor = HCObjcSendIdMessageCGFloatCGFloatCGFloatCGFloat((id)objc_getClass("NSColor"), sel_getUid("colorWithRed:green:blue:alpha:"), hcColor.r, hcColor.g, hcColor.b, hcColor.a);
+    return HCObjcSendIdMessageVoid(nsColor, sel_getUid("retain"));
+}
+
+static inline HCStringRef HCStringCreateWithNSString(id nsString) {
+    const char* utf8String = (const char*)HCObjcSendIdMessageVoid(nsString, sel_getUid("UTF8String"));
+    return HCStringCreateWithCString(utf8String);
+}
+
+static inline id NSStringAllocInitWithHCString(HCStringRef hcString) {
+    const char* utf8String = HCStringAsCString(hcString);
+    id nsString = HCObjcSendIdMessageId((id)objc_getClass("NSString"), sel_getUid("stringWithUTF8String:"), (id)utf8String);
+    return HCObjcSendIdMessageVoid(nsString, sel_getUid("retain"));
+}
 
 #endif /* HCMac_h */

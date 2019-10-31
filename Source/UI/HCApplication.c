@@ -58,7 +58,7 @@ void HCApplicationInit(void* memory) {
     
     // Initialize shared macOS application object
     if (NSApp == NULL) {
-        HCObjCSendVoidMessageVoid((id)objc_getClass("NSApplication"), sel_getUid("sharedApplication"));
+        HCObjcSendVoidMessageVoid((id)objc_getClass("NSApplication"), sel_getUid("sharedApplication"));
     }
     if (NSApp == NULL) {
         fprintf(stderr, "Failed to initialize NSApplication. Failing...\n");
@@ -100,15 +100,15 @@ void HCApplicationRun(HCApplicationRef self, HCApplicationReadyCallback readyCal
     self->readyCallback = readyCallback;
     self->readyCallbackContext = readyCallbackContext;
     
-    id applicationDelegateObject = HCObjCSendIdMessageVoid((id)objc_getClass("AppDelegate"), sel_getUid("alloc"));
-    applicationDelegateObject = HCObjCSendIdMessageVoid(applicationDelegateObject, sel_getUid("init"));
+    id applicationDelegateObject = HCObjcSendIdMessageVoid((id)objc_getClass("AppDelegate"), sel_getUid("alloc"));
+    applicationDelegateObject = HCObjcSendIdMessageVoid(applicationDelegateObject, sel_getUid("init"));
     ((HCApplicationDelegate*)applicationDelegateObject)->application = HCRetain(self);
-    HCObjCSendVoidMessageId(NSApp, sel_getUid("setDelegate:"), applicationDelegateObject);
-    HCObjCSendVoidMessageVoid(NSApp, sel_getUid("run"));
+    HCObjcSendVoidMessageId(NSApp, sel_getUid("setDelegate:"), applicationDelegateObject);
+    HCObjcSendVoidMessageVoid(NSApp, sel_getUid("run"));
 }
 
 void HCApplicationTerminate(HCApplicationRef self) {
-    HCObjCSendVoidMessageId(NSApp, sel_getUid("terminate:"), NSApp);
+    HCObjcSendVoidMessageId(NSApp, sel_getUid("terminate:"), NSApp);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------

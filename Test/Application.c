@@ -9,13 +9,26 @@
 #include "ctest.h"
 #include "../Source/HollowMac.h"
 
+void ButtonClicked(void* context, HCButtonRef button) {
+    printf("Clicked!\n");
+    HCViewRef parent = HCViewParentViewRetained((HCViewRef)button);
+    HCViewSetFrame(parent, HCRectangleOffset(HCViewFrame(parent), 1.0, 0.0));
+    HCViewSetBackgroundColor(parent, HCColorGreen);
+    HCRelease(parent);
+}
+
 void ApplicationReady(void* context, HCApplicationRef application) {
-    HCWindowRef window = HCWindowCreate(720, 480);
+    HCWindowRef window = HCWindowCreate();
     
-    HCViewRef view = HCViewCreate(300, 100);
+    HCViewRef view = HCViewCreate();
+    HCViewSetFrame(view, HCRectangleMake(HCPointMake(30.0, 50.0), HCSizeMake(300.0, 200.0)));
+    HCViewSetBackgroundColor(view, HCColorRed);
     HCViewAddChildView(HCWindowContentView(window), view);
     
-    HCButtonRef button = HCButtonCreate(80, 40);
+    HCButtonRef button = HCButtonCreate();
+    HCViewSetFrame((HCViewRef)button, HCRectangleMake(HCPointMake(10.0, 20.0), HCSizeMake(80.0, 40.0)));
+    HCButtonSetTitle(button, HCStringCreateWithCString("Click Me!"));
+    HCButtonSetClickCallback(button, ButtonClicked, NULL);
     HCViewAddChildView(view, (HCViewRef)button);
     
     HCWindowDisplay(window);
