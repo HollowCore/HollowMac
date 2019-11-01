@@ -7,13 +7,14 @@
 //
 
 #include "HCApplication_Internal.h"
+#include "HCMenu_Internal.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
 //----------------------------------------------------------------------------------------------------------------------------------
 const HCObjectTypeData HCApplicationTypeDataInstance = {
     .base = {
-        .ancestor = &HCObjectTypeDataInstance.base,
+        .ancestor = (HCType)&HCObjectTypeDataInstance,
         .name = "HCApplication",
     },
     .isEqual = (void*)HCApplicationIsEqual,
@@ -31,7 +32,8 @@ typedef struct HCApplicationDelegate {
     HCApplicationRef application;
 } HCApplicationDelegate;
 
-BOOL HCApplicationDelegateDidFinishLaunching(HCApplicationDelegate* self, SEL _cmd, id notification);
+BOOL HCApplicationDelegateApplicationDidFinishLaunching(HCApplicationDelegate* self, SEL _cmd, id notification);
+BOOL HCApplicationDelegateApplicationShouldTerminateAfterLastWindowClosed(HCApplicationDelegate* applicationDelegate);
 
 // TODO: Put these into type struct
 Class g_ApplicationDelegateClass = NULL;
@@ -52,7 +54,8 @@ void HCApplicationInit(void* memory) {
     // TODO: Multithread safe
     if (g_ApplicationDelegateClass == NULL) {
         g_ApplicationDelegateClass = objc_allocateClassPair((Class)objc_getClass("NSObject"), "AppDelegate", 0);
-        class_addMethod(g_ApplicationDelegateClass, sel_getUid("applicationDidFinishLaunching:"), (IMP)HCApplicationDelegateDidFinishLaunching, "i@:@");
+        class_addMethod(g_ApplicationDelegateClass, sel_getUid("applicationDidFinishLaunching:"), (IMP)HCApplicationDelegateApplicationDidFinishLaunching, "i@:@");
+        class_addMethod(g_ApplicationDelegateClass, sel_getUid("applicationShouldTerminateAfterLastWindowClosed:"), (IMP)HCApplicationDelegateApplicationShouldTerminateAfterLastWindowClosed, "i@:");
         objc_registerClassPair(g_ApplicationDelegateClass);
     }
     
@@ -92,6 +95,57 @@ void HCApplicationPrint(HCApplicationRef self, FILE* stream) {
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Attributes
 //----------------------------------------------------------------------------------------------------------------------------------
+HCInteger HCApplicationMenuCount(HCApplicationRef self) {
+    id mainMenu = HCObjcSendIdMessageVoid(NSApp, sel_getUid("mainMenu"));
+    return mainMenu == NULL ? 0 : HCObjcSendNSIntegerMessageVoid(mainMenu, sel_getUid("numberOfItems"));
+}
+
+HCMenuRef HCApplicationMenuAtIndexRetained(HCApplicationRef self, HCInteger index) {
+    id mainMenu = HCObjcSendIdMessageVoid(NSApp, sel_getUid("mainMenu"));
+    if (mainMenu == NULL) {
+        return NULL;
+    }
+    id nsMenuItem = HCObjcSendIdMessageNSInteger(mainMenu, sel_getUid("itemAtIndex:"), index);
+    return HCMenuCreateWithNSMenuItem(nsMenuItem);
+}
+
+void HCApplicationAddMenu(HCApplicationRef self, HCMenuRef menu) {
+    id mainMenu = HCObjcSendIdMessageVoid(NSApp, sel_getUid("mainMenu"));
+    if (mainMenu == NULL) {
+        mainMenu = HCObjcSendIdMessageVoid(HCObjcSendIdMessageVoid((id)objc_getClass("NSMenu"), sel_getUid("alloc")), sel_getUid("init"));
+        HCObjcSendVoidMessageId(NSApp, sel_getUid("setMainMenu:"), mainMenu);
+    }
+    HCObjcSendVoidMessageId(mainMenu, sel_getUid("addItem:"), menu->nsMenuItem);
+}
+
+void HCApplicationRemoveMenu(HCApplicationRef self, HCInteger index) {
+    id mainMenu = HCObjcSendIdMessageVoid(NSApp, sel_getUid("mainMenu"));
+    if (mainMenu == NULL) {
+        return;
+    }
+    HCObjcSendVoidMessageNSInteger(mainMenu, sel_getUid("removeItemAtIndex:"), index);
+    if (HCObjcSendNSIntegerMessageVoid(mainMenu, sel_getUid("numberOfItems")) == 0) {
+        HCObjcSendVoidMessageId(NSApp, sel_getUid("setMainMenu:"), NULL);
+    }
+}
+
+//void HCApplicationApplyTestMainMenu(HCApplicationRef self) {
+//    id quitItem = HCObjcSendIdMessageVoid(HCObjcSendIdMessageVoid((id)objc_getClass("NSMenuItem"), sel_getUid("alloc")), sel_getUid("init"));
+//    HCObjcSendVoidMessageId(quitItem, sel_getUid("setTitle:"), HCObjcSendIdMessageId((id)objc_getClass("NSString"), sel_getUid("stringWithUTF8String:"), (id)"Quit"));
+//    HCObjcSendVoidMessageId(quitItem, sel_getUid("setTarget:"), NSApp);
+//    HCObjcSendVoidMessageId(quitItem, sel_getUid("setAction:"), (id)sel_getUid("terminate:"));
+//
+//    id applicationMenu = HCObjcSendIdMessageVoid(HCObjcSendIdMessageVoid((id)objc_getClass("NSMenu"), sel_getUid("alloc")), sel_getUid("init"));
+//    HCObjcSendVoidMessageId(applicationMenu, sel_getUid("addItem:"), quitItem);
+//
+//    id applicationMenuItem = HCObjcSendIdMessageVoid(HCObjcSendIdMessageVoid((id)objc_getClass("NSMenuItem"), sel_getUid("alloc")), sel_getUid("init"));
+//    HCObjcSendVoidMessageId(applicationMenuItem, sel_getUid("setSubmenu:"), applicationMenu);
+//
+//    id mainMenu = HCObjcSendIdMessageVoid(HCObjcSendIdMessageVoid((id)objc_getClass("NSMenu"), sel_getUid("alloc")), sel_getUid("init"));
+//    HCObjcSendVoidMessageId(mainMenu, sel_getUid("addItem:"), applicationMenuItem);
+//
+//    HCObjcSendVoidMessageId(NSApp, sel_getUid("setMainMenu:"), mainMenu);
+//}
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Operations
@@ -100,8 +154,7 @@ void HCApplicationRun(HCApplicationRef self, HCApplicationReadyCallback readyCal
     self->readyCallback = readyCallback;
     self->readyCallbackContext = readyCallbackContext;
     
-    id applicationDelegateObject = HCObjcSendIdMessageVoid((id)objc_getClass("AppDelegate"), sel_getUid("alloc"));
-    applicationDelegateObject = HCObjcSendIdMessageVoid(applicationDelegateObject, sel_getUid("init"));
+    id applicationDelegateObject = HCObjcSendIdMessageVoid(HCObjcSendIdMessageVoid((id)objc_getClass("AppDelegate"), sel_getUid("alloc")), sel_getUid("init"));
     ((HCApplicationDelegate*)applicationDelegateObject)->application = HCRetain(self);
     HCObjcSendVoidMessageId(NSApp, sel_getUid("setDelegate:"), applicationDelegateObject);
     HCObjcSendVoidMessageVoid(NSApp, sel_getUid("run"));
@@ -114,7 +167,7 @@ void HCApplicationTerminate(HCApplicationRef self) {
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Foundation
 //----------------------------------------------------------------------------------------------------------------------------------
-BOOL HCApplicationDelegateDidFinishLaunching(HCApplicationDelegate* applicationDelegate, SEL _cmd, id notification) {
+BOOL HCApplicationDelegateApplicationDidFinishLaunching(HCApplicationDelegate* applicationDelegate, SEL _cmd, id notification) {
     HCApplicationRef self = applicationDelegate->application;
     
     // Call ready callback
@@ -122,5 +175,9 @@ BOOL HCApplicationDelegateDidFinishLaunching(HCApplicationDelegate* applicationD
         self->readyCallback(self->readyCallbackContext, self);
     }
     
+    return true;
+}
+
+BOOL HCApplicationDelegateApplicationShouldTerminateAfterLastWindowClosed(HCApplicationDelegate* applicationDelegate) {
     return true;
 }

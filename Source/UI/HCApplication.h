@@ -10,6 +10,7 @@
 #define HCApplication_h
 
 #include "../../HollowCore/Source/HollowCore.h"
+#include "HCMenu.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
@@ -37,6 +38,10 @@ void HCApplicationPrint(HCApplicationRef self, FILE* stream);
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Attributes
 //----------------------------------------------------------------------------------------------------------------------------------
+HCInteger HCApplicationMenuCount(HCApplicationRef self);
+HCMenuRef HCApplicationMenuAtIndexRetained(HCApplicationRef self, HCInteger index);
+void HCApplicationAddMenu(HCApplicationRef self, HCMenuRef menu);
+void HCApplicationRemoveMenu(HCApplicationRef self, HCInteger index);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Operations

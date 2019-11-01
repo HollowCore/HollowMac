@@ -9,6 +9,11 @@
 #include "ctest.h"
 #include "../Source/HollowMac.h"
 
+void QuitClicked(void* context, HCButtonRef button) {
+    HCApplicationRef application = context;
+    HCApplicationTerminate(application);
+}
+
 void ButtonClicked(void* context, HCButtonRef button) {
     printf("Clicked!\n");
     HCViewRef parent = HCViewParentViewRetained((HCViewRef)button);
@@ -36,5 +41,15 @@ void ApplicationReady(void* context, HCApplicationRef application) {
 
 CTEST(Application, FullUI) {
     HCApplicationRef application = HCApplicationCreate();
+    
+    HCMenuRef applicationMenu = HCMenuCreate();
+    
+    HCMenuRef quitMenuItem = HCMenuCreate();
+    HCMenuSetTitle(quitMenuItem, HCStringCreateWithCString("Quit"));
+    HCMenuSetClickCallback(quitMenuItem, QuitClicked, application);
+    HCMenuAddChildMenu(applicationMenu, quitMenuItem);
+    
+    HCApplicationAddMenu(application, applicationMenu);
+    
     HCApplicationRun(application, ApplicationReady, NULL);
 }

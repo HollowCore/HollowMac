@@ -24,14 +24,14 @@ extern HCViewTypeData HCViewTypeDataInstance;
 //----------------------------------------------------------------------------------------------------------------------------------
 typedef struct HCView {
     HCObject base;
-    id view;
+    id nsView;
 } HCView;
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-HCViewRef HCViewCreateWithView(id view);
-void HCViewInit(void* memory, id view);
+HCViewRef HCViewCreateWithNSView(id nsView);
+void HCViewInit(void* memory, id nsView);
 void HCViewDestroy(HCViewRef self);
 
 #endif /* HCView_Internal_h */

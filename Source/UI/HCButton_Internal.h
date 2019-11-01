@@ -25,7 +25,7 @@ typedef struct HCButton {
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-HCButtonRef HCButtonCreateWithView(id button);
+HCButtonRef HCButtonCreateWithNSButton(id button);
 void HCButtonInit(void* memory, id button);
 void HCButtonDestroy(HCButtonRef self);
 

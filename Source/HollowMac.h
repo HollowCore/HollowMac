@@ -10,6 +10,7 @@
 #define HollowMac_h
 
 #include "UI/HCApplication.h"
+#include "UI/HCMenu.h"
 #include "UI/HCWindow.h"
 #include "UI/HCView.h"
 #include "UI/HCButton.h"

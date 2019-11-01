@@ -14,7 +14,7 @@
 const HCViewTypeData HCViewTypeDataInstance = {
     .base = {
         .base = {
-            .ancestor = &HCObjectTypeDataInstance.base,
+            .ancestor = (HCType)&HCObjectTypeDataInstance,
             .name = "HCView",
         },
         .isEqual = (void*)HCViewIsEqual,
@@ -30,46 +30,43 @@ HCType HCViewType = &HCViewTypeDataInstance.base.base;
 //----------------------------------------------------------------------------------------------------------------------------------
 HCViewRef HCViewCreate() {
     // Create NSView
-    id nsView = HCObjcSendIdMessageVoid((id)objc_getClass("NSView"), sel_getUid("alloc"));
-    nsView = HCObjcSendIdMessageVoid(
-        nsView,
-        sel_getUid("init")
-    );
+    id nsView = HCObjcSendIdMessageVoid(HCObjcSendIdMessageVoid((id)objc_getClass("NSView"), sel_getUid("alloc")), sel_getUid("init"));
     HCObjcSendVoidMessageBool(nsView, sel_getUid("setWantsLayer:"), true);
+    HCObjcSendVoidMessageBool(nsView, sel_getUid("setFlipped:"), true);
     
     // Create HCView
-    HCViewRef hcView = HCViewCreateWithView(nsView);
-    HCObjcSendVoidMessageVoid(hcView->view, sel_getUid("release"));
-    return hcView;
+    HCViewRef view = HCViewCreateWithNSView(nsView);
+    HCObjcSendVoidMessageVoid(view->nsView, sel_getUid("release"));
+    return view;
 }
 
-HCViewRef HCViewCreateWithView(id view) {
+HCViewRef HCViewCreateWithNSView(id nsView) {
     HCViewRef self = calloc(sizeof(HCView), 1);
-    HCViewInit(self, view);
+    HCViewInit(self, nsView);
     return self;
 }
 
-void HCViewInit(void* memory, id view) {
+void HCViewInit(void* memory, id nsView) {
     // Initialize view object
     HCObjectInit(memory);
     HCViewRef self = memory;
     self->base.type = HCViewType;
-    self->view = HCObjcSendIdMessageVoid(view,sel_getUid("retain"));
+    self->nsView = HCObjcSendIdMessageVoid(nsView, sel_getUid("retain"));
 }
 
 void HCViewDestroy(HCViewRef self) {
-    HCObjcSendVoidMessageVoid(self->view, sel_getUid("release"));
+    HCObjcSendVoidMessageVoid(self->nsView, sel_getUid("release"));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Polymorphic Functions
 //----------------------------------------------------------------------------------------------------------------------------------
 HCBoolean HCViewIsEqual(HCViewRef self, HCViewRef other) {
-    return HCIntegerIsEqual((HCInteger)self->view, (HCInteger)other->view);
+    return HCIntegerIsEqual((HCInteger)self->nsView, (HCInteger)other->nsView);
 }
 
 HCInteger HCViewHashValue(HCViewRef self) {
-    return HCIntegerHashValue((HCInteger)self->view);
+    return HCIntegerHashValue((HCInteger)self->nsView);
 }
 
 void HCViewPrint(HCViewRef self, FILE* stream) {
@@ -93,25 +90,25 @@ void HCViewSetCenter(HCViewRef self, HCPoint center) {
 }
 
 HCSize HCViewSize(HCViewRef self) {
-    CGRect bounds = HCObjcSendCGRectMessageVoid(self->view, sel_getUid("bounds"));
+    CGRect bounds = HCObjcSendCGRectMessageVoid(self->nsView, sel_getUid("bounds"));
     return HCSizeMakeWithCGSize(bounds.size);
 }
 
 void HCViewSetSize(HCViewRef self, HCSize size) {
-    HCObjcSendVoidMessageCGRect(self->view, sel_getUid("setBounds:"), CGRectMakeWithHCRectangle(HCRectangleMake(HCPointZero, size)));
+    HCObjcSendVoidMessageCGRect(self->nsView, sel_getUid("setBounds:"), CGRectMakeWithHCRectangle(HCRectangleMake(HCPointZero, size)));
 }
 
 HCRectangle HCViewFrame(HCViewRef self) {
-    CGRect frame = HCObjcSendCGRectMessageVoid(self->view, sel_getUid("frame"));
+    CGRect frame = HCObjcSendCGRectMessageVoid(self->nsView, sel_getUid("frame"));
     return HCRectangleMakeWithCGRect(frame);
 }
 
 void HCViewSetFrame(HCViewRef self, HCRectangle frame) {
-    HCObjcSendVoidMessageCGRect(self->view, sel_getUid("setFrame:"), CGRectMakeWithHCRectangle(frame));
+    HCObjcSendVoidMessageCGRect(self->nsView, sel_getUid("setFrame:"), CGRectMakeWithHCRectangle(frame));
 }
 
 HCColor HCViewBackgroundColor(HCViewRef self) {
-    id layer = HCObjcSendIdMessageVoid(self->view, sel_getUid("layer"));
+    id layer = HCObjcSendIdMessageVoid(self->nsView, sel_getUid("layer"));
     id backgroundCGColor = HCObjcSendIdMessageVoid(layer, sel_getUid("backgroundColor"));
     id backgroundNSColor = HCObjcSendIdMessageId((id)objc_getClass("NSColor"), sel_getUid("colorWithCGColor:"), backgroundCGColor);
     HCColor color = HCColorMakeWithNSColor(backgroundNSColor);
@@ -122,7 +119,7 @@ HCColor HCViewBackgroundColor(HCViewRef self) {
 void HCViewSetBackgroundColor(HCViewRef self, HCColor color) {
     id backgroundNSColor = NSColorAllocInitWithHCColor(color);
     id backgroundCGColor = HCObjcSendIdMessageVoid(backgroundNSColor, sel_getUid("CGColor"));
-    id layer = HCObjcSendIdMessageVoid(self->view, sel_getUid("layer"));
+    id layer = HCObjcSendIdMessageVoid(self->nsView, sel_getUid("layer"));
     HCObjcSendVoidMessageId(layer, sel_getUid("setBackgroundColor:"), backgroundCGColor);
     HCObjcSendVoidMessageVoid(backgroundNSColor, sel_getUid("release"));
 }
@@ -131,38 +128,27 @@ void HCViewSetBackgroundColor(HCViewRef self, HCColor color) {
 // MARK: - Related Views
 //----------------------------------------------------------------------------------------------------------------------------------
 HCViewRef HCViewParentViewRetained(HCViewRef self) {
-    id parent = HCObjcSendIdMessageVoid(self->view, sel_getUid("superview"));
-    return HCViewCreateWithView(parent);
-}
-
-HCListRef HCViewChildViewsRetained(HCViewRef self) {
-    HCListRef childViews = HCListCreate();
-    id subviews = HCObjcSendIdMessageVoid(self->view, sel_getUid("subviews"));
-    NSInteger count = HCObjcSendNSIntegerMessageVoid(subviews, sel_getUid("count"));
-    for (NSInteger index = 0; index < count; index++) {
-        id subview = HCObjcSendIdMessageNSInteger(subviews, sel_getUid("objectAtIndex:"), index);
-        HCListAddObjectReleased(childViews, HCViewCreateWithView(subview));
-    }
-    return childViews;
+    id parent = HCObjcSendIdMessageVoid(self->nsView, sel_getUid("superview"));
+    return HCViewCreateWithNSView(parent);
 }
 
 HCInteger HCViewChildViewCount(HCViewRef self) {
-    id subviews = HCObjcSendIdMessageVoid(self->view, sel_getUid("subviews"));
+    id subviews = HCObjcSendIdMessageVoid(self->nsView, sel_getUid("subviews"));
     return HCObjcSendNSIntegerMessageVoid(subviews, sel_getUid("count"));
 }
 
 HCViewRef HCViewChildViewAtIndexRetained(HCViewRef self, HCInteger index) {
-    id subviews = HCObjcSendIdMessageVoid(self->view, sel_getUid("subviews"));
+    id subviews = HCObjcSendIdMessageVoid(self->nsView, sel_getUid("subviews"));
     id subview = HCObjcSendIdMessageNSInteger(subviews, sel_getUid("objectAtIndex:"), index);
-    return HCViewCreateWithView(subview);
+    return HCViewCreateWithNSView(subview);
 }
 
 void HCViewAddChildView(HCViewRef self, HCViewRef child) {
-    HCObjcSendVoidMessageId(self->view, sel_getUid("addSubview:"), child->view);
+    HCObjcSendVoidMessageId(self->nsView, sel_getUid("addSubview:"), child->nsView);
 }
 
 void HCViewRemoveChildView(HCViewRef self, HCInteger index) {
-    id subviews = HCObjcSendIdMessageVoid(self->view, sel_getUid("subviews"));
+    id subviews = HCObjcSendIdMessageVoid(self->nsView, sel_getUid("subviews"));
     id subview = HCObjcSendIdMessageNSInteger(subviews, sel_getUid("objectAtIndex:"), index);
     HCObjcSendVoidMessageVoid(subview, sel_getUid("removeFromSuperview"));
 }

@@ -9,7 +9,7 @@
 #ifndef HCButton_h
 #define HCButton_h
 
-#include "../../HollowCore/Source/HollowCore.h"
+#include "HCView.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type

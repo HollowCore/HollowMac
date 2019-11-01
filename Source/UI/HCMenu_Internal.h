@@ -1,31 +1,34 @@
 //
-//  HCWindow_Internal.h
-//  HollowCore
+//  HCMenu_Internal.h
+//  HollowMac
 //
-//  Created by Matt Stoker on 10/13/19.
+//  Created by Matt Stoker on 10/31/19.
 //  Copyright © 2019 HollowCore. All rights reserved.
 //
 
-#ifndef HCWindow_Internal_h
-#define HCWindow_Internal_h
+#ifndef HCMenu_Internal_h
+#define HCMenu_Internal_h
 
 #include "../../HollowCore/Source/Core/HCObject_Internal.h"
 #include "HCMac.h"
-#include "HCWindow.h"
+#include "HCMenu.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
 //----------------------------------------------------------------------------------------------------------------------------------
-typedef struct HCWindow {
+typedef struct HCMenu {
     HCObject base;
-    id nsWindow;
-    HCViewRef contentView;
-} HCWindow;
+    id nsMenuItem;
+    id eventReceiver;
+    HCMenuClickFunction clickCallback;
+    void* clickContext;
+} HCMenu;
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-void HCWindowInit(void* memory);
-void HCWindowDestroy(HCWindowRef self);
+HCMenuRef HCMenuCreateWithNSMenuItem(id nsMenuItem);
+void HCMenuInit(void* memory, id nsMenuItem);
+void HCMenuDestroy(HCMenuRef self);
 
-#endif /* HCWindow_Internal_h */
+#endif /* HCMenu_Internal_h */

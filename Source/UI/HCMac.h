@@ -148,6 +148,9 @@ static HCObjcIdMessageCGFloatCGFloatCGFloatCGFloat HCObjcSendIdMessageCGFloatCGF
 typedef id (*HCObjcBoolMessageCGFloatPtrCGFloatPtrCGFloatPtrCGFloatPtr)(id, SEL, CGFloat*, CGFloat*, CGFloat*, CGFloat*);
 static HCObjcBoolMessageCGFloatPtrCGFloatPtrCGFloatPtrCGFloatPtr HCObjcSendBoolMessageCGFloatPtrCGFloatPtrCGFloatPtrCGFloatPtr = (HCObjcBoolMessageCGFloatPtrCGFloatPtrCGFloatPtrCGFloatPtr)objc_msgSend;
 
+typedef id (*HCObjcIdMessageIdSELId)(id, SEL, id, SEL, id);
+static HCObjcIdMessageIdSELId HCObjcSendIdMessageIdSELId = (HCObjcIdMessageIdSELId)objc_msgSend;
+
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Conversion Convenience
 //----------------------------------------------------------------------------------------------------------------------------------

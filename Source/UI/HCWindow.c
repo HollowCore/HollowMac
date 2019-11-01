@@ -14,7 +14,7 @@
 //----------------------------------------------------------------------------------------------------------------------------------
 const HCObjectTypeData HCWindowTypeDataInstance = {
     .base = {
-        .ancestor = &HCObjectTypeDataInstance.base,
+        .ancestor = (HCType)&HCObjectTypeDataInstance,
         .name = "HCWindow",
     },
     .isEqual = (void*)HCWindowIsEqual,
@@ -53,19 +53,19 @@ void HCWindowInit(void* memory) {
     // Create window content view
     HCViewRef contentView = HCViewCreate();
     HCViewSetFrame(contentView, HCRectangleMake(HCPointMake(0.0, 0.0), HCSizeMake(720.0, 480.0)));
-    HCObjcSendVoidMessageId(window, sel_getUid("setContentView:"), contentView->view);
+    HCObjcSendVoidMessageId(window, sel_getUid("setContentView:"), contentView->nsView);
     
     // Initialize window object
     HCObjectInit(memory);
     HCWindowRef self = memory;
     self->base.type = HCWindowType;
-    self->window = window;
+    self->nsWindow = window;
     self->contentView = contentView;
 }
 
 void HCWindowDestroy(HCWindowRef self) {
     HCRelease(self->contentView);
-    HCObjcSendVoidMessageVoid(self->window, sel_getUid("release"));
+    HCObjcSendVoidMessageVoid(self->nsWindow, sel_getUid("release"));
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -73,13 +73,13 @@ void HCWindowDestroy(HCWindowRef self) {
 //----------------------------------------------------------------------------------------------------------------------------------
 HCBoolean HCWindowIsEqual(HCWindowRef self, HCWindowRef other) {
     return
-        HCIntegerIsEqual((HCInteger)self->window, (HCInteger)other->window) &&
+        HCIntegerIsEqual((HCInteger)self->nsWindow, (HCInteger)other->nsWindow) &&
         HCIsEqual(self->contentView, other->contentView);
 }
 
 HCInteger HCWindowHashValue(HCWindowRef self) {
     return
-        HCIntegerHashValue((HCInteger)self->window) ^
+        HCIntegerHashValue((HCInteger)self->nsWindow) ^
         HCHashValue(self->contentView);
 }
 
@@ -98,6 +98,6 @@ HCViewRef HCWindowContentView(HCWindowRef self) {
 // MARK: - Operations
 //----------------------------------------------------------------------------------------------------------------------------------
 void HCWindowDisplay(HCWindowRef self) {
-    HCObjcSendVoidMessageVoid(self->window, sel_getUid("becomeFirstResponder"));
-    HCObjcSendVoidMessageId(self->window, sel_getUid("makeKeyAndOrderFront:"), NULL);
+    HCObjcSendVoidMessageVoid(self->nsWindow, sel_getUid("becomeFirstResponder"));
+    HCObjcSendVoidMessageId(self->nsWindow, sel_getUid("makeKeyAndOrderFront:"), NULL);
 }

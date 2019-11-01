@@ -49,6 +49,9 @@
 		C96652352356CEFD0019CB0B /* HCView.h in Headers */ = {isa = PBXBuildFile; fileRef = C966522D2356CCD20019CB0B /* HCView.h */; };
 		C96652362356CF000019CB0B /* HCButton.h in Headers */ = {isa = PBXBuildFile; fileRef = C96652272356C96D0019CB0B /* HCButton.h */; };
 		C97FDB2A22069BCD002B17FB /* HollowMac.h in Headers */ = {isa = PBXBuildFile; fileRef = C9AA9A2521F174B8001AA9E7 /* HollowMac.h */; };
+		C9B16D32236BA96700E26590 /* HCMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = C9B16D30236BA96700E26590 /* HCMenu.h */; };
+		C9B16D33236BA96700E26590 /* HCMenu.c in Sources */ = {isa = PBXBuildFile; fileRef = C9B16D31236BA96700E26590 /* HCMenu.c */; };
+		C9B16D36236BAFDF00E26590 /* HCMenu.c in Sources */ = {isa = PBXBuildFile; fileRef = C9B16D35236BAFDF00E26590 /* HCMenu.c */; };
 		C9E2F58921ED395D00856F21 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9E2F57821ED37DF00856F21 /* main.c */; };
 		C9E2F58B21ED396800856F21 /* libHollowMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B705E421E3DCC600B63F05 /* libHollowMac.a */; };
 /* End PBXBuildFile section */
@@ -98,6 +101,10 @@
 		C96652302356CCE30019CB0B /* HCView_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCView_Internal.h; sourceTree = "<group>"; };
 		C96652312356CE740019CB0B /* HCView.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCView.c; sourceTree = "<group>"; };
 		C9AA9A2521F174B8001AA9E7 /* HollowMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HollowMac.h; sourceTree = "<group>"; };
+		C9B16D30236BA96700E26590 /* HCMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCMenu.h; sourceTree = "<group>"; };
+		C9B16D31236BA96700E26590 /* HCMenu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCMenu.c; sourceTree = "<group>"; };
+		C9B16D34236BA98F00E26590 /* HCMenu_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCMenu_Internal.h; sourceTree = "<group>"; };
+		C9B16D35236BAFDF00E26590 /* HCMenu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCMenu.c; sourceTree = "<group>"; };
 		C9B705DF21E3D6D300B63F05 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		C9B705E421E3DCC600B63F05 /* libHollowMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHollowMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E2F57821ED37DF00856F21 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
@@ -142,6 +149,9 @@
 				C966521523543D4E0019CB0B /* HCApplication.h */,
 				C966521923543D5E0019CB0B /* HCApplication_Internal.h */,
 				C966521623543D4E0019CB0B /* HCApplication.c */,
+				C9B16D30236BA96700E26590 /* HCMenu.h */,
+				C9B16D34236BA98F00E26590 /* HCMenu_Internal.h */,
+				C9B16D31236BA96700E26590 /* HCMenu.c */,
 				C92BEA0423541B1500F5DFC3 /* HCWindow.h */,
 				C92BEA0323541B1500F5DFC3 /* HCWindow_Internal.h */,
 				C92BEA0523541B1500F5DFC3 /* HCWindow.c */,
@@ -185,6 +195,7 @@
 				C9E2F57821ED37DF00856F21 /* main.c */,
 				C9E2F57921ED37DF00856F21 /* ctest.h */,
 				C966521A23543E000019CB0B /* HCApplication.c */,
+				C9B16D35236BAFDF00E26590 /* HCMenu.c */,
 				C92BEA0923541B2900F5DFC3 /* HCWindow.c */,
 				C96652312356CE740019CB0B /* HCView.c */,
 				C966522B2356CA020019CB0B /* HCButton.c */,
@@ -232,6 +243,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9B16D32236BA96700E26590 /* HCMenu.h in Headers */,
 				C966521723543D4E0019CB0B /* HCApplication.h in Headers */,
 				C92BEA0723541B1500F5DFC3 /* HCWindow.h in Headers */,
 				C96652352356CEFD0019CB0B /* HCView.h in Headers */,
@@ -367,6 +379,7 @@
 			files = (
 				C966521823543D4E0019CB0B /* HCApplication.c in Sources */,
 				C92BEA0823541B1500F5DFC3 /* HCWindow.c in Sources */,
+				C9B16D33236BA96700E26590 /* HCMenu.c in Sources */,
 				C96652332356CEC90019CB0B /* HCView.c in Sources */,
 				C96652342356CECC0019CB0B /* HCButton.c in Sources */,
 			);
@@ -376,6 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9B16D36236BAFDF00E26590 /* HCMenu.c in Sources */,
 				C9E2F58921ED395D00856F21 /* main.c in Sources */,
 				C966521C235440D70019CB0B /* HCApplication.c in Sources */,
 				C966521D235440D90019CB0B /* HCWindow.c in Sources */,

@@ -1,57 +1,55 @@
 //
-//  HCView.h
-//  Test
+//  HCMenu.h
+//  HollowMac
 //
-//  Created by Matt Stoker on 10/15/19.
+//  Created by Matt Stoker on 10/31/19.
 //  Copyright © 2019 HollowCore. All rights reserved.
 //
 
-#ifndef HCView_h
-#define HCView_h
+#ifndef HCMenu_h
+#define HCMenu_h
 
 #include "../../HollowCore/Source/HollowCore.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
 //----------------------------------------------------------------------------------------------------------------------------------
-typedef const struct HCViewTypeData {
-    HCObjectTypeData base;
-} HCViewTypeData;
-extern HCType HCViewType;
+extern HCType HCMenuType;
+typedef struct HCMenu* HCMenuRef;
 
-typedef struct HCView* HCViewRef;
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Definitions
+//----------------------------------------------------------------------------------------------------------------------------------
+typedef void (*HCMenuClickFunction)(void* context, HCMenuRef menu);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-HCViewRef HCViewCreate(void);
+HCMenuRef HCMenuCreate(void);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Polymorphic Functions
 //----------------------------------------------------------------------------------------------------------------------------------
-HCBoolean HCViewIsEqual(HCViewRef self, HCViewRef other);
-HCInteger HCViewHashValue(HCViewRef self);
-void HCViewPrint(HCViewRef self, FILE* stream);
+HCBoolean HCMenuIsEqual(HCMenuRef self, HCMenuRef other);
+HCInteger HCMenuHashValue(HCMenuRef self);
+void HCMenuPrint(HCMenuRef self, FILE* stream);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Attributes
 //----------------------------------------------------------------------------------------------------------------------------------
-HCPoint HCViewCenter(HCViewRef self);
-void HCViewSetCenter(HCViewRef self, HCPoint center);
-HCSize HCViewSize(HCViewRef self);
-void HCViewSetSize(HCViewRef self, HCSize size);
-HCRectangle HCViewFrame(HCViewRef self);
-void HCViewSetFrame(HCViewRef self, HCRectangle frame);
-HCColor HCViewBackgroundColor(HCViewRef self);
-void HCViewSetBackgroundColor(HCViewRef self, HCColor color);
+HCStringRef HCMenuTitleRetained(HCMenuRef self);
+void HCMenuSetTitle(HCMenuRef self, HCStringRef title);
+HCMenuClickFunction HCMenuClickCallback(HCMenuRef self);
+void HCMenuSetClickCallback(HCMenuRef self, HCMenuClickFunction callback, void* context);
 
 //----------------------------------------------------------------------------------------------------------------------------------
-// MARK: - Related Views
+// MARK: - Related Menus
 //----------------------------------------------------------------------------------------------------------------------------------
-HCViewRef HCViewParentViewRetained(HCViewRef self);
-HCInteger HCViewChildViewCount(HCViewRef self);
-HCViewRef HCViewChildViewAtIndexRetained(HCViewRef self, HCInteger index);
-void HCViewAddChildView(HCViewRef self, HCViewRef child);
-void HCViewRemoveChildView(HCViewRef self, HCInteger index);
+HCMenuRef HCMenuParentMenuRetained(HCMenuRef self);
+HCListRef HCMenuItemsRetained(HCMenuRef self);
+HCInteger HCMenuChildMenuCount(HCMenuRef self);
+HCMenuRef HCMenuChildMenuAtIndexRetained(HCMenuRef self, HCInteger index);
+void HCMenuAddChildMenu(HCMenuRef self, HCMenuRef child);
+void HCMenuRemoveChildMenu(HCMenuRef self, HCInteger index);
 
-#endif /* HCView_h */
+#endif /* HCMenu_h */
