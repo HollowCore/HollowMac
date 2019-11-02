@@ -139,6 +139,9 @@ static HCObjcCGRectMessageId HCObjcSendCGRectMessageId = (HCObjcCGRectMessageId)
 typedef id (*HCObjcIdMessageCGRect)(id, SEL, CGRect);
 static HCObjcIdMessageCGRect HCObjcSendIdMessageCGRect = (HCObjcIdMessageCGRect)objc_msgSend;
 
+typedef id (*HCObjcVoidMessageCGRectBool)(id, SEL, CGRect, bool);
+static HCObjcVoidMessageCGRectBool HCObjcSendVoidMessageCGRectBool = (HCObjcVoidMessageCGRectBool)objc_msgSend;
+
 typedef id (*HCObjcIdMessageCGRectIntIntBool)(id, SEL, CGRect, int, int, bool);
 static HCObjcIdMessageCGRectIntIntBool HCObjcSendIdMessageCGRectIntIntBool = (HCObjcIdMessageCGRectIntIntBool)objc_msgSend;
 

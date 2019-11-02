@@ -18,6 +18,16 @@ extern HCType HCWindowType;
 typedef struct HCWindow* HCWindowRef;
 
 //----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Definitions
+//----------------------------------------------------------------------------------------------------------------------------------
+typedef enum HCWindowCoordinateLocation {
+    HCWindowCoordinateLocationUpperLeft,
+    HCWindowCoordinateLocationUpperRight,
+    HCWindowCoordinateLocationLowerLeft,
+    HCWindowCoordinateLocationLowerRight,
+} HCWindowCoordinateLocation;
+
+//----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
 HCWindowRef HCWindowCreate(void);
@@ -32,6 +42,15 @@ void HCWindowPrint(HCWindowRef self, FILE* stream);
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Attributes
 //----------------------------------------------------------------------------------------------------------------------------------
+HCWindowCoordinateLocation HCWindowOriginLocation(HCWindowRef self);
+HCPoint HCWindowCenter(HCWindowRef self);
+void HCWindowSetCenter(HCWindowRef self, HCPoint center);
+HCPoint HCWindowOrigin(HCWindowRef self);
+void HCWindowSetOrigin(HCWindowRef self, HCPoint origin);
+HCSize HCWindowSize(HCWindowRef self);
+void HCWindowSetSize(HCWindowRef self, HCSize size);
+HCRectangle HCWindowFrame(HCWindowRef self);
+void HCWindowSetFrame(HCWindowRef self, HCRectangle frame);
 HCViewRef HCWindowContentView(HCWindowRef self);
 
 //----------------------------------------------------------------------------------------------------------------------------------

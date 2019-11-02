@@ -76,17 +76,6 @@ void HCViewPrint(HCViewRef self, FILE* stream) {
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Attributes
 //----------------------------------------------------------------------------------------------------------------------------------
-HCPoint HCViewOrigin(HCViewRef self) {
-    HCRectangle frame = HCViewFrame(self);
-    return frame.origin;
-}
-
-void HCViewSetOrigin(HCViewRef self, HCPoint origin) {
-    HCRectangle frame = HCViewFrame(self);
-    frame.origin = origin;
-    HCViewSetFrame(self, frame);
-}
-
 HCPoint HCViewCenter(HCViewRef self) {
     HCRectangle frame = HCViewFrame(self);
     return HCPointMake(HCRectangleMidX(frame), HCRectangleMidY(frame));
@@ -97,6 +86,17 @@ void HCViewSetCenter(HCViewRef self, HCPoint center) {
     HCReal dx = center.x - HCRectangleMidX(frame);
     HCReal dy = center.y - HCRectangleMidY(frame);
     frame = HCRectangleOffset(frame, dx, dy);
+    HCViewSetFrame(self, frame);
+}
+
+HCPoint HCViewOrigin(HCViewRef self) {
+    HCRectangle frame = HCViewFrame(self);
+    return frame.origin;
+}
+
+void HCViewSetOrigin(HCViewRef self, HCPoint origin) {
+    HCRectangle frame = HCViewFrame(self);
+    frame.origin = origin;
     HCViewSetFrame(self, frame);
 }
 

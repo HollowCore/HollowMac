@@ -40,6 +40,7 @@ void ApplicationReady(void* context, HCApplicationRef application) {
     
     // Setup application window and UI
     HCWindowRef window = HCWindowCreate();
+    HCWindowSetFrame(window, HCRectangleMake(HCPointMake(0.0, 0.0), HCSizeMake(1600.0, 900.0)));
     
     HCViewRef view = HCViewCreate();
     HCViewSetFrame(view, HCRectangleMake(HCPointMake(30.0, 50.0), HCSizeMake(300.0, 200.0)));

@@ -52,7 +52,6 @@ void HCWindowInit(void* memory) {
     
     // Create window content view
     HCViewRef contentView = HCViewCreate();
-    HCViewSetFrame(contentView, HCRectangleMake(HCPointMake(0.0, 0.0), HCSizeMake(720.0, 480.0)));
     HCObjcSendVoidMessageId(window, sel_getUid("setContentView:"), contentView->nsView);
     
     // Initialize window object
@@ -90,6 +89,54 @@ void HCWindowPrint(HCWindowRef self, FILE* stream) {
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Attributes
 //----------------------------------------------------------------------------------------------------------------------------------
+HCWindowCoordinateLocation HCWindowOriginLocation(HCWindowRef self) {
+    return HCWindowCoordinateLocationLowerLeft;
+}
+
+HCPoint HCWindowCenter(HCWindowRef self) {
+    HCRectangle frame = HCWindowFrame(self);
+    return HCPointMake(HCRectangleMidX(frame), HCRectangleMidY(frame));
+}
+
+void HCWindowSetCenter(HCWindowRef self, HCPoint center) {
+    HCRectangle frame = HCWindowFrame(self);
+    HCReal dx = center.x - HCRectangleMidX(frame);
+    HCReal dy = center.y - HCRectangleMidY(frame);
+    frame = HCRectangleOffset(frame, dx, dy);
+    HCWindowSetFrame(self, frame);
+}
+
+HCPoint HCWindowOrigin(HCWindowRef self) {
+    HCRectangle frame = HCWindowFrame(self);
+    return frame.origin;
+}
+
+void HCWindowSetOrigin(HCWindowRef self, HCPoint origin) {
+    HCRectangle frame = HCWindowFrame(self);
+    frame.origin = origin;
+    HCWindowSetFrame(self, frame);
+}
+
+HCSize HCWindowSize(HCWindowRef self) {
+    HCRectangle frame = HCWindowFrame(self);
+    return frame.size;
+}
+
+void HCWindowSetSize(HCWindowRef self, HCSize size) {
+    HCRectangle frame = HCWindowFrame(self);
+    frame.size = size;
+    HCWindowSetFrame(self, frame);
+}
+
+HCRectangle HCWindowFrame(HCWindowRef self) {
+    CGRect frame = HCObjcSendCGRectMessageVoid(self->nsWindow, sel_getUid("frame"));
+    return HCRectangleMakeWithCGRect(frame);
+}
+
+void HCWindowSetFrame(HCWindowRef self, HCRectangle frame) {
+    HCObjcSendVoidMessageCGRectBool(self->nsWindow, sel_getUid("setFrame:display:"), CGRectMakeWithHCRectangle(frame), true);
+}
+
 HCViewRef HCWindowContentView(HCWindowRef self) {
     return self->contentView;
 }
