@@ -38,7 +38,7 @@ set(SOURCES ${SOURCES} Source/UI/HCButton.c)
 add_library(${HOLLOWMAC_LIBRARY_NAME} ${SOURCES})
 
 # HollowMac Links
-target_link_libraries(${HOLLOWMAC_LIBRARY_NAME} m pthread)
+target_link_libraries(${HOLLOWMAC_LIBRARY_NAME} m pthread "-framework AppKit")
 add_dependencies(${HOLLOWMAC_LIBRARY_NAME} hollowcore)
 target_link_libraries(${HOLLOWMAC_LIBRARY_NAME} hollowcore)
 
@@ -106,3 +106,10 @@ if (COVERAGE)
     add_dependencies(coverage ${HOLLOWMAC_TEST_NAME})
     set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES coverage)
 endif ()
+
+# HollowMac Sample App
+set(HOLLOWMAC_APP_NAME controls)
+set(APP_SOURCES ${APP_SOURCES} App/main.c)
+add_executable(${HOLLOWMAC_APP_NAME} ${APP_SOURCES})
+add_dependencies(${HOLLOWMAC_APP_NAME} hollowcore)
+target_link_libraries(${HOLLOWMAC_APP_NAME} hollowmac)
