@@ -30,3 +30,10 @@ CTEST(HCWindow, Print) {
     HCWindowPrint(window, stdout); // TODO: Not to stdout
     HCRelease(window);
 }
+
+CTEST(HCWindow, Display) {
+    HCWindowRef window = HCWindowCreate();
+    HCWindowDisplay(window);
+    ASSERT_NOT_NULL(HCWindowContentView(window));
+    HCRelease(window);
+}
