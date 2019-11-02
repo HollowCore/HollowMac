@@ -31,14 +31,14 @@ HCType HCButtonType = (HCType)&HCButtonTypeDataInstance;
 
 // TODO: Put these into type struct
 Class g_ButtonEventReceiverClass = NULL;
-void HCButtonClickEvent(id eventReceiver, SEL _cmd, id sender);
+void HCButtonClickEvent(id eventReceiver, SEL cmd, id sender);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
 HCButtonRef HCButtonCreate() {
     // Create button
-    id nsButton = HCObjcSendIdMessageCGRect(HCObjcSendIdMessageVoid((id)objc_getClass("NSButton"), sel_getUid("alloc")), sel_getUid("initWithFrame:"), (CGRect){ 0, 0, 0, 0 });
+    id nsButton = HCObjcSendIdMessageCGRect(HCObjcSendIdMessageVoid((id)objc_getClass("NSButton"), sel_getUid("alloc")), sel_getUid("initWithFrame:"), (CGRect){ {0, 0}, {0, 0} });
     
     return HCButtonCreateWithNSButton(nsButton);
 }
@@ -114,7 +114,9 @@ void HCButtonSetClickCallback(HCButtonRef self, HCButtonClickFunction callback, 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Foundation
 //----------------------------------------------------------------------------------------------------------------------------------
-void HCButtonClickEvent(id eventReceiver, SEL _cmd, id sender) {
+void HCButtonClickEvent(id eventReceiver, SEL cmd, id sender) {
+    (void)cmd; // Unused
+    (void)sender; // Unused
     ptrdiff_t offset = ivar_getOffset(class_getInstanceVariable(g_ButtonEventReceiverClass, "hcButton"));
     HCButtonRef self = *(HCButtonRef*)((uint8_t*)eventReceiver + offset);
     if (self->clickCallback != NULL) {

@@ -30,7 +30,7 @@ HCType HCMenuType = (HCType)&HCMenuTypeDataInstance;
 
 // TODO: Put these into type struct
 Class g_MenuEventReceiverClass = NULL;
-void HCMenuClickEvent(id eventReceiver, SEL _cmd, id sender);
+void HCMenuClickEvent(id eventReceiver, SEL cmd, id sender);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
@@ -174,7 +174,9 @@ void HCMenuRemoveChildMenu(HCMenuRef self, HCInteger index) {
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Foundation
 //----------------------------------------------------------------------------------------------------------------------------------
-void HCMenuClickEvent(id eventReceiver, SEL _cmd, id sender) {
+void HCMenuClickEvent(id eventReceiver, SEL cmd, id sender) {
+    (void)cmd; // Unused
+    (void)sender; // Unused
     ptrdiff_t offset = ivar_getOffset(class_getInstanceVariable(g_MenuEventReceiverClass, "hcMenu"));
     HCMenuRef self = *(HCMenuRef*)((uint8_t*)eventReceiver + offset);
     if (self->clickCallback != NULL) {

@@ -27,7 +27,7 @@ HCType HCWindowType = (HCType)&HCWindowTypeDataInstance;
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Definitions
 //----------------------------------------------------------------------------------------------------------------------------------
-void HCWindowDrawRect(id self, SEL _cmd, CGRect rect);
+void HCWindowDrawRect(id self, SEL cmd, CGRect rect);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
@@ -44,7 +44,7 @@ void HCWindowInit(void* memory) {
     window = HCObjcSendIdMessageCGRectIntIntBool(
         window,
         sel_getUid("initWithContentRect:styleMask:backing:defer:"),
-        (CGRect){ 0, 0, 720, 480 },
+        (CGRect){ {0, 0}, {720, 480} },
         NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask,
         0,
         false
