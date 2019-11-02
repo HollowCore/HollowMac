@@ -41,7 +41,6 @@
 		C966521C235440D70019CB0B /* HCApplication.c in Sources */ = {isa = PBXBuildFile; fileRef = C966521A23543E000019CB0B /* HCApplication.c */; };
 		C966521D235440D90019CB0B /* HCWindow.c in Sources */ = {isa = PBXBuildFile; fileRef = C92BEA0923541B2900F5DFC3 /* HCWindow.c */; };
 		C96652222354416B0019CB0B /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C966521E235441470019CB0B /* AppKit.framework */; };
-		C96652262356C4490019CB0B /* Application.c in Sources */ = {isa = PBXBuildFile; fileRef = C96652252356C4490019CB0B /* Application.c */; };
 		C966522C2356CA020019CB0B /* HCButton.c in Sources */ = {isa = PBXBuildFile; fileRef = C966522B2356CA020019CB0B /* HCButton.c */; };
 		C96652322356CE740019CB0B /* HCView.c in Sources */ = {isa = PBXBuildFile; fileRef = C96652312356CE740019CB0B /* HCView.c */; };
 		C96652332356CEC90019CB0B /* HCView.c in Sources */ = {isa = PBXBuildFile; fileRef = C966522E2356CCD20019CB0B /* HCView.c */; };
@@ -52,6 +51,9 @@
 		C9B16D32236BA96700E26590 /* HCMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = C9B16D30236BA96700E26590 /* HCMenu.h */; };
 		C9B16D33236BA96700E26590 /* HCMenu.c in Sources */ = {isa = PBXBuildFile; fileRef = C9B16D31236BA96700E26590 /* HCMenu.c */; };
 		C9B16D36236BAFDF00E26590 /* HCMenu.c in Sources */ = {isa = PBXBuildFile; fileRef = C9B16D35236BAFDF00E26590 /* HCMenu.c */; };
+		C9B16D54236DDCBB00E26590 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9B16D53236DDCBB00E26590 /* main.c */; };
+		C9B16D55236DDD3500E26590 /* libHollowMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B705E421E3DCC600B63F05 /* libHollowMac.a */; };
+		C9B16D56236DDD6800E26590 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C966521E235441470019CB0B /* AppKit.framework */; };
 		C9E2F58921ED395D00856F21 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9E2F57821ED37DF00856F21 /* main.c */; };
 		C9E2F58B21ED396800856F21 /* libHollowMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B705E421E3DCC600B63F05 /* libHollowMac.a */; };
 /* End PBXBuildFile section */
@@ -91,7 +93,6 @@
 		C966521E235441470019CB0B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		C96652202354414E0019CB0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C96652232354447B0019CB0B /* HCMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCMac.h; sourceTree = "<group>"; };
-		C96652252356C4490019CB0B /* Application.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Application.c; sourceTree = "<group>"; };
 		C96652272356C96D0019CB0B /* HCButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCButton.h; sourceTree = "<group>"; };
 		C96652282356C96D0019CB0B /* HCButton.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCButton.c; sourceTree = "<group>"; };
 		C966522A2356C97A0019CB0B /* HCButton_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCButton_Internal.h; sourceTree = "<group>"; };
@@ -105,6 +106,10 @@
 		C9B16D31236BA96700E26590 /* HCMenu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCMenu.c; sourceTree = "<group>"; };
 		C9B16D34236BA98F00E26590 /* HCMenu_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCMenu_Internal.h; sourceTree = "<group>"; };
 		C9B16D35236BAFDF00E26590 /* HCMenu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCMenu.c; sourceTree = "<group>"; };
+		C9B16D3F236DDBFB00E26590 /* Controls.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Controls.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9B16D49236DDBFF00E26590 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C9B16D4C236DDBFF00E26590 /* Controls.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Controls.entitlements; sourceTree = "<group>"; };
+		C9B16D53236DDCBB00E26590 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		C9B705DF21E3D6D300B63F05 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		C9B705E421E3DCC600B63F05 /* libHollowMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHollowMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E2F57821ED37DF00856F21 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
@@ -122,6 +127,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		C9B16D3C236DDBFB00E26590 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9B16D56236DDD6800E26590 /* AppKit.framework in Frameworks */,
+				C9B16D55236DDD3500E26590 /* libHollowMac.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9B705E221E3DCC600B63F05 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -165,6 +179,16 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		C9B16D40236DDBFB00E26590 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C9B16D49236DDBFF00E26590 /* Info.plist */,
+				C9B16D4C236DDBFF00E26590 /* Controls.entitlements */,
+				C9B16D53236DDCBB00E26590 /* main.c */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		C9DBDC4321D6D8B70001779C = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +199,7 @@
 				F8CBB8E721E5BD0B00DB022F /* Source */,
 				C9E2F57721ED37DF00856F21 /* Test */,
 				F803D38221EE60FD001E2DE6 /* Tools */,
+				C9B16D40236DDBFB00E26590 /* App */,
 				C9DBDC4D21D6D8B70001779C /* Products */,
 				C9E2F58A21ED396800856F21 /* Frameworks */,
 			);
@@ -185,6 +210,7 @@
 			children = (
 				C9B705E421E3DCC600B63F05 /* libHollowMac.a */,
 				C9E2F58221ED38FD00856F21 /* Test */,
+				C9B16D3F236DDBFB00E26590 /* Controls.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,7 +225,6 @@
 				C92BEA0923541B2900F5DFC3 /* HCWindow.c */,
 				C96652312356CE740019CB0B /* HCView.c */,
 				C966522B2356CA020019CB0B /* HCButton.c */,
-				C96652252356C4490019CB0B /* Application.c */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -255,6 +280,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		C9B16D3E236DDBFB00E26590 /* Controls */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9B16D4D236DDBFF00E26590 /* Build configuration list for PBXNativeTarget "Controls" */;
+			buildPhases = (
+				C9B16D3B236DDBFB00E26590 /* Sources */,
+				C9B16D3C236DDBFB00E26590 /* Frameworks */,
+				C9B16D3D236DDBFB00E26590 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Controls;
+			productName = Controls;
+			productReference = C9B16D3F236DDBFB00E26590 /* Controls.app */;
+			productType = "com.apple.product-type.application";
+		};
 		C9B705E321E3DCC600B63F05 /* HollowMac */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C9B705E521E3DCC600B63F05 /* Build configuration list for PBXNativeTarget "HollowMac" */;
@@ -298,6 +340,9 @@
 				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = HollowCore;
 				TargetAttributes = {
+					C9B16D3E236DDBFB00E26590 = {
+						CreatedOnToolsVersion = 11.0;
+					};
 					C9B705E321E3DCC600B63F05 = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -329,9 +374,20 @@
 				C9E2F58121ED38FD00856F21 /* Test */,
 				F803D38E21EEC303001E2DE6 /* CMake Build */,
 				F803D39321EEC361001E2DE6 /* CMake Test */,
+				C9B16D3E236DDBFB00E26590 /* Controls */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C9B16D3D236DDBFB00E26590 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		F803D39221EEC30A001E2DE6 /* CMake Build */ = {
@@ -373,6 +429,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		C9B16D3B236DDBFB00E26590 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9B16D54236DDCBB00E26590 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C9B705E121E3DCC600B63F05 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -395,7 +459,6 @@
 				C966521D235440D90019CB0B /* HCWindow.c in Sources */,
 				C96652322356CE740019CB0B /* HCView.c in Sources */,
 				C966522C2356CA020019CB0B /* HCButton.c in Sources */,
-				C96652262356C4490019CB0B /* Application.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +473,46 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		C9B16D4E236DDBFF00E26590 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Controls/Controls.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Y28T696EX5;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hollowcore.Controls;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C9B16D4F236DDBFF00E26590 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Controls/Controls.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Y28T696EX5;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hollowcore.Controls;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		C9B705E621E3DCC600B63F05 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -594,6 +697,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		C9B16D4D236DDBFF00E26590 /* Build configuration list for PBXNativeTarget "Controls" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9B16D4E236DDBFF00E26590 /* Debug */,
+				C9B16D4F236DDBFF00E26590 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C9B705E521E3DCC600B63F05 /* Build configuration list for PBXNativeTarget "HollowMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
