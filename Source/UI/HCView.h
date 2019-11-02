@@ -38,6 +38,8 @@ void HCViewPrint(HCViewRef self, FILE* stream);
 //----------------------------------------------------------------------------------------------------------------------------------
 HCPoint HCViewCenter(HCViewRef self);
 void HCViewSetCenter(HCViewRef self, HCPoint center);
+HCPoint HCViewOrigin(HCViewRef self);
+void HCViewSetOrigin(HCViewRef self, HCPoint origin);
 HCSize HCViewSize(HCViewRef self);
 void HCViewSetSize(HCViewRef self, HCSize size);
 HCRectangle HCViewFrame(HCViewRef self);

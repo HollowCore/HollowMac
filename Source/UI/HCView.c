@@ -76,6 +76,17 @@ void HCViewPrint(HCViewRef self, FILE* stream) {
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Attributes
 //----------------------------------------------------------------------------------------------------------------------------------
+HCPoint HCViewOrigin(HCViewRef self) {
+    HCRectangle frame = HCViewFrame(self);
+    return frame.origin;
+}
+
+void HCViewSetOrigin(HCViewRef self, HCPoint origin) {
+    HCRectangle frame = HCViewFrame(self);
+    frame.origin = origin;
+    HCViewSetFrame(self, frame);
+}
+
 HCPoint HCViewCenter(HCViewRef self) {
     HCRectangle frame = HCViewFrame(self);
     return HCPointMake(HCRectangleMidX(frame), HCRectangleMidY(frame));
@@ -90,12 +101,14 @@ void HCViewSetCenter(HCViewRef self, HCPoint center) {
 }
 
 HCSize HCViewSize(HCViewRef self) {
-    CGRect bounds = HCObjcSendCGRectMessageVoid(self->nsView, sel_getUid("bounds"));
-    return HCSizeMakeWithCGSize(bounds.size);
+    HCRectangle frame = HCViewFrame(self);
+    return frame.size;
 }
 
 void HCViewSetSize(HCViewRef self, HCSize size) {
-    HCObjcSendVoidMessageCGRect(self->nsView, sel_getUid("setBounds:"), CGRectMakeWithHCRectangle(HCRectangleMake(HCPointZero, size)));
+    HCRectangle frame = HCViewFrame(self);
+    frame.size = size;
+    HCViewSetFrame(self, frame);
 }
 
 HCRectangle HCViewFrame(HCViewRef self) {

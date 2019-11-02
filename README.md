@@ -56,6 +56,6 @@ $ cd HollowMac
 $ mkdir build
 $ cd build
 $ cmake .. -DCOVERAGE=1
-$ make coverage
-$ open coverage/html/index.html
+$ make hollowmaccoverage
+$ open hollowmaccoverage/html/index.html
 ```
