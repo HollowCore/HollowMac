@@ -175,8 +175,7 @@ void HCMenuRemoveChildMenu(HCMenuRef self, HCInteger index) {
 // MARK: - Foundation
 //----------------------------------------------------------------------------------------------------------------------------------
 void HCMenuClickEvent(id eventReceiver, SEL cmd, id sender) {
-    (void)cmd; // Unused
-    (void)sender; // Unused
+    (void)cmd; (void)sender; // Unused
     ptrdiff_t offset = ivar_getOffset(class_getInstanceVariable(g_MenuEventReceiverClass, "hcMenu"));
     HCMenuRef self = *(HCMenuRef*)((uint8_t*)eventReceiver + offset);
     if (self->clickCallback != NULL) {

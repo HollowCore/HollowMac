@@ -156,8 +156,7 @@ void HCApplicationTerminate(HCApplicationRef self) {
 // MARK: - Foundation
 //----------------------------------------------------------------------------------------------------------------------------------
 BOOL HCApplicationDelegateApplicationDidFinishLaunching(HCApplicationDelegate* applicationDelegate, SEL cmd, id notification) {
-    (void)cmd; // Unused
-    (void)notification; // Unused
+    (void)cmd; (void)notification; // Unused
     HCApplicationRef self = applicationDelegate->application;
     
     // Call ready callback

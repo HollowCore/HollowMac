@@ -115,8 +115,7 @@ void HCButtonSetClickCallback(HCButtonRef self, HCButtonClickFunction callback, 
 // MARK: - Foundation
 //----------------------------------------------------------------------------------------------------------------------------------
 void HCButtonClickEvent(id eventReceiver, SEL cmd, id sender) {
-    (void)cmd; // Unused
-    (void)sender; // Unused
+    (void)cmd; (void)sender; // Unused
     ptrdiff_t offset = ivar_getOffset(class_getInstanceVariable(g_ButtonEventReceiverClass, "hcButton"));
     HCButtonRef self = *(HCButtonRef*)((uint8_t*)eventReceiver + offset);
     if (self->clickCallback != NULL) {
