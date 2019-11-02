@@ -75,3 +75,72 @@ CTEST(HCView, Background) {
     HCViewSetBackgroundColor(view, color);
     ASSERT_TRUE(HCColorIsEqual(HCViewBackgroundColor(view), color));
 }
+
+CTEST(HCView, RelatedViews) {
+    HCViewRef view = HCViewCreate();
+    ASSERT_TRUE(HCViewChildViewCount(view) == 0);
+    
+    HCViewRef leftChildView = HCViewCreate();
+    HCViewAddChildView(view, leftChildView);
+    ASSERT_TRUE(HCViewChildViewCount(view) == 1);
+    ASSERT_TRUE(HCViewChildViewCount(leftChildView) == 0);
+    
+    HCViewRef leftLeftChildView = HCViewCreate();
+    HCViewAddChildView(leftChildView, leftLeftChildView);
+    HCViewRef leftMiddleChildView = HCViewCreate();
+    HCViewAddChildView(leftChildView, leftMiddleChildView);
+    HCViewRef leftRightChildView = HCViewCreate();
+    HCViewAddChildView(leftChildView, leftRightChildView);
+    ASSERT_TRUE(HCViewChildViewCount(view) == 1);
+    ASSERT_TRUE(HCViewChildViewCount(leftChildView) == 3);
+    
+    HCViewRef rightChildView = HCViewCreate();
+    HCViewAddChildView(view, rightChildView);
+    ASSERT_TRUE(HCViewChildViewCount(view) == 2);
+    ASSERT_TRUE(HCViewChildViewCount(leftChildView) == 3);
+    ASSERT_TRUE(HCViewChildViewCount(rightChildView) == 0);
+    
+    HCViewRef leftChildViewRetrieved = HCViewChildViewAtIndexRetained(view, 0);
+    ASSERT_TRUE(HCIsEqual(leftChildViewRetrieved, leftChildView));
+    HCViewRef rightChildViewRetrieved = HCViewChildViewAtIndexRetained(view, 1);
+    ASSERT_TRUE(HCIsEqual(rightChildViewRetrieved, rightChildView));
+    HCViewRef leftLeftChildViewRetrieved = HCViewChildViewAtIndexRetained(leftChildView, 0);
+    ASSERT_TRUE(HCIsEqual(leftLeftChildViewRetrieved, leftLeftChildView));
+    HCViewRef leftMiddleChildViewRetrieved = HCViewChildViewAtIndexRetained(leftChildView, 1);
+    ASSERT_TRUE(HCIsEqual(leftMiddleChildViewRetrieved, leftMiddleChildView));
+    HCViewRef leftRightChildViewRetrieved = HCViewChildViewAtIndexRetained(leftChildView, 2);
+    ASSERT_TRUE(HCIsEqual(leftRightChildViewRetrieved, leftRightChildView));
+    
+    HCViewRef leftChildViewParent = HCViewParentViewRetained(leftChildView);
+    ASSERT_TRUE(HCIsEqual(leftChildViewParent, view));
+    
+    HCViewRemoveChildView(leftChildView, 1);
+    ASSERT_TRUE(HCViewChildViewCount(view) == 2);
+    ASSERT_TRUE(HCViewChildViewCount(leftChildView) == 2);
+    ASSERT_TRUE(HCViewChildViewCount(rightChildView) == 0);
+    HCViewRef notLeftMiddleChildViewRetrieved = HCViewChildViewAtIndexRetained(leftChildView, 1);
+    ASSERT_FALSE(HCIsEqual(notLeftMiddleChildViewRetrieved, leftMiddleChildView));
+    
+    HCViewRemoveChildView(view, 0);
+    ASSERT_TRUE(HCViewChildViewCount(view) == 1);
+    ASSERT_TRUE(HCViewChildViewCount(leftChildView) == 2);
+    ASSERT_TRUE(HCViewChildViewCount(rightChildView) == 0);
+    HCViewRef notLeftChildViewRetrieved = HCViewChildViewAtIndexRetained(view, 0);
+    ASSERT_FALSE(HCIsEqual(notLeftChildViewRetrieved, leftChildView));
+    ASSERT_TRUE(HCViewParentViewRetained(leftChildView) == NULL);
+    
+    HCRelease(view);
+    HCRelease(leftChildView);
+    HCRelease(leftLeftChildView);
+    HCRelease(leftMiddleChildView);
+    HCRelease(leftRightChildView);
+    HCRelease(rightChildView);
+    HCRelease(leftChildViewRetrieved);
+    HCRelease(rightChildViewRetrieved);
+    HCRelease(leftLeftChildViewRetrieved);
+    HCRelease(leftMiddleChildViewRetrieved);
+    HCRelease(leftRightChildViewRetrieved);
+    HCRelease(leftChildViewParent);
+    HCRelease(notLeftMiddleChildViewRetrieved);
+    HCRelease(notLeftChildViewRetrieved);
+}

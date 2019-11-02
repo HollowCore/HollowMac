@@ -142,7 +142,7 @@ void HCViewSetBackgroundColor(HCViewRef self, HCColor color) {
 //----------------------------------------------------------------------------------------------------------------------------------
 HCViewRef HCViewParentViewRetained(HCViewRef self) {
     id parent = HCObjcSendIdMessageVoid(self->nsView, sel_getUid("superview"));
-    return HCViewCreateWithNSView(parent);
+    return parent == NULL ? NULL : HCViewCreateWithNSView(parent);
 }
 
 HCInteger HCViewChildViewCount(HCViewRef self) {
@@ -153,7 +153,7 @@ HCInteger HCViewChildViewCount(HCViewRef self) {
 HCViewRef HCViewChildViewAtIndexRetained(HCViewRef self, HCInteger index) {
     id subviews = HCObjcSendIdMessageVoid(self->nsView, sel_getUid("subviews"));
     id subview = HCObjcSendIdMessageNSInteger(subviews, sel_getUid("objectAtIndex:"), index);
-    return HCViewCreateWithNSView(subview);
+    return subview == NULL ? NULL : HCViewCreateWithNSView(subview);
 }
 
 void HCViewAddChildView(HCViewRef self, HCViewRef child) {
