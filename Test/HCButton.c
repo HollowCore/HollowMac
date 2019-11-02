@@ -42,15 +42,15 @@ CTEST(HCButton, Title) {
     HCRelease(button);
 }
 
-void TestClick(void* context, HCButtonRef button) {
+void HCButtonTestClick(void* context, HCButtonRef button) {
     ASSERT_NOT_NULL(button);
     ASSERT_TRUE(context == (void*)0xDEADBEEF);
 }
 
 CTEST(HCButton, Click) {
     HCButtonRef button = HCButtonCreate();
-    HCButtonSetClickCallback(button, TestClick, (void*)0xDEADBEEF);
-    ASSERT_TRUE(HCButtonClickCallback(button) == TestClick);
+    HCButtonSetClickCallback(button, HCButtonTestClick, (void*)0xDEADBEEF);
+    ASSERT_TRUE(HCButtonClickCallback(button) == HCButtonTestClick);
     HCButtonPerformClick(button);
     HCRelease(button);
 }

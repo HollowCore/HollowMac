@@ -132,8 +132,9 @@ void HCMenuSetClickCallback(HCMenuRef self, HCMenuClickFunction callback, void* 
 // MARK: - Related Menus
 //----------------------------------------------------------------------------------------------------------------------------------
 HCMenuRef HCMenuParentMenuRetained(HCMenuRef self) {
+    // TODO: It seems this does not return the parent item correctly if that parent item does not itself have a menu
     id parentItem = HCObjcSendIdMessageVoid(self->nsMenuItem, sel_getUid("parentItem"));
-    return HCMenuCreateWithNSMenuItem(parentItem);
+    return parentItem == NULL ? NULL : HCMenuCreateWithNSMenuItem(parentItem);
 }
 
 HCInteger HCMenuChildMenuCount(HCMenuRef self) {
@@ -169,6 +170,19 @@ void HCMenuRemoveChildMenu(HCMenuRef self, HCInteger index) {
     if (HCObjcSendNSIntegerMessageVoid(submenu, sel_getUid("numberOfItems")) == 0) {
         HCObjcSendVoidMessageId(self->nsMenuItem, sel_getUid("setSubmenu:"), NULL);
     }
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Operations
+//----------------------------------------------------------------------------------------------------------------------------------
+void HCMenuPerformClick(HCMenuRef self) {
+    id parentMenu = HCObjcSendIdMessageVoid(self->nsMenuItem, sel_getUid("menu"));
+    if (parentMenu == NULL) {
+        HCMenuClickEvent(self->eventReceiver, sel_getUid("click:"), NULL);
+        return;
+    }
+    HCInteger index = HCObjcSendNSIntegerMessageId(parentMenu, sel_getUid("indexOfItem:"), self->nsMenuItem);
+    HCObjcSendVoidMessageNSInteger(self->nsMenuItem, sel_getUid("performActionForItemAtIndex:"), index);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------

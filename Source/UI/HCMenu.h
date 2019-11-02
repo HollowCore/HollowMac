@@ -52,4 +52,9 @@ HCMenuRef HCMenuChildMenuAtIndexRetained(HCMenuRef self, HCInteger index);
 void HCMenuAddChildMenu(HCMenuRef self, HCMenuRef child);
 void HCMenuRemoveChildMenu(HCMenuRef self, HCInteger index);
 
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Operations
+//----------------------------------------------------------------------------------------------------------------------------------
+void HCMenuPerformClick(HCMenuRef self);
+
 #endif /* HCMenu_h */
