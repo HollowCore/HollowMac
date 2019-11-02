@@ -42,4 +42,9 @@ void HCButtonSetTitle(HCButtonRef self, HCStringRef title);
 HCButtonClickFunction HCButtonClickCallback(HCButtonRef self);
 void HCButtonSetClickCallback(HCButtonRef self, HCButtonClickFunction callback, void* context);
 
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Operations
+//----------------------------------------------------------------------------------------------------------------------------------
+void HCButtonPerformClick(HCButtonRef self);
+
 #endif /* HCButton_h */
