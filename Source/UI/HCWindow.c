@@ -64,7 +64,7 @@ void HCWindowInit(void* memory) {
 
 void HCWindowDestroy(HCWindowRef self) {
     HCRelease(self->contentView);
-    HCObjcSendVoidMessageVoid(self->nsWindow, sel_getUid("release"));
+    HCObjcSendRelease(self->nsWindow);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------

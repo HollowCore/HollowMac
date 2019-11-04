@@ -111,6 +111,7 @@ CTEST(HCView, RelatedViews) {
     HCViewRef leftRightChildViewRetrieved = HCViewChildViewAtIndexRetained(leftChildView, 2);
     ASSERT_TRUE(HCIsEqual(leftRightChildViewRetrieved, leftRightChildView));
     
+    ASSERT_TRUE(HCViewHasParentView(leftChildView));
     HCViewRef leftChildViewParent = HCViewParentViewRetained(leftChildView);
     ASSERT_TRUE(HCIsEqual(leftChildViewParent, view));
     
@@ -127,6 +128,7 @@ CTEST(HCView, RelatedViews) {
     ASSERT_TRUE(HCViewChildViewCount(rightChildView) == 0);
     HCViewRef notLeftChildViewRetrieved = HCViewChildViewAtIndexRetained(view, 0);
     ASSERT_FALSE(HCIsEqual(notLeftChildViewRetrieved, leftChildView));
+    ASSERT_FALSE(HCViewHasParentView(leftChildView));
     ASSERT_TRUE(HCViewParentViewRetained(leftChildView) == NULL);
     
     HCRelease(view);

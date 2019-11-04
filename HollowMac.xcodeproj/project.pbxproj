@@ -54,6 +54,8 @@
 		C9B16D54236DDCBB00E26590 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9B16D53236DDCBB00E26590 /* main.c */; };
 		C9B16D55236DDD3500E26590 /* libHollowMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B705E421E3DCC600B63F05 /* libHollowMac.a */; };
 		C9B16D56236DDD6800E26590 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C966521E235441470019CB0B /* AppKit.framework */; };
+		C9B16D5C236F68F800E26590 /* HCRasterView.c in Sources */ = {isa = PBXBuildFile; fileRef = C9B16D5B236F68F800E26590 /* HCRasterView.c */; };
+		C9B16D5E236F6D4F00E26590 /* HCRasterView.c in Sources */ = {isa = PBXBuildFile; fileRef = C9B16D58236F5D7D00E26590 /* HCRasterView.c */; };
 		C9E2F58921ED395D00856F21 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9E2F57821ED37DF00856F21 /* main.c */; };
 		C9E2F58B21ED396800856F21 /* libHollowMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9B705E421E3DCC600B63F05 /* libHollowMac.a */; };
 /* End PBXBuildFile section */
@@ -92,7 +94,7 @@
 		C966521A23543E000019CB0B /* HCApplication.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCApplication.c; sourceTree = "<group>"; };
 		C966521E235441470019CB0B /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		C96652202354414E0019CB0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C96652232354447B0019CB0B /* HCMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCMac.h; sourceTree = "<group>"; };
+		C96652232354447B0019CB0B /* HCObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCObjC.h; sourceTree = "<group>"; };
 		C96652272356C96D0019CB0B /* HCButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCButton.h; sourceTree = "<group>"; };
 		C96652282356C96D0019CB0B /* HCButton.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCButton.c; sourceTree = "<group>"; };
 		C966522A2356C97A0019CB0B /* HCButton_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCButton_Internal.h; sourceTree = "<group>"; };
@@ -110,6 +112,10 @@
 		C9B16D49236DDBFF00E26590 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9B16D4C236DDBFF00E26590 /* Controls.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Controls.entitlements; sourceTree = "<group>"; };
 		C9B16D53236DDCBB00E26590 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		C9B16D57236F5D7D00E26590 /* HCRasterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCRasterView.h; sourceTree = "<group>"; };
+		C9B16D58236F5D7D00E26590 /* HCRasterView.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCRasterView.c; sourceTree = "<group>"; };
+		C9B16D5A236F5DAA00E26590 /* HCRasterView_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCRasterView_Internal.h; sourceTree = "<group>"; };
+		C9B16D5B236F68F800E26590 /* HCRasterView.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCRasterView.c; sourceTree = "<group>"; };
 		C9B705DF21E3D6D300B63F05 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 		C9B705E421E3DCC600B63F05 /* libHollowMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHollowMac.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E2F57821ED37DF00856F21 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
@@ -159,7 +165,7 @@
 		C97FDB2B2207BEC7002B17FB /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				C96652232354447B0019CB0B /* HCMac.h */,
+				C96652232354447B0019CB0B /* HCObjC.h */,
 				C966521523543D4E0019CB0B /* HCApplication.h */,
 				C966521923543D5E0019CB0B /* HCApplication_Internal.h */,
 				C966521623543D4E0019CB0B /* HCApplication.c */,
@@ -175,6 +181,9 @@
 				C96652272356C96D0019CB0B /* HCButton.h */,
 				C966522A2356C97A0019CB0B /* HCButton_Internal.h */,
 				C96652282356C96D0019CB0B /* HCButton.c */,
+				C9B16D57236F5D7D00E26590 /* HCRasterView.h */,
+				C9B16D5A236F5DAA00E26590 /* HCRasterView_Internal.h */,
+				C9B16D58236F5D7D00E26590 /* HCRasterView.c */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -225,6 +234,7 @@
 				C92BEA0923541B2900F5DFC3 /* HCWindow.c */,
 				C96652312356CE740019CB0B /* HCView.c */,
 				C966522B2356CA020019CB0B /* HCButton.c */,
+				C9B16D5B236F68F800E26590 /* HCRasterView.c */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -441,6 +451,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9B16D5E236F6D4F00E26590 /* HCRasterView.c in Sources */,
 				C966521823543D4E0019CB0B /* HCApplication.c in Sources */,
 				C92BEA0823541B1500F5DFC3 /* HCWindow.c in Sources */,
 				C9B16D33236BA96700E26590 /* HCMenu.c in Sources */,
@@ -453,12 +464,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9B16D36236BAFDF00E26590 /* HCMenu.c in Sources */,
 				C9E2F58921ED395D00856F21 /* main.c in Sources */,
 				C966521C235440D70019CB0B /* HCApplication.c in Sources */,
+				C9B16D36236BAFDF00E26590 /* HCMenu.c in Sources */,
 				C966521D235440D90019CB0B /* HCWindow.c in Sources */,
 				C96652322356CE740019CB0B /* HCView.c in Sources */,
 				C966522C2356CA020019CB0B /* HCButton.c in Sources */,
+				C9B16D5C236F68F800E26590 /* HCRasterView.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

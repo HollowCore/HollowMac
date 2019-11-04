@@ -73,12 +73,11 @@ void HCButtonInit(void* memory, id nsButton) {
     self->eventReceiver = eventReceiver;
     
     // Put self into event receiver for callbacks
-    ptrdiff_t offset = ivar_getOffset(class_getInstanceVariable(g_ButtonEventReceiverClass, "hcButton"));
-    *(HCButtonRef*)((uint8_t*)eventReceiver + offset) = self;
+    *(HCButtonRef*)((uint8_t*)eventReceiver + ivar_getOffset(class_getInstanceVariable(g_ButtonEventReceiverClass, "hcButton"))) = self;
 }
 
 void HCButtonDestroy(HCButtonRef self) {
-    HCObjcSendVoidMessageVoid(self->eventReceiver, sel_getUid("release"));
+    HCObjcSendRelease(self->eventReceiver);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -99,7 +98,7 @@ HCStringRef HCButtonTitleRetained(HCButtonRef self) {
 void HCButtonSetTitle(HCButtonRef self, HCStringRef title) {
     id titleNSString = NSStringAllocInitWithHCString(title);
     HCObjcSendVoidMessageId(self->base.nsView, sel_getUid("setTitle:"), titleNSString);
-    HCObjcSendVoidMessageVoid(titleNSString, sel_getUid("release"));
+    HCObjcSendRelease(titleNSString);
 }
 
 HCButtonClickFunction HCButtonClickCallback(HCButtonRef self) {
@@ -123,8 +122,7 @@ void HCButtonPerformClick(HCButtonRef self) {
 //----------------------------------------------------------------------------------------------------------------------------------
 void HCButtonClickEvent(id eventReceiver, SEL cmd, id sender) {
     (void)cmd; (void)sender; // Unused
-    ptrdiff_t offset = ivar_getOffset(class_getInstanceVariable(g_ButtonEventReceiverClass, "hcButton"));
-    HCButtonRef self = *(HCButtonRef*)((uint8_t*)eventReceiver + offset);
+    HCButtonRef self = *(HCButtonRef*)((uint8_t*)eventReceiver + ivar_getOffset(class_getInstanceVariable(g_ButtonEventReceiverClass, "hcButton")));
     if (self->clickCallback != NULL) {
         self->clickCallback(self->clickContext, self);
     }

@@ -43,7 +43,7 @@ HCMenuRef HCMenuCreate() {
     HCMenuRef menu = HCMenuCreateWithNSMenuItem(nsMenuItem);
     
     // Cleanup
-    HCObjcSendVoidMessageVoid(nsMenuItem, sel_getUid("release"));
+    HCObjcSendRelease(nsMenuItem);
     
     return menu;
 }
@@ -75,7 +75,7 @@ void HCMenuInit(void* memory, id nsMenuItem) {
     HCObjectInit(memory);
     HCMenuRef self = memory;
     self->base.type = HCMenuType;
-    self->nsMenuItem = HCObjcSendIdMessageVoid(nsMenuItem, sel_getUid("retain"));
+    self->nsMenuItem = HCObjcSendRetain(nsMenuItem);
     self->eventReceiver = eventReceiver;
     
     // Put self into event receiver for callbacks
@@ -84,8 +84,8 @@ void HCMenuInit(void* memory, id nsMenuItem) {
 }
 
 void HCMenuDestroy(HCMenuRef self) {
-    HCObjcSendVoidMessageVoid(self->eventReceiver, sel_getUid("release"));
-    HCObjcSendVoidMessageVoid(self->nsMenuItem, sel_getUid("release"));
+    HCObjcSendRelease(self->eventReceiver);
+    HCObjcSendRelease(self->nsMenuItem);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ HCStringRef HCMenuTitleRetained(HCMenuRef self) {
 void HCMenuSetTitle(HCMenuRef self, HCStringRef title) {
     id titleNSString = NSStringAllocInitWithHCString(title);
     HCObjcSendVoidMessageId(self->nsMenuItem, sel_getUid("setTitle:"), titleNSString);
-    HCObjcSendVoidMessageVoid(titleNSString, sel_getUid("release"));
+    HCObjcSendRelease(titleNSString);
 }
 
 HCMenuClickFunction HCMenuClickCallback(HCMenuRef self) {
@@ -156,7 +156,7 @@ void HCMenuAddChildMenu(HCMenuRef self, HCMenuRef child) {
     if (submenu == NULL) {
         submenu = HCObjcSendIdMessageVoid(HCObjcSendIdMessageVoid((id)objc_getClass("NSMenu"), sel_getUid("alloc")), sel_getUid("init"));
         HCObjcSendVoidMessageId(self->nsMenuItem, sel_getUid("setSubmenu:"), submenu);
-        HCObjcSendVoidMessageVoid(submenu, sel_getUid("release"));
+        HCObjcSendRelease(submenu);
     }
     HCObjcSendVoidMessageId(submenu, sel_getUid("addItem:"), child->nsMenuItem);
 }

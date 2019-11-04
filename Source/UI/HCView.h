@@ -50,6 +50,7 @@ void HCViewSetBackgroundColor(HCViewRef self, HCColor color);
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Related Views
 //----------------------------------------------------------------------------------------------------------------------------------
+HCBoolean HCViewHasParentView(HCViewRef self);
 HCViewRef HCViewParentViewRetained(HCViewRef self);
 HCInteger HCViewChildViewCount(HCViewRef self);
 HCViewRef HCViewChildViewAtIndexRetained(HCViewRef self, HCInteger index);

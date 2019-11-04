@@ -36,7 +36,7 @@ HCViewRef HCViewCreate() {
     
     // Create HCView
     HCViewRef view = HCViewCreateWithNSView(nsView);
-    HCObjcSendVoidMessageVoid(view->nsView, sel_getUid("release"));
+    HCObjcSendRelease(view->nsView);
     return view;
 }
 
@@ -51,11 +51,11 @@ void HCViewInit(void* memory, id nsView) {
     HCObjectInit(memory);
     HCViewRef self = memory;
     self->base.type = HCViewType;
-    self->nsView = HCObjcSendIdMessageVoid(nsView, sel_getUid("retain"));
+    self->nsView = HCObjcSendRetain(nsView);
 }
 
 void HCViewDestroy(HCViewRef self) {
-    HCObjcSendVoidMessageVoid(self->nsView, sel_getUid("release"));
+    HCObjcSendRelease(self->nsView);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -125,7 +125,7 @@ HCColor HCViewBackgroundColor(HCViewRef self) {
     id backgroundCGColor = HCObjcSendIdMessageVoid(layer, sel_getUid("backgroundColor"));
     id backgroundNSColor = HCObjcSendIdMessageId((id)objc_getClass("NSColor"), sel_getUid("colorWithCGColor:"), backgroundCGColor);
     HCColor color = HCColorMakeWithNSColor(backgroundNSColor);
-    HCObjcSendVoidMessageVoid(backgroundNSColor, sel_getUid("release"));
+    HCObjcSendRelease(backgroundNSColor);
     return color;
 }
 
@@ -134,12 +134,16 @@ void HCViewSetBackgroundColor(HCViewRef self, HCColor color) {
     id backgroundCGColor = HCObjcSendIdMessageVoid(backgroundNSColor, sel_getUid("CGColor"));
     id layer = HCObjcSendIdMessageVoid(self->nsView, sel_getUid("layer"));
     HCObjcSendVoidMessageId(layer, sel_getUid("setBackgroundColor:"), backgroundCGColor);
-    HCObjcSendVoidMessageVoid(backgroundNSColor, sel_getUid("release"));
+    HCObjcSendRelease(backgroundNSColor);
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Related Views
 //----------------------------------------------------------------------------------------------------------------------------------
+HCBoolean HCViewHasParentView(HCViewRef self) {
+    return HCObjcSendIdMessageVoid(self->nsView, sel_getUid("superview")) != NULL;
+}
+
 HCViewRef HCViewParentViewRetained(HCViewRef self) {
     id parent = HCObjcSendIdMessageVoid(self->nsView, sel_getUid("superview"));
     return parent == NULL ? NULL : HCViewCreateWithNSView(parent);

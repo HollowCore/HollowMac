@@ -10,7 +10,7 @@
 #define HCWindow_Internal_h
 
 #include "../../HollowCore/Source/Core/HCObject_Internal.h"
-#include "HCMac.h"
+#include "HCObjC.h"
 #include "HCWindow.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------

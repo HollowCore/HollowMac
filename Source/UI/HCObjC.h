@@ -1,13 +1,13 @@
 //
-//  HCMac.h
+//  HCObjC.h
 //  HollowMac
 //
 //  Created by Matt Stoker on 10/13/19.
 //  Copyright © 2019 HollowCore. All rights reserved.
 //
 
-#ifndef HCMac_h
-#define HCMac_h
+#ifndef HCObjC_h
+#define HCObjC_h
 
 #include "../../HollowCore/Source/HollowCore.h"
 #include <objc/message.h>
@@ -19,6 +19,7 @@
 // TODO: Assumes 64-bit architecture
 typedef int64_t NSInteger;
 
+// TODO: Assumes 64-bit architecture
 typedef double CGFloat;
 
 typedef struct CGPoint {
@@ -43,6 +44,9 @@ enum {
     NSMiniaturizableWindowMask    = 1 << 2,
     NSResizableWindowMask         = 1 << 3,
 };
+
+static const int NSCalibratedRGBColorSpace = 0x8d355d78;
+static const int NSDeviceRGBColorSpace = 0x8d355dd8;
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Externally Defined Functions
@@ -155,6 +159,17 @@ typedef id (*HCObjcIdMessageIdSELId)(id, SEL, id, SEL, id);
 static HCObjcIdMessageIdSELId HCObjcSendIdMessageIdSELId = (HCObjcIdMessageIdSELId)objc_msgSend;
 
 //----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Message Sending Convenience
+//----------------------------------------------------------------------------------------------------------------------------------
+static inline id HCObjcSendRetain(id object) {
+    return HCObjcSendIdMessageVoid(object, sel_getUid("retain"));
+}
+
+static inline void HCObjcSendRelease(id object) {
+    HCObjcSendVoidMessageVoid(object, sel_getUid("release"));
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Conversion Convenience
 //----------------------------------------------------------------------------------------------------------------------------------
 static inline HCPoint HCPointMakeWithCGPoint(CGPoint point) {
@@ -188,8 +203,9 @@ static inline HCColor HCColorMakeWithNSColor(id nsColor) {
 }
 
 static inline id NSColorAllocInitWithHCColor(HCColor hcColor) {
+    // TODO: Autorelease pool?
     id nsColor = HCObjcSendIdMessageCGFloatCGFloatCGFloatCGFloat((id)objc_getClass("NSColor"), sel_getUid("colorWithRed:green:blue:alpha:"), hcColor.r, hcColor.g, hcColor.b, hcColor.a);
-    return HCObjcSendIdMessageVoid(nsColor, sel_getUid("retain"));
+    return HCObjcSendRetain(nsColor);
 }
 
 static inline HCStringRef HCStringCreateWithNSString(id nsString) {
@@ -199,8 +215,9 @@ static inline HCStringRef HCStringCreateWithNSString(id nsString) {
 
 static inline id NSStringAllocInitWithHCString(HCStringRef hcString) {
     const char* utf8String = HCStringAsCString(hcString);
+    // TODO: Autorelease pool?
     id nsString = HCObjcSendIdMessageId((id)objc_getClass("NSString"), sel_getUid("stringWithUTF8String:"), (id)utf8String);
-    return HCObjcSendIdMessageVoid(nsString, sel_getUid("retain"));
+    return HCObjcSendRetain(nsString);
 }
 
-#endif /* HCMac_h */
+#endif /* HCObjC_h */

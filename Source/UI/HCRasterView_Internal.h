@@ -1,34 +1,30 @@
 //
-//  HCMenu_Internal.h
+//  HCRasterView_Internal.h
 //  HollowMac
 //
-//  Created by Matt Stoker on 10/31/19.
+//  Created by Matt Stoker on 11/3/19.
 //  Copyright © 2019 HollowCore. All rights reserved.
 //
 
-#ifndef HCMenu_Internal_h
-#define HCMenu_Internal_h
+#ifndef HCRasterView_Internal_h
+#define HCRasterView_Internal_h
 
-#include "../../HollowCore/Source/Core/HCObject_Internal.h"
-#include "HCObjC.h"
-#include "HCMenu.h"
+#include "HCView_Internal.h"
+#include "HCRasterView.h"
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Object Type
 //----------------------------------------------------------------------------------------------------------------------------------
-typedef struct HCMenu {
-    HCObject base;
-    id nsMenuItem;
-    id eventReceiver;
-    HCMenuClickFunction clickCallback;
-    void* clickContext;
-} HCMenu;
+typedef struct HCRasterView {
+    HCView base;
+    HCRasterViewDrawFunction drawCallback;
+    void* drawContext;
+} HCRasterView;
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
 //----------------------------------------------------------------------------------------------------------------------------------
-HCMenuRef HCMenuCreateWithNSMenuItem(id nsMenuItem);
-void HCMenuInit(void* memory, id nsMenuItem);
-void HCMenuDestroy(HCMenuRef self);
+void HCRasterViewInit(void* memory);
+void HCRasterViewDestroy(HCRasterViewRef self);
 
-#endif /* HCMenu_Internal_h */
+#endif /* HCRasterView_Internal_h */
