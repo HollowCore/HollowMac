@@ -85,6 +85,8 @@ void HCMenuInit(void* memory, id nsMenuItem) {
 
 void HCMenuDestroy(HCMenuRef self) {
     HCObjcSendRelease(self->eventReceiver);
+    id submenu = HCObjcSendIdMessageVoid(self->nsMenuItem, sel_getUid("submenu"));
+    HCObjcSendRelease(submenu);
     HCObjcSendRelease(self->nsMenuItem);
 }
 
@@ -117,6 +119,17 @@ void HCMenuSetTitle(HCMenuRef self, HCStringRef title) {
     id titleNSString = NSStringAllocInitWithHCString(title);
     HCObjcSendVoidMessageId(self->nsMenuItem, sel_getUid("setTitle:"), titleNSString);
     HCObjcSendRelease(titleNSString);
+}
+
+HCStringRef HCMenuShortcutKeyRetained(HCMenuRef self) {
+    id shortcutKeyString = HCObjcSendIdMessageVoid(self->nsMenuItem, sel_getUid("keyEquivalent"));
+    return HCStringCreateWithNSString(shortcutKeyString);
+}
+
+void HCMenuSetShortcutKey(HCMenuRef self, HCStringRef key) {
+    id shortcutKeyString = NSStringAllocInitWithHCString(key);
+    HCObjcSendVoidMessageId(self->nsMenuItem, sel_getUid("setKeyEquivalent:"), shortcutKeyString);
+    HCObjcSendRelease(shortcutKeyString);
 }
 
 HCMenuClickFunction HCMenuClickCallback(HCMenuRef self) {
@@ -155,8 +168,9 @@ void HCMenuAddChildMenu(HCMenuRef self, HCMenuRef child) {
     id submenu = HCObjcSendIdMessageVoid(self->nsMenuItem, sel_getUid("submenu"));
     if (submenu == NULL) {
         submenu = HCObjcSendIdMessageVoid(HCObjcSendIdMessageVoid((id)objc_getClass("NSMenu"), sel_getUid("alloc")), sel_getUid("init"));
+        id title = HCObjcSendIdMessageVoid(self->nsMenuItem, sel_getUid("title"));
+        HCObjcSendVoidMessageId(submenu, sel_getUid("setTitle:"), title);
         HCObjcSendVoidMessageId(self->nsMenuItem, sel_getUid("setSubmenu:"), submenu);
-        HCObjcSendRelease(submenu);
     }
     HCObjcSendVoidMessageId(submenu, sel_getUid("addItem:"), child->nsMenuItem);
 }

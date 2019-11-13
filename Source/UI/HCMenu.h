@@ -39,6 +39,8 @@ void HCMenuPrint(HCMenuRef self, FILE* stream);
 //----------------------------------------------------------------------------------------------------------------------------------
 HCStringRef HCMenuTitleRetained(HCMenuRef self);
 void HCMenuSetTitle(HCMenuRef self, HCStringRef title);
+HCStringRef HCMenuShortcutKeyRetained(HCMenuRef self);
+void HCMenuSetShortcutKey(HCMenuRef self, HCStringRef key);
 HCMenuClickFunction HCMenuClickCallback(HCMenuRef self);
 void HCMenuSetClickCallback(HCMenuRef self, HCMenuClickFunction callback, void* context);
 

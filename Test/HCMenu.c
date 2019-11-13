@@ -41,6 +41,17 @@ CTEST(HCMenu, Title) {
     HCRelease(menu);
 }
 
+CTEST(HCMenu, Shortcut) {
+    HCMenuRef menu = HCMenuCreate();
+    HCStringRef shortcutKey = HCStringCreateWithCString("q");
+    HCMenuSetShortcutKey(menu, shortcutKey);
+    HCStringRef shortcutKeyRetreived = HCMenuShortcutKeyRetained(menu);
+    ASSERT_TRUE(HCIsEqual(shortcutKey, shortcutKeyRetreived));
+    HCRelease(shortcutKey);
+    HCRelease(shortcutKeyRetreived);
+    HCRelease(menu);
+}
+
 void HCMenuTestClick(void* context, HCMenuRef menu) {
     ASSERT_NOT_NULL(menu);
     ASSERT_TRUE(context == (void*)0xDEADBEEF);
