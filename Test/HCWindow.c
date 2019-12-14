@@ -71,6 +71,21 @@ CTEST(HCWindow, Geometry) {
     HCRelease(window);
 }
 
+void HCWindowTestResize(void* context, HCWindowRef window, HCSize size) {
+    ASSERT_NOT_NULL(window);
+    ASSERT_TRUE(context == (void*)0xDEADBEEF);
+    ASSERT_TRUE(size.width > 0.0);
+    ASSERT_TRUE(size.height > 0.0);
+}
+
+CTEST(HCWindow, Resize) {
+    HCWindowRef window = HCWindowCreate();
+    ASSERT_NULL(HCWindowResizeCallback(window));
+    HCWindowSetResizeCallback(window, HCWindowTestResize, (void*)0xDEADBEEF);
+    ASSERT_NOT_NULL(HCWindowResizeCallback(window));
+    HCRelease(window);
+}
+
 CTEST(HCWindow, Display) {
     HCWindowRef window = HCWindowCreate();
     HCWindowDisplay(window);

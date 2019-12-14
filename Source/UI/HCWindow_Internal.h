@@ -20,6 +20,9 @@ typedef struct HCWindow {
     HCObject base;
     id nsWindow;
     HCViewRef contentView;
+    id eventReceiver;
+    HCWindowResizeFunction resizeCallback;
+    void* resizeContext;
 } HCWindow;
 
 //----------------------------------------------------------------------------------------------------------------------------------

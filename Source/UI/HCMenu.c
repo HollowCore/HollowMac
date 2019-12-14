@@ -85,8 +85,6 @@ void HCMenuInit(void* memory, id nsMenuItem) {
 
 void HCMenuDestroy(HCMenuRef self) {
     HCObjcSendRelease(self->eventReceiver);
-    id submenu = HCObjcSendIdMessageVoid(self->nsMenuItem, sel_getUid("submenu"));
-    HCObjcSendRelease(submenu);
     HCObjcSendRelease(self->nsMenuItem);
 }
 
@@ -171,6 +169,7 @@ void HCMenuAddChildMenu(HCMenuRef self, HCMenuRef child) {
         id title = HCObjcSendIdMessageVoid(self->nsMenuItem, sel_getUid("title"));
         HCObjcSendVoidMessageId(submenu, sel_getUid("setTitle:"), title);
         HCObjcSendVoidMessageId(self->nsMenuItem, sel_getUid("setSubmenu:"), submenu);
+        HCObjcSendRelease(submenu);
     }
     HCObjcSendVoidMessageId(submenu, sel_getUid("addItem:"), child->nsMenuItem);
 }

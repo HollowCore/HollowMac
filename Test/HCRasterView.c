@@ -34,6 +34,7 @@ CTEST(HCRasterView, Print) {
 void HCRasterViewTestDraw(void* context, HCRasterViewRef view, HCRasterRef raster) {
     ASSERT_NOT_NULL(view);
     ASSERT_TRUE(context == (void*)0xDEADBEEF);
+    ASSERT_NOT_NULL(raster);
 }
 
 CTEST(HCRasterView, Draw) {

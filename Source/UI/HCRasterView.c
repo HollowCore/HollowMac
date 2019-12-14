@@ -70,6 +70,7 @@ void HCRasterViewInit(void* memory) {
 }
 
 void HCRasterViewDestroy(HCRasterViewRef self) {
+    (void)self; // Unused
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -83,6 +84,7 @@ void HCRasterViewPrint(HCRasterViewRef self, FILE* stream) {
 // MARK: - Attributes
 //----------------------------------------------------------------------------------------------------------------------------------
 HCRasterRef HCRasterViewRasterRetained(HCRasterViewRef self) {
+    (void)self; // Unused
     // TODO: This
     return NULL;
 }

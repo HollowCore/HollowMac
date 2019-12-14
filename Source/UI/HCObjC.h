@@ -155,8 +155,11 @@ static HCObjcIdMessageCGFloatCGFloatCGFloatCGFloat HCObjcSendIdMessageCGFloatCGF
 typedef id (*HCObjcBoolMessageCGFloatPtrCGFloatPtrCGFloatPtrCGFloatPtr)(id, SEL, CGFloat*, CGFloat*, CGFloat*, CGFloat*);
 static HCObjcBoolMessageCGFloatPtrCGFloatPtrCGFloatPtrCGFloatPtr HCObjcSendBoolMessageCGFloatPtrCGFloatPtrCGFloatPtrCGFloatPtr = (HCObjcBoolMessageCGFloatPtrCGFloatPtrCGFloatPtrCGFloatPtr)objc_msgSend;
 
-typedef id (*HCObjcIdMessageIdSELId)(id, SEL, id, SEL, id);
-static HCObjcIdMessageIdSELId HCObjcSendIdMessageIdSELId = (HCObjcIdMessageIdSELId)objc_msgSend;
+typedef void (*HCObjcVoidMessageIdSELIdId)(id, SEL, id, SEL, id, id);
+static HCObjcVoidMessageIdSELIdId HCObjcSendVoidMessageIdSELIdId = (HCObjcVoidMessageIdSELIdId)objc_msgSend;
+
+typedef void (*HCObjcVoidMessageIdIdId)(id, SEL, id, id, id);
+static HCObjcVoidMessageIdIdId HCObjcSendVoidMessageIdIdId = (HCObjcVoidMessageIdIdId)objc_msgSend;
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Message Sending Convenience
@@ -217,6 +220,12 @@ static inline id NSStringAllocInitWithHCString(HCStringRef hcString) {
     const char* utf8String = HCStringAsCString(hcString);
     // TODO: Autorelease pool?
     id nsString = HCObjcSendIdMessageId((id)objc_getClass("NSString"), sel_getUid("stringWithUTF8String:"), (id)utf8String);
+    return HCObjcSendRetain(nsString);
+}
+
+static inline id NSStringAllocInitWithCString(const void* cString) {
+    // TODO: Autorelease pool?
+    id nsString = HCObjcSendIdMessageId((id)objc_getClass("NSString"), sel_getUid("stringWithUTF8String:"), (id)cString);
     return HCObjcSendRetain(nsString);
 }
 
