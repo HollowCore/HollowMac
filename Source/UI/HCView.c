@@ -169,3 +169,11 @@ void HCViewRemoveChildView(HCViewRef self, HCInteger index) {
     id subview = HCObjcSendIdMessageNSInteger(subviews, sel_getUid("objectAtIndex:"), index);
     HCObjcSendVoidMessageVoid(subview, sel_getUid("removeFromSuperview"));
 }
+
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Operations
+//----------------------------------------------------------------------------------------------------------------------------------
+
+void HCViewDraw(HCViewRef self) {
+    HCObjcSendVoidMessageCGRect(self->nsView, sel_getUid("setNeedsDisplayInRect:"), CGRectMakeWithHCRectangle(HCRectangleMake(HCPointZero, HCViewSize(self))));
+}

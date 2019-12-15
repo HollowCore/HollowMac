@@ -136,7 +136,7 @@ typedef void (*HCObjcVoidMessageCGRect)(id, SEL, CGRect);
 static HCObjcVoidMessageCGRect HCObjcSendVoidMessageCGRect = (HCObjcVoidMessageCGRect)objc_msgSend;
 typedef CGRect (*HCObjcCGRectMessageVoid)(id, SEL);
 static HCObjcCGRectMessageVoid HCObjcSendCGRectMessageVoid = (HCObjcCGRectMessageVoid)objc_msgSend_stret;
-typedef CGRect (*HCObjcCGRectMessageCGRect)(id, SEL);
+typedef CGRect (*HCObjcCGRectMessageCGRect)(id, SEL, CGRect);
 static HCObjcCGRectMessageCGRect HCObjcSendCGRectMessageCGRect = (HCObjcCGRectMessageCGRect)objc_msgSend_stret;
 typedef CGRect (*HCObjcCGRectMessageId)(id, SEL, id);
 static HCObjcCGRectMessageId HCObjcSendCGRectMessageId = (HCObjcCGRectMessageId)objc_msgSend_stret;
@@ -145,6 +145,9 @@ static HCObjcIdMessageCGRect HCObjcSendIdMessageCGRect = (HCObjcIdMessageCGRect)
 
 typedef id (*HCObjcVoidMessageCGRectBool)(id, SEL, CGRect, bool);
 static HCObjcVoidMessageCGRectBool HCObjcSendVoidMessageCGRectBool = (HCObjcVoidMessageCGRectBool)objc_msgSend;
+
+typedef CGRect (*HCObjcCGRectMessageCGRectInt)(id, SEL, CGRect, int);
+static HCObjcCGRectMessageCGRectInt HCObjcSendCGRectMessageCGRectInt = (HCObjcCGRectMessageCGRectInt)objc_msgSend_stret;
 
 typedef id (*HCObjcIdMessageCGRectIntIntBool)(id, SEL, CGRect, int, int, bool);
 static HCObjcIdMessageCGRectIntIntBool HCObjcSendIdMessageCGRectIntIntBool = (HCObjcIdMessageCGRectIntIntBool)objc_msgSend;

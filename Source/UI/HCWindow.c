@@ -58,19 +58,17 @@ void HCWindowInit(void* memory) {
     CGRect mainScreenFrame = HCObjcSendCGRectMessageVoid(mainScreen, sel_getUid("frame"));
     
     // Create window
+    int styleMask = NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask;
+    CGRect contentRect = HCObjcSendCGRectMessageCGRectInt((id)objc_getClass("NSWindow"), sel_getUid("contentRectForFrameRect:styleMask:"), mainScreenFrame, styleMask);
     id window = HCObjcSendIdMessageVoid((id)objc_getClass("NSWindow"), sel_getUid("alloc"));
     window = HCObjcSendIdMessageCGRectIntIntBool(
         window,
         sel_getUid("initWithContentRect:styleMask:backing:defer:"),
-        mainScreenFrame,
-        NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask,
+        contentRect,
+        styleMask,
         0,
         false
     );
-    
-    // Create window content view
-    HCViewRef contentView = HCViewCreate();
-    HCObjcSendVoidMessageId(window, sel_getUid("setContentView:"), contentView->nsView);
     
     // Register resize notification
     id notificationCenter = HCObjcSendIdMessageVoid((id)objc_getClass("NSNotificationCenter"), sel_getUid("defaultCenter"));
@@ -83,15 +81,21 @@ void HCWindowInit(void* memory) {
     HCWindowRef self = memory;
     self->base.type = HCWindowType;
     self->nsWindow = window;
-    self->contentView = contentView;
     self->eventReceiver = eventReceiver;
     
+    // Create window content view
+    HCViewRef contentView = HCViewCreate();
+    self->contentView = contentView;
+    HCViewSetFrame(contentView, HCWindowContentRectangle(self));
+    HCObjcSendVoidMessageId(window, sel_getUid("setContentView:"), contentView->nsView);
+
     // Put self into event receiver for callbacks
     ptrdiff_t offset = ivar_getOffset(class_getInstanceVariable(g_WindowEventReceiverClass, "hcWindow"));
     *(HCWindowRef*)((uint8_t*)eventReceiver + offset) = self;
 }
 
 void HCWindowDestroy(HCWindowRef self) {
+    // Unregister resize notification
     id notificationCenter = HCObjcSendIdMessageVoid((id)objc_getClass("NSNotificationCenter"), sel_getUid("defaultCenter"));
     id nsWindowDidResizeNotificationName = NSStringAllocInitWithCString("NSWindowDidResizeNotification");
     HCObjcSendVoidMessageIdIdId(notificationCenter, sel_getUid("removeObserver:name:object:"), self->eventReceiver, nsWindowDidResizeNotificationName, NULL);
@@ -173,6 +177,12 @@ void HCWindowSetFrame(HCWindowRef self, HCRectangle frame) {
     HCObjcSendVoidMessageCGRectBool(self->nsWindow, sel_getUid("setFrame:display:"), CGRectMakeWithHCRectangle(frame), true);
 }
 
+HCRectangle HCWindowContentRectangle(HCWindowRef self) {
+    CGRect screenRelativeContentRect = HCObjcSendCGRectMessageCGRect(self->nsWindow, sel_getUid("contentRectForFrameRect:"), CGRectMakeWithHCRectangle(HCWindowFrame(self)));
+    CGRect contentRect = HCObjcSendCGRectMessageCGRect(self->nsWindow, sel_getUid("convertRectFromScreen:"), screenRelativeContentRect);
+    return HCRectangleMakeWithCGRect(contentRect);
+}
+
 HCViewRef HCWindowContentView(HCWindowRef self) {
     return self->contentView;
 }
@@ -201,7 +211,13 @@ void HCWindowResizeNotification(id eventReceiver, SEL cmd, id notification) {
     (void)cmd; (void)notification; // Unused
     ptrdiff_t offset = ivar_getOffset(class_getInstanceVariable(g_WindowEventReceiverClass, "hcWindow"));
     HCWindowRef self = *(HCWindowRef*)((uint8_t*)eventReceiver + offset);
+    
+    // Resize content view
+    HCRectangle contentRectangle = HCWindowContentRectangle(self);
+    HCViewSetFrame(self->contentView, HCRectangleMake(HCPointZero, contentRectangle.size));
+    
+    // Call registered callback
     if (self->resizeCallback != NULL) {
-        self->resizeCallback(self->resizeContext, self, HCWindowSize(self));
+        self->resizeCallback(self->resizeContext, self, contentRectangle.size);
     }
 }

@@ -27,7 +27,7 @@ typedef enum HCWindowCoordinateLocation {
     HCWindowCoordinateLocationLowerRight,
 } HCWindowCoordinateLocation;
 
-typedef void (*HCWindowResizeFunction)(void* context, HCWindowRef window, HCSize size);
+typedef void (*HCWindowResizeFunction)(void* context, HCWindowRef window, HCSize contentSize);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
@@ -53,6 +53,7 @@ HCSize HCWindowSize(HCWindowRef self);
 void HCWindowSetSize(HCWindowRef self, HCSize size);
 HCRectangle HCWindowFrame(HCWindowRef self);
 void HCWindowSetFrame(HCWindowRef self, HCRectangle frame);
+HCRectangle HCWindowContentRectangle(HCWindowRef self);
 HCViewRef HCWindowContentView(HCWindowRef self);
 HCWindowResizeFunction HCWindowResizeCallback(HCWindowRef self);
 void HCWindowSetResizeCallback(HCWindowRef self, HCWindowResizeFunction callback, void* context);

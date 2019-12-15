@@ -57,4 +57,9 @@ HCViewRef HCViewChildViewAtIndexRetained(HCViewRef self, HCInteger index);
 void HCViewAddChildView(HCViewRef self, HCViewRef child);
 void HCViewRemoveChildView(HCViewRef self, HCInteger index);
 
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Operations
+//----------------------------------------------------------------------------------------------------------------------------------
+void HCViewDraw(HCViewRef self);
+
 #endif /* HCView_h */

@@ -146,3 +146,9 @@ CTEST(HCView, RelatedViews) {
     HCRelease(notLeftMiddleChildViewRetrieved);
     HCRelease(notLeftChildViewRetrieved);
 }
+
+CTEST(HCView, Operations) {
+    HCViewRef view = HCViewCreate();
+    HCViewDraw(view);
+    HCRelease(view);
+}
