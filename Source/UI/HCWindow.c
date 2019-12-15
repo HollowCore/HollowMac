@@ -62,7 +62,7 @@ void HCWindowInit(void* memory) {
     window = HCObjcSendIdMessageCGRectIntIntBool(
         window,
         sel_getUid("initWithContentRect:styleMask:backing:defer:"),
-        (CGRect){ {0, 0}, {mainScreenFrame.size.width, mainScreenFrame.size.height} },
+        mainScreenFrame,
         NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask,
         0,
         false
