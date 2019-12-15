@@ -53,12 +53,16 @@ void HCWindowInit(void* memory) {
     // Create event receiver
     id eventReceiver = HCObjcSendIdMessageVoid(HCObjcSendIdMessageVoid((id)g_WindowEventReceiverClass, sel_getUid("alloc")), sel_getUid("init"));
     
+    // Find default size
+    id mainScreen = HCObjcSendIdMessageVoid((id)objc_getClass("NSScreen"), sel_getUid("mainScreen"));
+    CGRect mainScreenFrame = HCObjcSendCGRectMessageVoid(mainScreen, sel_getUid("frame"));
+    
     // Create window
     id window = HCObjcSendIdMessageVoid((id)objc_getClass("NSWindow"), sel_getUid("alloc"));
     window = HCObjcSendIdMessageCGRectIntIntBool(
         window,
         sel_getUid("initWithContentRect:styleMask:backing:defer:"),
-        (CGRect){ {0, 0}, {720, 480} },
+        (CGRect){ {0, 0}, {mainScreenFrame.size.width, mainScreenFrame.size.height} },
         NSTitledWindowMask | NSClosableWindowMask | NSResizableWindowMask | NSMiniaturizableWindowMask,
         0,
         false
