@@ -173,7 +173,6 @@ void HCViewRemoveChildView(HCViewRef self, HCInteger index) {
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Operations
 //----------------------------------------------------------------------------------------------------------------------------------
-
 void HCViewDraw(HCViewRef self) {
     HCObjcSendVoidMessageCGRect(self->nsView, sel_getUid("setNeedsDisplayInRect:"), CGRectMakeWithHCRectangle(HCRectangleMake(HCPointZero, HCViewSize(self))));
 }

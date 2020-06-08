@@ -44,3 +44,36 @@ CTEST(HCRasterView, Draw) {
     HCRasterViewInvalidate(view);
     HCRelease(view);
 }
+
+void HCRasterViewTestMouseDown(void* context, HCRasterViewRef view, HCPoint location) {
+    ASSERT_NOT_NULL(view);
+    ASSERT_TRUE(context == (void*)0xDEADBEEF);
+    ASSERT_DBL_FAR(location.x, 0.0);
+    ASSERT_DBL_FAR(location.y, 0.0);
+}
+
+void HCRasterViewTestMouseMove(void* context, HCRasterViewRef view, HCPoint location) {
+    ASSERT_NOT_NULL(view);
+    ASSERT_TRUE(context == (void*)0xBADF00D);
+    ASSERT_DBL_FAR(location.x, 0.0);
+    ASSERT_DBL_FAR(location.y, 0.0);
+}
+
+void HCRasterViewTestMouseUp(void* context, HCRasterViewRef view, HCPoint location) {
+    ASSERT_NOT_NULL(view);
+    ASSERT_TRUE(context == (void*)0xBEEFDEAD);
+    ASSERT_DBL_FAR(location.x, 0.0);
+    ASSERT_DBL_FAR(location.y, 0.0);
+}
+
+CTEST(HCRasterViewRef, Click) {
+    HCRasterViewRef view = HCRasterViewCreate();
+    HCRasterViewSetMouseDownCallback(view, HCRasterViewTestMouseDown, (void*)0xDEADBEEF);
+    ASSERT_TRUE(HCRasterViewMouseDownCallback(view) == HCRasterViewTestMouseDown);
+    HCRasterViewSetMouseMoveCallback(view, HCRasterViewTestMouseMove, (void*)0xBADF00D);
+    ASSERT_TRUE(HCRasterViewMouseMoveCallback(view) == HCRasterViewTestMouseMove);
+    HCRasterViewSetMouseUpCallback(view, HCRasterViewTestMouseUp, (void*)0xBEEFDEAD);
+    ASSERT_TRUE(HCRasterViewMouseUpCallback(view) == HCRasterViewTestMouseUp);
+    // TODO: Can simulate mouse events?
+    HCRelease(view);
+}

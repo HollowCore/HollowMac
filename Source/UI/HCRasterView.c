@@ -31,7 +31,6 @@ HCType HCRasterViewType = (HCType)&HCRasterViewTypeDataInstance;
 
 // TODO: Put these into type struct
 Class g_RasterViewSubclass = NULL;
-void HCRasterViewDrawRect(id nsView, SEL cmd, CGRect dirtyRect);
 
 //----------------------------------------------------------------------------------------------------------------------------------
 // MARK: - Construction
@@ -48,6 +47,9 @@ void HCRasterViewInit(void* memory) {
     if (g_RasterViewSubclass == NULL) {
         g_RasterViewSubclass = objc_allocateClassPair((Class)objc_getClass("NSView"), "RasterView", 0);
         class_addMethod(g_RasterViewSubclass, sel_getUid("drawRect:"), (IMP)HCRasterViewDrawRect, "v@:{CGRect={CGPoint=dd}{CGSize=dd}}");
+        class_addMethod(g_RasterViewSubclass, sel_getUid("mouseDown:"), (IMP)HCRasterViewMouseDownEvent, "v@:@");
+        class_addMethod(g_RasterViewSubclass, sel_getUid("mouseDragged:"), (IMP)HCRasterViewMouseMovedEvent, "v@:@");
+        class_addMethod(g_RasterViewSubclass, sel_getUid("mouseUp:"), (IMP)HCRasterViewMouseUpEvent, "v@:@");
         class_addIvar(g_RasterViewSubclass, "hcRasterView", sizeof(uint64_t), log2(sizeof(uint64_t)), "Q");
         objc_registerClassPair(g_RasterViewSubclass);
     }
@@ -89,6 +91,10 @@ HCRasterRef HCRasterViewRasterRetained(HCRasterViewRef self) {
     return NULL;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Events
+//----------------------------------------------------------------------------------------------------------------------------------
+
 HCRasterViewDrawFunction HCRasterViewDrawCallback(HCRasterViewRef self) {
     return self->drawCallback;
 }
@@ -96,6 +102,33 @@ HCRasterViewDrawFunction HCRasterViewDrawCallback(HCRasterViewRef self) {
 void HCRasterViewSetDrawCallback(HCRasterViewRef self, HCRasterViewDrawFunction callback, void* context) {
     self->drawCallback = callback;
     self->drawContext = context;
+}
+
+HCRasterViewMouseEventFunction HCRasterViewMouseDownCallback(HCRasterViewRef self) {
+    return self->mouseDownCallback;
+}
+
+void HCRasterViewSetMouseDownCallback(HCRasterViewRef self, HCRasterViewMouseEventFunction callback, void* context) {
+    self->mouseDownCallback = callback;
+    self->mouseDownContext = context;
+}
+
+HCRasterViewMouseEventFunction HCRasterViewMouseMovedCallback(HCRasterViewRef self) {
+    return self->mouseMovedCallback;
+}
+
+void HCRasterViewSetMouseMovedCallback(HCRasterViewRef self, HCRasterViewMouseEventFunction callback, void* context) {
+    self->mouseMovedCallback = callback;
+    self->mouseMovedContext = context;
+}
+
+HCRasterViewMouseEventFunction HCRasterViewMouseUpCallback(HCRasterViewRef self) {
+    return self->mouseUpCallback;
+}
+
+void HCRasterViewSetMouseUpCallback(HCRasterViewRef self, HCRasterViewMouseEventFunction callback, void* context) {
+    self->mouseUpCallback = callback;
+    self->mouseUpContext = context;
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -166,4 +199,43 @@ void HCRasterViewDrawRect(id nsView, SEL cmd, CGRect dirtyRect) {
     HCObjcSendRelease(nsColorSpace);
     HCRelease(colorSpace);
     HCRelease(raster);
+}
+
+void HCRasterViewMouseDownEvent(id nsView, SEL cmd, id event) {
+    (void)cmd; // Unused
+    HCRasterViewRef self = *(HCRasterViewRef*)((uint8_t*)nsView + ivar_getOffset(class_getInstanceVariable(g_RasterViewSubclass, "hcRasterView")));
+    
+    CGPoint windowPoint = HCObjcSendCGPointMessageVoid(event, sel_getUid("locationInWindow"));
+    CGPoint viewPoint = HCObjcSendCGPointMessageCGPointId(nsView, sel_getUid("convertPoint:fromView:"), windowPoint, NULL);
+    HCPoint location = HCPointMakeWithCGPoint(viewPoint);
+    
+    if (self->mouseDownCallback != NULL) {
+        self->mouseDownCallback(self->mouseDownContext, self, location);
+    }
+}
+
+void HCRasterViewMouseMovedEvent(id nsView, SEL cmd, id event) {
+    (void)cmd; // Unused
+    HCRasterViewRef self = *(HCRasterViewRef*)((uint8_t*)nsView + ivar_getOffset(class_getInstanceVariable(g_RasterViewSubclass, "hcRasterView")));
+    
+    CGPoint windowPoint = HCObjcSendCGPointMessageVoid(event, sel_getUid("locationInWindow"));
+    CGPoint viewPoint = HCObjcSendCGPointMessageCGPointId(nsView, sel_getUid("convertPoint:fromView:"), windowPoint, NULL);
+    HCPoint location = HCPointMakeWithCGPoint(viewPoint);
+    
+    if (self->mouseMovedCallback != NULL) {
+        self->mouseMovedCallback(self->mouseMovedContext, self, location);
+    }
+}
+
+void HCRasterViewMouseUpEvent(id nsView, SEL cmd, id event) {
+    (void)cmd; // Unused
+    HCRasterViewRef self = *(HCRasterViewRef*)((uint8_t*)nsView + ivar_getOffset(class_getInstanceVariable(g_RasterViewSubclass, "hcRasterView")));
+    
+    CGPoint windowPoint = HCObjcSendCGPointMessageVoid(event, sel_getUid("locationInWindow"));
+    CGPoint viewPoint = HCObjcSendCGPointMessageCGPointId(nsView, sel_getUid("convertPoint:fromView:"), windowPoint, NULL);
+    HCPoint location = HCPointMakeWithCGPoint(viewPoint);
+    
+    if (self->mouseUpCallback != NULL) {
+        self->mouseUpCallback(self->mouseUpContext, self, location);
+    }
 }

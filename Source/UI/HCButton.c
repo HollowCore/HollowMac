@@ -101,6 +101,9 @@ void HCButtonSetTitle(HCButtonRef self, HCStringRef title) {
     HCObjcSendRelease(titleNSString);
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Events
+//----------------------------------------------------------------------------------------------------------------------------------
 HCButtonClickFunction HCButtonClickCallback(HCButtonRef self) {
     return self->clickCallback;
 }

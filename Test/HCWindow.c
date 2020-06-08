@@ -43,19 +43,19 @@ CTEST(HCWindow, Geometry) {
     ASSERT_TRUE(HCSizeIsEqual(HCWindowSize(window), originalFrame.size));
     ASSERT_TRUE(HCRectangleIsEqual(HCWindowFrame(window), originalFrame));
     
-    HCPoint offsetOrigin = HCPointOffset(HCWindowOrigin(window), -5.0, 10.0);
+    HCPoint offsetOrigin = HCPointTranslate(HCWindowOrigin(window), -5.0, 10.0);
     HCWindowSetOrigin(window, offsetOrigin);
-    ASSERT_TRUE(HCPointIsEqual(HCWindowCenter(window), HCPointOffset(offsetOrigin, HCWindowSize(window).width * 0.5, HCWindowSize(window).height * 0.5)));
+    ASSERT_TRUE(HCPointIsEqual(HCWindowCenter(window), HCPointTranslate(offsetOrigin, HCWindowSize(window).width * 0.5, HCWindowSize(window).height * 0.5)));
     ASSERT_TRUE(HCPointIsEqual(HCWindowOrigin(window), offsetOrigin));
     ASSERT_TRUE(HCSizeIsEqual(HCWindowSize(window), originalFrame.size));
     ASSERT_TRUE(HCRectangleIsEqual(HCWindowFrame(window), HCRectangleOffset(originalFrame, offsetOrigin.x - HCRectangleMinX(originalFrame), offsetOrigin.y - HCRectangleMinY(originalFrame))));
     ASSERT_TRUE(HCPointIsEqual(HCWindowFrame(window).origin, offsetOrigin));
     HCWindowSetFrame(window, originalFrame);
     
-    HCPoint offsetCenter = HCPointOffset(HCWindowCenter(window), 20.0, -7.0);
+    HCPoint offsetCenter = HCPointTranslate(HCWindowCenter(window), 20.0, -7.0);
     HCWindowSetCenter(window, offsetCenter);
     ASSERT_TRUE(HCPointIsEqual(HCWindowCenter(window), offsetCenter));
-    ASSERT_TRUE(HCPointIsEqual(HCWindowOrigin(window), HCPointOffset(offsetCenter, HCWindowSize(window).width * -0.5, HCWindowSize(window).height * -0.5)));
+    ASSERT_TRUE(HCPointIsEqual(HCWindowOrigin(window), HCPointTranslate(offsetCenter, HCWindowSize(window).width * -0.5, HCWindowSize(window).height * -0.5)));
     ASSERT_TRUE(HCSizeIsEqual(HCWindowSize(window), originalFrame.size));
     ASSERT_TRUE(HCRectangleIsEqual(HCWindowFrame(window), HCRectangleOffset(originalFrame, offsetCenter.x - HCRectangleMidX(originalFrame), offsetCenter.y - HCRectangleMidY(originalFrame))));
     ASSERT_TRUE(HCPointIsEqual(HCPointMake(HCRectangleMidX(HCWindowFrame(window)), HCRectangleMidY(HCWindowFrame(window))), offsetCenter));

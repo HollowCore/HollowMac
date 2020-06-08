@@ -113,11 +113,13 @@ static HCObjcIdMessageDouble HCObjcSendIdMessageDouble = (HCObjcIdMessageDouble)
 typedef void (*HCObjcVoidMessageCGPoint)(id, SEL, CGPoint);
 static HCObjcVoidMessageCGPoint HCObjcSendVoidMessageCGPoint = (HCObjcVoidMessageCGPoint)objc_msgSend;
 typedef CGPoint (*HCObjcCGPointMessageVoid)(id, SEL);
-static HCObjcCGPointMessageVoid HCObjcSendCGPointMessageVoid = (HCObjcCGPointMessageVoid)objc_msgSend_stret;
+static HCObjcCGPointMessageVoid HCObjcSendCGPointMessageVoid = (HCObjcCGPointMessageVoid)objc_msgSend;
 typedef CGPoint (*HCObjcCGPointMessageId)(id, SEL, id);
-static HCObjcCGPointMessageId HCObjcSendCGPointMessageId = (HCObjcCGPointMessageId)objc_msgSend_stret;
-typedef CGPoint (*HCObjcCGPointMessageCGPoint)(id, SEL, id);
-static HCObjcCGPointMessageCGPoint HCObjcSendCGPointMessageCGPoint = (HCObjcCGPointMessageCGPoint)objc_msgSend_stret;
+static HCObjcCGPointMessageId HCObjcSendCGPointMessageId = (HCObjcCGPointMessageId)objc_msgSend;
+typedef CGPoint (*HCObjcCGPointMessageCGPoint)(id, SEL, CGPoint);
+static HCObjcCGPointMessageCGPoint HCObjcSendCGPointMessageCGPoint = (HCObjcCGPointMessageCGPoint)objc_msgSend;
+typedef CGPoint (*HCObjcCGPointMessageCGPointId)(id, SEL, CGPoint, id);
+static HCObjcCGPointMessageCGPointId HCObjcSendCGPointMessageCGPointId = (HCObjcCGPointMessageCGPointId)objc_msgSend;
 typedef id (*HCObjcIdMessageCGPoint)(id, SEL, CGPoint);
 static HCObjcIdMessageCGPoint HCObjcSendIdMessageCGPoint = (HCObjcIdMessageCGPoint)objc_msgSend;
 

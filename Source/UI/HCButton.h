@@ -39,6 +39,10 @@ void HCButtonPrint(HCButtonRef self, FILE* stream);
 //----------------------------------------------------------------------------------------------------------------------------------
 HCStringRef HCButtonTitleRetained(HCButtonRef self);
 void HCButtonSetTitle(HCButtonRef self, HCStringRef title);
+
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Events
+//----------------------------------------------------------------------------------------------------------------------------------
 HCButtonClickFunction HCButtonClickCallback(HCButtonRef self);
 void HCButtonSetClickCallback(HCButtonRef self, HCButtonClickFunction callback, void* context);
 

@@ -187,6 +187,9 @@ HCViewRef HCWindowContentView(HCWindowRef self) {
     return self->contentView;
 }
 
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Events
+//----------------------------------------------------------------------------------------------------------------------------------
 HCWindowResizeFunction HCWindowResizeCallback(HCWindowRef self) {
     return self->resizeCallback;
 }

@@ -55,6 +55,10 @@ HCRectangle HCWindowFrame(HCWindowRef self);
 void HCWindowSetFrame(HCWindowRef self, HCRectangle frame);
 HCRectangle HCWindowContentRectangle(HCWindowRef self);
 HCViewRef HCWindowContentView(HCWindowRef self);
+
+//----------------------------------------------------------------------------------------------------------------------------------
+// MARK: - Events
+//----------------------------------------------------------------------------------------------------------------------------------
 HCWindowResizeFunction HCWindowResizeCallback(HCWindowRef self);
 void HCWindowSetResizeCallback(HCWindowRef self, HCWindowResizeFunction callback, void* context);
 
