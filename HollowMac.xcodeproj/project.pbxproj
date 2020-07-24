@@ -35,7 +35,6 @@
 /* Begin PBXBuildFile section */
 		C92BEA0723541B1500F5DFC3 /* HCWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = C92BEA0423541B1500F5DFC3 /* HCWindow.h */; };
 		C92BEA0823541B1500F5DFC3 /* HCWindow.c in Sources */ = {isa = PBXBuildFile; fileRef = C92BEA0523541B1500F5DFC3 /* HCWindow.c */; };
-		C92BEA172354238F00F5DFC3 /* libHollowCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C92BEA162354238F00F5DFC3 /* libHollowCore.a */; };
 		C966521723543D4E0019CB0B /* HCApplication.h in Headers */ = {isa = PBXBuildFile; fileRef = C966521523543D4E0019CB0B /* HCApplication.h */; };
 		C966521823543D4E0019CB0B /* HCApplication.c in Sources */ = {isa = PBXBuildFile; fileRef = C966521623543D4E0019CB0B /* HCApplication.c */; };
 		C966521C235440D70019CB0B /* HCApplication.c in Sources */ = {isa = PBXBuildFile; fileRef = C966521A23543E000019CB0B /* HCApplication.c */; };
@@ -48,6 +47,7 @@
 		C96652352356CEFD0019CB0B /* HCView.h in Headers */ = {isa = PBXBuildFile; fileRef = C966522D2356CCD20019CB0B /* HCView.h */; };
 		C96652362356CF000019CB0B /* HCButton.h in Headers */ = {isa = PBXBuildFile; fileRef = C96652272356C96D0019CB0B /* HCButton.h */; };
 		C97FDB2A22069BCD002B17FB /* HollowMac.h in Headers */ = {isa = PBXBuildFile; fileRef = C9AA9A2521F174B8001AA9E7 /* HollowMac.h */; };
+		C98930F624CB72EC004F2FC0 /* libHollowCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C98930F324CB7243004F2FC0 /* libHollowCore.a */; };
 		C9B16D32236BA96700E26590 /* HCMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = C9B16D30236BA96700E26590 /* HCMenu.h */; };
 		C9B16D33236BA96700E26590 /* HCMenu.c in Sources */ = {isa = PBXBuildFile; fileRef = C9B16D31236BA96700E26590 /* HCMenu.c */; };
 		C9B16D36236BAFDF00E26590 /* HCMenu.c in Sources */ = {isa = PBXBuildFile; fileRef = C9B16D35236BAFDF00E26590 /* HCMenu.c */; };
@@ -61,6 +61,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		C98930F224CB7243004F2FC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C98930EA24CB7243004F2FC0 /* HollowCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C9B705E421E3DCC600B63F05;
+			remoteInfo = HollowCore;
+		};
+		C98930F424CB7243004F2FC0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C98930EA24CB7243004F2FC0 /* HollowCore.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C9E2F58221ED38FD00856F21;
+			remoteInfo = Test;
+		};
 		F803D39821EEC387001E2DE6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C9DBDC4421D6D8B70001779C /* Project object */;
@@ -103,6 +117,113 @@
 		C966522E2356CCD20019CB0B /* HCView.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCView.c; sourceTree = "<group>"; };
 		C96652302356CCE30019CB0B /* HCView_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCView_Internal.h; sourceTree = "<group>"; };
 		C96652312356CE740019CB0B /* HCView.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCView.c; sourceTree = "<group>"; };
+		C989306E24CB7243004F2FC0 /* valgrind_test.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = valgrind_test.sh; sourceTree = "<group>"; };
+		C989306F24CB7243004F2FC0 /* cmake_common_source */ = {isa = PBXFileReference; lastKnownFileType = text; path = cmake_common_source; sourceTree = "<group>"; };
+		C989307024CB7243004F2FC0 /* travis_ci.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = travis_ci.sh; sourceTree = "<group>"; };
+		C989307124CB7243004F2FC0 /* Regex.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Regex.txt; sourceTree = "<group>"; };
+		C989307224CB7243004F2FC0 /* travis_before_install.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = travis_before_install.sh; sourceTree = "<group>"; };
+		C989307324CB7243004F2FC0 /* build.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build.sh; sourceTree = "<group>"; };
+		C989307424CB7243004F2FC0 /* test.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = test.sh; sourceTree = "<group>"; };
+		C989307524CB7243004F2FC0 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		C989307624CB7243004F2FC0 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		C989307824CB7243004F2FC0 /* HCSize.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCSize.c; sourceTree = "<group>"; };
+		C989307924CB7243004F2FC0 /* HCCurve.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCCurve.c; sourceTree = "<group>"; };
+		C989307A24CB7243004F2FC0 /* HCCore.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCCore.c; sourceTree = "<group>"; };
+		C989307B24CB7243004F2FC0 /* HCPath.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCPath.c; sourceTree = "<group>"; };
+		C989307C24CB7243004F2FC0 /* HCRectangle.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCRectangle.c; sourceTree = "<group>"; };
+		C989307D24CB7243004F2FC0 /* HCContour.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCContour.c; sourceTree = "<group>"; };
+		C989307E24CB7243004F2FC0 /* HCData.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCData.c; sourceTree = "<group>"; };
+		C989307F24CB7243004F2FC0 /* HCLock.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCLock.c; sourceTree = "<group>"; };
+		C989308024CB7243004F2FC0 /* HCRaster.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCRaster.c; sourceTree = "<group>"; };
+		C989308124CB7243004F2FC0 /* HCThread_Internal.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCThread_Internal.c; sourceTree = "<group>"; };
+		C989308224CB7243004F2FC0 /* HCSet.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCSet.c; sourceTree = "<group>"; };
+		C989308324CB7243004F2FC0 /* HCObject.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCObject.c; sourceTree = "<group>"; };
+		C989308424CB7243004F2FC0 /* HCList.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCList.c; sourceTree = "<group>"; };
+		C989308524CB7243004F2FC0 /* HCJSON.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCJSON.c; sourceTree = "<group>"; };
+		C989308624CB7243004F2FC0 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		C989308724CB7243004F2FC0 /* HCThread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCThread.c; sourceTree = "<group>"; };
+		C989308824CB7243004F2FC0 /* HCPoint.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCPoint.c; sourceTree = "<group>"; };
+		C989308924CB7243004F2FC0 /* HCMap_Internal.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCMap_Internal.c; sourceTree = "<group>"; };
+		C989308A24CB7243004F2FC0 /* HCMap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCMap.c; sourceTree = "<group>"; };
+		C989308B24CB7243004F2FC0 /* HCString.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCString.c; sourceTree = "<group>"; };
+		C989308C24CB7243004F2FC0 /* HCContourComponent.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCContourComponent.c; sourceTree = "<group>"; };
+		C989308D24CB7243004F2FC0 /* HCCondition.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCCondition.c; sourceTree = "<group>"; };
+		C989308E24CB7243004F2FC0 /* HCMultiThreadedReferenceCounting.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCMultiThreadedReferenceCounting.c; sourceTree = "<group>"; };
+		C989308F24CB7243004F2FC0 /* HCColor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCColor.c; sourceTree = "<group>"; };
+		C989309024CB7243004F2FC0 /* ctest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ctest.h; sourceTree = "<group>"; };
+		C989309124CB7243004F2FC0 /* HCNumber.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCNumber.c; sourceTree = "<group>"; };
+		C989309424CB7243004F2FC0 /* HCObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCObject.h; sourceTree = "<group>"; };
+		C989309524CB7243004F2FC0 /* HCCore.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCCore.c; sourceTree = "<group>"; };
+		C989309624CB7243004F2FC0 /* HCCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCCore.h; sourceTree = "<group>"; };
+		C989309724CB7243004F2FC0 /* HCObject.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCObject.c; sourceTree = "<group>"; };
+		C989309824CB7243004F2FC0 /* HCObject_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCObject_Internal.h; sourceTree = "<group>"; };
+		C989309A24CB7243004F2FC0 /* HCRaster+Draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "HCRaster+Draw.c"; sourceTree = "<group>"; };
+		C989309B24CB7243004F2FC0 /* HCRaster+File.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HCRaster+File.h"; sourceTree = "<group>"; };
+		C989309C24CB7243004F2FC0 /* HCRaster.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCRaster.c; sourceTree = "<group>"; };
+		C989309D24CB7243004F2FC0 /* HCColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCColor.h; sourceTree = "<group>"; };
+		C989309E24CB7243004F2FC0 /* HCRaster_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCRaster_Internal.h; sourceTree = "<group>"; };
+		C989309F24CB7243004F2FC0 /* HCRaster+Draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HCRaster+Draw.h"; sourceTree = "<group>"; };
+		C98930A024CB7243004F2FC0 /* HCRaster+File.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "HCRaster+File.c"; sourceTree = "<group>"; };
+		C98930A124CB7243004F2FC0 /* HCRaster.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCRaster.h; sourceTree = "<group>"; };
+		C98930A224CB7243004F2FC0 /* HCColor.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCColor.c; sourceTree = "<group>"; };
+		C98930A424CB7243004F2FC0 /* HCList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCList.h; sourceTree = "<group>"; };
+		C98930A524CB7243004F2FC0 /* HCSet_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCSet_Internal.h; sourceTree = "<group>"; };
+		C98930A624CB7243004F2FC0 /* HCMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCMap.h; sourceTree = "<group>"; };
+		C98930A724CB7243004F2FC0 /* HCMap_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCMap_Internal.h; sourceTree = "<group>"; };
+		C98930A824CB7243004F2FC0 /* HCList_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCList_Internal.h; sourceTree = "<group>"; };
+		C98930A924CB7243004F2FC0 /* HCSet.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCSet.c; sourceTree = "<group>"; };
+		C98930AA24CB7243004F2FC0 /* HCList.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCList.c; sourceTree = "<group>"; };
+		C98930AB24CB7243004F2FC0 /* HCMap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCMap.c; sourceTree = "<group>"; };
+		C98930AC24CB7243004F2FC0 /* HCSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCSet.h; sourceTree = "<group>"; };
+		C98930AE24CB7243004F2FC0 /* HCJSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCJSON.h; sourceTree = "<group>"; };
+		C98930B024CB7243004F2FC0 /* json.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = json.c; sourceTree = "<group>"; };
+		C98930B124CB7243004F2FC0 /* json.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
+		C98930B224CB7243004F2FC0 /* HCJSON.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCJSON.c; sourceTree = "<group>"; };
+		C98930B324CB7243004F2FC0 /* HCJSON_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCJSON_Internal.h; sourceTree = "<group>"; };
+		C98930B524CB7243004F2FC0 /* HCSize.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCSize.c; sourceTree = "<group>"; };
+		C98930B624CB7243004F2FC0 /* HCPath+SetOperations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HCPath+SetOperations.h"; sourceTree = "<group>"; };
+		C98930B724CB7243004F2FC0 /* HCPath+Shapes.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "HCPath+Shapes.c"; sourceTree = "<group>"; };
+		C98930B824CB7243004F2FC0 /* HCCurve.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCCurve.c; sourceTree = "<group>"; };
+		C98930B924CB7243004F2FC0 /* HCPath_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCPath_Internal.h; sourceTree = "<group>"; };
+		C98930BA24CB7243004F2FC0 /* HCPath.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCPath.c; sourceTree = "<group>"; };
+		C98930BB24CB7243004F2FC0 /* HCPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCPoint.h; sourceTree = "<group>"; };
+		C98930BC24CB7243004F2FC0 /* HCRectangle.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCRectangle.c; sourceTree = "<group>"; };
+		C98930BD24CB7243004F2FC0 /* HCContour.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCContour.c; sourceTree = "<group>"; };
+		C98930BE24CB7243004F2FC0 /* HCContourComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCContourComponent.h; sourceTree = "<group>"; };
+		C98930BF24CB7243004F2FC0 /* HCPath+SVG.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HCPath+SVG.h"; sourceTree = "<group>"; };
+		C98930C024CB7243004F2FC0 /* HCCurve.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCCurve.h; sourceTree = "<group>"; };
+		C98930C124CB7243004F2FC0 /* HCPath+Shapes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HCPath+Shapes.h"; sourceTree = "<group>"; };
+		C98930C224CB7243004F2FC0 /* HCPath+SetOperations.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "HCPath+SetOperations.c"; sourceTree = "<group>"; };
+		C98930C324CB7243004F2FC0 /* HCSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCSize.h; sourceTree = "<group>"; };
+		C98930C424CB7243004F2FC0 /* HCPath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCPath.h; sourceTree = "<group>"; };
+		C98930C524CB7243004F2FC0 /* HCRectangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCRectangle.h; sourceTree = "<group>"; };
+		C98930C624CB7243004F2FC0 /* HCPoint.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCPoint.c; sourceTree = "<group>"; };
+		C98930C724CB7243004F2FC0 /* HCContourComponent.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCContourComponent.c; sourceTree = "<group>"; };
+		C98930C824CB7243004F2FC0 /* HCContour.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCContour.h; sourceTree = "<group>"; };
+		C98930C924CB7243004F2FC0 /* HCPath+SVG.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = "HCPath+SVG.c"; sourceTree = "<group>"; };
+		C98930CB24CB7243004F2FC0 /* HCData.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCData.c; sourceTree = "<group>"; };
+		C98930CC24CB7243004F2FC0 /* HCString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCString.h; sourceTree = "<group>"; };
+		C98930CD24CB7243004F2FC0 /* HCNumber.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCNumber.h; sourceTree = "<group>"; };
+		C98930CE24CB7243004F2FC0 /* HCData_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCData_Internal.h; sourceTree = "<group>"; };
+		C98930CF24CB7243004F2FC0 /* HCString.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCString.c; sourceTree = "<group>"; };
+		C98930D024CB7243004F2FC0 /* HCString_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCString_Internal.h; sourceTree = "<group>"; };
+		C98930D124CB7243004F2FC0 /* HCData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCData.h; sourceTree = "<group>"; };
+		C98930D224CB7243004F2FC0 /* HCNumber_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCNumber_Internal.h; sourceTree = "<group>"; };
+		C98930D324CB7243004F2FC0 /* HCNumber.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCNumber.c; sourceTree = "<group>"; };
+		C98930D524CB7243004F2FC0 /* HCThread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCThread.h; sourceTree = "<group>"; };
+		C98930D624CB7243004F2FC0 /* HCCondition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCCondition.h; sourceTree = "<group>"; };
+		C98930D724CB7243004F2FC0 /* HCLock.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCLock.c; sourceTree = "<group>"; };
+		C98930D824CB7243004F2FC0 /* HCCondition_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCCondition_Internal.h; sourceTree = "<group>"; };
+		C98930D924CB7243004F2FC0 /* HCThread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCThread.c; sourceTree = "<group>"; };
+		C98930DA24CB7243004F2FC0 /* HCLock_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCLock_Internal.h; sourceTree = "<group>"; };
+		C98930DB24CB7243004F2FC0 /* HCLock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCLock.h; sourceTree = "<group>"; };
+		C98930DC24CB7243004F2FC0 /* HCCondition.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCCondition.c; sourceTree = "<group>"; };
+		C98930DD24CB7243004F2FC0 /* HCThread_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCThread_Internal.h; sourceTree = "<group>"; };
+		C98930DE24CB7243004F2FC0 /* HollowCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HollowCore.h; sourceTree = "<group>"; };
+		C98930DF24CB7243004F2FC0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C98930E124CB7243004F2FC0 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
+		C98930E224CB7243004F2FC0 /* Doxyfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Doxyfile; sourceTree = "<group>"; };
+		C98930EA24CB7243004F2FC0 /* HollowCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = HollowCore.xcodeproj; sourceTree = "<group>"; };
 		C9AA9A2521F174B8001AA9E7 /* HollowMac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HollowMac.h; sourceTree = "<group>"; };
 		C9B16D30236BA96700E26590 /* HCMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HCMenu.h; sourceTree = "<group>"; };
 		C9B16D31236BA96700E26590 /* HCMenu.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HCMenu.c; sourceTree = "<group>"; };
@@ -127,7 +248,6 @@
 		F86BCC9C22C479EA00180C12 /* travis_ci.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = travis_ci.sh; sourceTree = "<group>"; };
 		F86BCC9D22C479F800180C12 /* travis_before_install.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = travis_before_install.sh; sourceTree = "<group>"; };
 		F86BCC9E22C47CC500180C12 /* valgrind_test.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = valgrind_test.sh; sourceTree = "<group>"; };
-		F8CBB8E421E5B97800DB022F /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		F8CBB8E521E5BCE300DB022F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		F8CBB8E621E5BCE300DB022F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -146,7 +266,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C92BEA172354238F00F5DFC3 /* libHollowCore.a in Frameworks */,
+				C98930F624CB72EC004F2FC0 /* libHollowCore.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +308,217 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		C989306C24CB7243004F2FC0 /* HollowCore */ = {
+			isa = PBXGroup;
+			children = (
+				C98930EA24CB7243004F2FC0 /* HollowCore.xcodeproj */,
+				C98930DF24CB7243004F2FC0 /* README.md */,
+				C98930E124CB7243004F2FC0 /* Package.swift */,
+				C98930E224CB7243004F2FC0 /* Doxyfile */,
+				C989307524CB7243004F2FC0 /* CMakeLists.txt */,
+				C989307624CB7243004F2FC0 /* LICENSE */,
+				C989309224CB7243004F2FC0 /* Source */,
+				C989307724CB7243004F2FC0 /* Test */,
+				C989306D24CB7243004F2FC0 /* Tools */,
+			);
+			path = HollowCore;
+			sourceTree = "<group>";
+		};
+		C989306D24CB7243004F2FC0 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				C989306E24CB7243004F2FC0 /* valgrind_test.sh */,
+				C989306F24CB7243004F2FC0 /* cmake_common_source */,
+				C989307024CB7243004F2FC0 /* travis_ci.sh */,
+				C989307124CB7243004F2FC0 /* Regex.txt */,
+				C989307224CB7243004F2FC0 /* travis_before_install.sh */,
+				C989307324CB7243004F2FC0 /* build.sh */,
+				C989307424CB7243004F2FC0 /* test.sh */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		C989307724CB7243004F2FC0 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				C989307824CB7243004F2FC0 /* HCSize.c */,
+				C989307924CB7243004F2FC0 /* HCCurve.c */,
+				C989307A24CB7243004F2FC0 /* HCCore.c */,
+				C989307B24CB7243004F2FC0 /* HCPath.c */,
+				C989307C24CB7243004F2FC0 /* HCRectangle.c */,
+				C989307D24CB7243004F2FC0 /* HCContour.c */,
+				C989307E24CB7243004F2FC0 /* HCData.c */,
+				C989307F24CB7243004F2FC0 /* HCLock.c */,
+				C989308024CB7243004F2FC0 /* HCRaster.c */,
+				C989308124CB7243004F2FC0 /* HCThread_Internal.c */,
+				C989308224CB7243004F2FC0 /* HCSet.c */,
+				C989308324CB7243004F2FC0 /* HCObject.c */,
+				C989308424CB7243004F2FC0 /* HCList.c */,
+				C989308524CB7243004F2FC0 /* HCJSON.c */,
+				C989308624CB7243004F2FC0 /* main.c */,
+				C989308724CB7243004F2FC0 /* HCThread.c */,
+				C989308824CB7243004F2FC0 /* HCPoint.c */,
+				C989308924CB7243004F2FC0 /* HCMap_Internal.c */,
+				C989308A24CB7243004F2FC0 /* HCMap.c */,
+				C989308B24CB7243004F2FC0 /* HCString.c */,
+				C989308C24CB7243004F2FC0 /* HCContourComponent.c */,
+				C989308D24CB7243004F2FC0 /* HCCondition.c */,
+				C989308E24CB7243004F2FC0 /* HCMultiThreadedReferenceCounting.c */,
+				C989308F24CB7243004F2FC0 /* HCColor.c */,
+				C989309024CB7243004F2FC0 /* ctest.h */,
+				C989309124CB7243004F2FC0 /* HCNumber.c */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		C989309224CB7243004F2FC0 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				C989309324CB7243004F2FC0 /* Core */,
+				C989309924CB7243004F2FC0 /* Graphic */,
+				C98930A324CB7243004F2FC0 /* Container */,
+				C98930AD24CB7243004F2FC0 /* JSON */,
+				C98930B424CB7243004F2FC0 /* Geometry */,
+				C98930CA24CB7243004F2FC0 /* Data */,
+				C98930D424CB7243004F2FC0 /* Thread */,
+				C98930DE24CB7243004F2FC0 /* HollowCore.h */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		C989309324CB7243004F2FC0 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				C989309424CB7243004F2FC0 /* HCObject.h */,
+				C989309524CB7243004F2FC0 /* HCCore.c */,
+				C989309624CB7243004F2FC0 /* HCCore.h */,
+				C989309724CB7243004F2FC0 /* HCObject.c */,
+				C989309824CB7243004F2FC0 /* HCObject_Internal.h */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		C989309924CB7243004F2FC0 /* Graphic */ = {
+			isa = PBXGroup;
+			children = (
+				C989309A24CB7243004F2FC0 /* HCRaster+Draw.c */,
+				C989309B24CB7243004F2FC0 /* HCRaster+File.h */,
+				C989309C24CB7243004F2FC0 /* HCRaster.c */,
+				C989309D24CB7243004F2FC0 /* HCColor.h */,
+				C989309E24CB7243004F2FC0 /* HCRaster_Internal.h */,
+				C989309F24CB7243004F2FC0 /* HCRaster+Draw.h */,
+				C98930A024CB7243004F2FC0 /* HCRaster+File.c */,
+				C98930A124CB7243004F2FC0 /* HCRaster.h */,
+				C98930A224CB7243004F2FC0 /* HCColor.c */,
+			);
+			path = Graphic;
+			sourceTree = "<group>";
+		};
+		C98930A324CB7243004F2FC0 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				C98930A424CB7243004F2FC0 /* HCList.h */,
+				C98930A524CB7243004F2FC0 /* HCSet_Internal.h */,
+				C98930A624CB7243004F2FC0 /* HCMap.h */,
+				C98930A724CB7243004F2FC0 /* HCMap_Internal.h */,
+				C98930A824CB7243004F2FC0 /* HCList_Internal.h */,
+				C98930A924CB7243004F2FC0 /* HCSet.c */,
+				C98930AA24CB7243004F2FC0 /* HCList.c */,
+				C98930AB24CB7243004F2FC0 /* HCMap.c */,
+				C98930AC24CB7243004F2FC0 /* HCSet.h */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
+		C98930AD24CB7243004F2FC0 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				C98930AE24CB7243004F2FC0 /* HCJSON.h */,
+				C98930AF24CB7243004F2FC0 /* json-parser */,
+				C98930B224CB7243004F2FC0 /* HCJSON.c */,
+				C98930B324CB7243004F2FC0 /* HCJSON_Internal.h */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		C98930AF24CB7243004F2FC0 /* json-parser */ = {
+			isa = PBXGroup;
+			children = (
+				C98930B024CB7243004F2FC0 /* json.c */,
+				C98930B124CB7243004F2FC0 /* json.h */,
+			);
+			path = "json-parser";
+			sourceTree = "<group>";
+		};
+		C98930B424CB7243004F2FC0 /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				C98930B524CB7243004F2FC0 /* HCSize.c */,
+				C98930B624CB7243004F2FC0 /* HCPath+SetOperations.h */,
+				C98930B724CB7243004F2FC0 /* HCPath+Shapes.c */,
+				C98930B824CB7243004F2FC0 /* HCCurve.c */,
+				C98930B924CB7243004F2FC0 /* HCPath_Internal.h */,
+				C98930BA24CB7243004F2FC0 /* HCPath.c */,
+				C98930BB24CB7243004F2FC0 /* HCPoint.h */,
+				C98930BC24CB7243004F2FC0 /* HCRectangle.c */,
+				C98930BD24CB7243004F2FC0 /* HCContour.c */,
+				C98930BE24CB7243004F2FC0 /* HCContourComponent.h */,
+				C98930BF24CB7243004F2FC0 /* HCPath+SVG.h */,
+				C98930C024CB7243004F2FC0 /* HCCurve.h */,
+				C98930C124CB7243004F2FC0 /* HCPath+Shapes.h */,
+				C98930C224CB7243004F2FC0 /* HCPath+SetOperations.c */,
+				C98930C324CB7243004F2FC0 /* HCSize.h */,
+				C98930C424CB7243004F2FC0 /* HCPath.h */,
+				C98930C524CB7243004F2FC0 /* HCRectangle.h */,
+				C98930C624CB7243004F2FC0 /* HCPoint.c */,
+				C98930C724CB7243004F2FC0 /* HCContourComponent.c */,
+				C98930C824CB7243004F2FC0 /* HCContour.h */,
+				C98930C924CB7243004F2FC0 /* HCPath+SVG.c */,
+			);
+			path = Geometry;
+			sourceTree = "<group>";
+		};
+		C98930CA24CB7243004F2FC0 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				C98930CB24CB7243004F2FC0 /* HCData.c */,
+				C98930CC24CB7243004F2FC0 /* HCString.h */,
+				C98930CD24CB7243004F2FC0 /* HCNumber.h */,
+				C98930CE24CB7243004F2FC0 /* HCData_Internal.h */,
+				C98930CF24CB7243004F2FC0 /* HCString.c */,
+				C98930D024CB7243004F2FC0 /* HCString_Internal.h */,
+				C98930D124CB7243004F2FC0 /* HCData.h */,
+				C98930D224CB7243004F2FC0 /* HCNumber_Internal.h */,
+				C98930D324CB7243004F2FC0 /* HCNumber.c */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		C98930D424CB7243004F2FC0 /* Thread */ = {
+			isa = PBXGroup;
+			children = (
+				C98930D524CB7243004F2FC0 /* HCThread.h */,
+				C98930D624CB7243004F2FC0 /* HCCondition.h */,
+				C98930D724CB7243004F2FC0 /* HCLock.c */,
+				C98930D824CB7243004F2FC0 /* HCCondition_Internal.h */,
+				C98930D924CB7243004F2FC0 /* HCThread.c */,
+				C98930DA24CB7243004F2FC0 /* HCLock_Internal.h */,
+				C98930DB24CB7243004F2FC0 /* HCLock.h */,
+				C98930DC24CB7243004F2FC0 /* HCCondition.c */,
+				C98930DD24CB7243004F2FC0 /* HCThread_Internal.h */,
+			);
+			path = Thread;
+			sourceTree = "<group>";
+		};
+		C98930EB24CB7243004F2FC0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C98930F324CB7243004F2FC0 /* libHollowCore.a */,
+				C98930F524CB7243004F2FC0 /* Test */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C9B16D40236DDBFB00E26590 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,12 +534,12 @@
 			children = (
 				F8CBB8E621E5BCE300DB022F /* README.md */,
 				F8CBB8E521E5BCE300DB022F /* LICENSE */,
-				F8CBB8E421E5B97800DB022F /* .travis.yml */,
 				C9B705DF21E3D6D300B63F05 /* CMakeLists.txt */,
 				F8CBB8E721E5BD0B00DB022F /* Source */,
 				C9E2F57721ED37DF00856F21 /* Test */,
 				F803D38221EE60FD001E2DE6 /* Tools */,
 				C9B16D40236DDBFB00E26590 /* App */,
+				C989306C24CB7243004F2FC0 /* HollowCore */,
 				C9DBDC4D21D6D8B70001779C /* Products */,
 				C9E2F58A21ED396800856F21 /* Frameworks */,
 			);
@@ -347,7 +678,7 @@
 		C9DBDC4421D6D8B70001779C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = HollowCore;
 				TargetAttributes = {
 					C9B16D3E236DDBFB00E26590 = {
@@ -378,6 +709,12 @@
 			mainGroup = C9DBDC4321D6D8B70001779C;
 			productRefGroup = C9DBDC4D21D6D8B70001779C /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C98930EB24CB7243004F2FC0 /* Products */;
+					ProjectRef = C98930EA24CB7243004F2FC0 /* HollowCore.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C9B705E321E3DCC600B63F05 /* HollowMac */,
@@ -388,6 +725,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C98930F324CB7243004F2FC0 /* libHollowCore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libHollowCore.a;
+			remoteRef = C98930F224CB7243004F2FC0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C98930F524CB7243004F2FC0 /* Test */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = Test;
+			remoteRef = C98930F424CB7243004F2FC0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		C9B16D3D236DDBFB00E26590 /* Resources */ = {
@@ -573,6 +927,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -632,6 +987,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
